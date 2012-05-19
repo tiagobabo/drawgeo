@@ -29,7 +29,6 @@ public class CanvasTestActivity extends Activity {
 
         setContentView(R.layout.main);
         
-        
         // layout que vai conter o canvas
         LinearLayout canvas = (LinearLayout) findViewById(R.id.canvas);
         
@@ -86,7 +85,6 @@ public class CanvasTestActivity extends Activity {
     
     // função que adiciona o efeito alpha a uma ImageView
     private static void setAlpha(View view, float alphaValue){
-
         if(alphaValue == 1){
             view.clearAnimation();
         }else{
@@ -95,7 +93,6 @@ public class CanvasTestActivity extends Activity {
             alpha.setFillAfter(true);     
             view.startAnimation(alpha);
         }
-
     }
 
     // listener que muda o alpha da imagem que é seleccionada e muda a cor de desenho
