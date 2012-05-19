@@ -37,8 +37,6 @@ public class CanvasTestActivity extends Activity {
         ImageView clean = (ImageView) findViewById(R.id.clean);
         clean.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	for(ImageView color : colors)
-            		color.setAlpha(70);
             	drawView.cleanCanvas();
             }
         }); 
@@ -46,6 +44,8 @@ public class CanvasTestActivity extends Activity {
         ImageView eraser = (ImageView) findViewById(R.id.eraser);
         eraser.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+            	for(ImageView color : colors)
+            		setAlpha(color, 0.3f);
             	drawView.eraseMode();
             }
         });
