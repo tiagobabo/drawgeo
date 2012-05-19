@@ -21,6 +21,44 @@
             android:text="@string/hello" android:layout_gravity="center_vertical" android:textColor="#000000"/>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginBottom="10px">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/color4" android:paddingLeft="10px"/>
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView5"
+            android:src="@drawable/color3" android:paddingLeft="10px"/>
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView6"
+            android:src="@drawable/color2" android:paddingLeft="10px"/>
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imageView7"
+            android:src="@drawable/color1" android:paddingLeft="10px"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/teste"
