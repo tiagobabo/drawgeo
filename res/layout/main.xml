@@ -21,42 +21,48 @@
             android:text="@string/hello" android:layout_gravity="center_vertical" android:textColor="#000000"/>
 
     </LinearLayout>
-
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_marginBottom="10px">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10px" >
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/color4" android:paddingLeft="10px"/>
-
+            android:paddingLeft="10px"
+            android:src="@drawable/color4" />
+
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageView5"
-            android:src="@drawable/color3" android:paddingLeft="10px"/>
-
+            android:layout_marginLeft="38dp"
+            android:paddingLeft="10px"
+            android:src="@drawable/color1" />
+
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageView6"
-            android:src="@drawable/color2" android:paddingLeft="10px"/>
+            android:layout_marginLeft="41dp"
+            android:layout_toRightOf="@+id/black"
+            android:paddingLeft="10px"
+            android:src="@drawable/color2" />
 
         <ImageView
-            android:id="@+id/imageView8"
+            android:id="@+id/green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/imageView7"
-            android:src="@drawable/color1" android:paddingLeft="10px"/>
+            android:layout_toRightOf="@+id/red"
+            android:paddingLeft="10px"
+            android:src="@drawable/color3" />
 
     </RelativeLayout>
 
@@ -71,9 +77,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:layout_marginBottom="10px" android:layout_marginLeft="10px" android:layout_marginRight="10px">
-
+
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/eraser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -87,9 +93,9 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@drawable/noun_project_835" />
-
+
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/clean"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

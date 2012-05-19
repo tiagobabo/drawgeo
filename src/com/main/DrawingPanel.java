@@ -16,21 +16,26 @@ public class DrawingPanel extends View implements OnTouchListener {
 
 	private Canvas mCanvas;
 	private Path mPath;
+	private ArrayList<Paint> mPaints;
 	private Paint mPaint;
 	private ArrayList<Path> paths = new ArrayList<Path>();
 	private Boolean clean = false;
+	private int currentColor= Color.BLACK;
+	private int strokeWidth = 6; 
+	private ArrayList<Integer> pathsByPaint;
 
 	public DrawingPanel(Context context) {
 		super(context);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		this.setOnTouchListener(this);
-
-		createPaint();
+		
+		pathsByPaint = new ArrayList<Integer>();
+		mPaints = new ArrayList<Paint>();
 		mCanvas = new Canvas();
 		mCanvas.drawColor(Color.WHITE);
-		mPath = new Path();
-		paths.add(mPath);
+		
+		createPaint();
 	}
 	
 	//cria uma nova instancia paint, que guardará os desenhos
@@ -38,11 +43,15 @@ public class DrawingPanel extends View implements OnTouchListener {
 		mPaint = new Paint();
 		mPaint.setAntiAlias(true);
 		mPaint.setDither(true);
-		mPaint.setColor(Color.BLUE);
+		mPaint.setColor(currentColor);
 		mPaint.setStyle(Paint.Style.STROKE);
 		mPaint.setStrokeJoin(Paint.Join.ROUND);
 		mPaint.setStrokeCap(Paint.Cap.ROUND);
-		mPaint.setStrokeWidth(6);
+		mPaint.setStrokeWidth(strokeWidth);
+		mPaints.add(mPaint);
+		mPath = new Path();
+		paths.add(mPath);
+		pathsByPaint.add(1);
 	}
 
 	@Override
@@ -55,15 +64,21 @@ public class DrawingPanel extends View implements OnTouchListener {
 		canvas.drawColor(Color.WHITE);
 		// limpa o ecrã se a flag estiver ativa
 		if(clean) {
-			createPaint();
 			paths.clear();
-			mPath = new Path();
-			paths.add(mPath);
+			pathsByPaint.clear();
+			mPaints.clear();
+			createPaint();
 			clean = false;
 		}
 		else {
-			for (Path p : paths) {
-				canvas.drawPath(p, mPaint);
+			int acum = 0;
+			for(int j = 0; j < mPaints.size(); j++) {
+				for(int n = pathsByPaint.get(j); n > 0; n--) {
+					canvas.drawPath(paths.get(acum++), mPaints.get(j));
+				}
+				/*for (Path p : paths) {
+					canvas.drawPath(p, mPaint);
+				}*/
 			}
 		}
 	}
@@ -95,6 +110,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		// elimina o caminho atual, para não desenhar duas vezes o mesmo
 		mPath = new Path();
 		paths.add(mPath);
+		pathsByPaint.set(pathsByPaint.size()-1, pathsByPaint.get(pathsByPaint.size()-1)+1);
 	}
 
 	public boolean onTouch(View arg0, MotionEvent event) {
@@ -119,7 +135,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		return true;
 	}
 	
-	@Override
+	/*@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)  {
 	    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 	        // regista intenção de limpar o canvas na próxima atualização
@@ -127,5 +143,22 @@ public class DrawingPanel extends View implements OnTouchListener {
 	    	this.invalidate();
 	    }
 	    return true;
+	}*/
+
+	public void cleanCanvas() {
+		clean = true;
+		this.invalidate();
+	}
+	
+	public void eraseMode() {
+		currentColor = Color.WHITE;
+		strokeWidth = 12;
+		createPaint();
+	}
+	
+	public void changeColor(int color) {
+		currentColor = color;
+		strokeWidth = 6;
+		createPaint();
 	}
 }
