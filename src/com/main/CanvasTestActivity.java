@@ -59,17 +59,17 @@ public class CanvasTestActivity extends Activity {
         ImageView yellow = (ImageView) findViewById(R.id.yellow);
         createListener(yellow, Color.YELLOW);
         colors.add(yellow);
-        yellow.setAlpha(70);
+        setAlpha(yellow, 0.3f);
         
         ImageView green = (ImageView) findViewById(R.id.green);
         createListener(green, Color.GREEN);
         colors.add(green);
-        green.setAlpha(70);
+        setAlpha(green, 0.3f);
         
         ImageView red = (ImageView) findViewById(R.id.red);
         createListener(red, Color.RED);
         colors.add(red);
-        red.setAlpha(70);
+        setAlpha(red, 0.3f);
     }
 
     
@@ -91,7 +91,7 @@ public class CanvasTestActivity extends Activity {
 		view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	for(ImageView color : colors)
-            		setAlpha(color, 0.7f);
+            		setAlpha(color, 0.3f);
             	
             	setAlpha(view, 1.0f);
             	drawView.changeColor(color);
