@@ -71,14 +71,12 @@ public class DrawingPanel extends View implements OnTouchListener {
 			clean = false;
 		}
 		else {
+			//desenha cada paint com a sua cor
 			int acum = 0;
 			for(int j = 0; j < mPaints.size(); j++) {
 				for(int n = pathsByPaint.get(j); n > 0; n--) {
 					canvas.drawPath(paths.get(acum++), mPaints.get(j));
 				}
-				/*for (Path p : paths) {
-					canvas.drawPath(p, mPaint);
-				}*/
 			}
 		}
 	}
@@ -153,12 +151,16 @@ public class DrawingPanel extends View implements OnTouchListener {
 	public void eraseMode() {
 		currentColor = Color.WHITE;
 		strokeWidth = 12;
+		
+		// é criado um novo paint com a cor a branco, que serve para apagar
 		createPaint();
 	}
 	
 	public void changeColor(int color) {
 		currentColor = color;
 		strokeWidth = 6;
+		
+		// é criado um novo paint com a nova cor seleccionada
 		createPaint();
 	}
 }
