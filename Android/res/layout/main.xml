@@ -25,7 +25,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10px" >
+        android:layout_marginBottom="10px" android:layout_marginRight="10px">
 
         <ImageView
             android:id="@+id/black"
@@ -63,6 +63,14 @@
             android:layout_toRightOf="@+id/red"
             android:paddingLeft="10px"
             android:src="@drawable/color3" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/noun_project_2332"/>
 
     </RelativeLayout>
 

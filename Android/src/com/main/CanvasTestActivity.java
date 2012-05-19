@@ -34,39 +34,45 @@ public class CanvasTestActivity extends Activity {
         drawView = new DrawingPanel(this);
         canvas.addView(drawView);
         
-        ImageView clean = (ImageView) findViewById(R.id.clean);
+        final ImageView clean = (ImageView) findViewById(R.id.clean);
         clean.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	drawView.cleanCanvas();
             }
         }); 
         
-        ImageView eraser = (ImageView) findViewById(R.id.eraser);
+        colors = new ArrayList<ImageView>();
+        
+        final ImageView eraser = (ImageView) findViewById(R.id.eraser);
+        setAlpha(eraser, 0.3f);
+        colors.add(eraser);
         eraser.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	for(ImageView color : colors)
             		setAlpha(color, 0.3f);
+            	
+            	setAlpha(eraser, 1.0f);
             	drawView.eraseMode();
             }
         });
         
-        colors = new ArrayList<ImageView>();
-        
-        ImageView black = (ImageView) findViewById(R.id.black);
+        //WHY YOU NO WORK?
+
+        final ImageView black = (ImageView) findViewById(R.id.black);
         createListener(black, Color.BLACK);
         colors.add(black);
         
-        ImageView yellow = (ImageView) findViewById(R.id.yellow);
+        final ImageView yellow = (ImageView) findViewById(R.id.yellow);
         createListener(yellow, Color.YELLOW);
         colors.add(yellow);
         setAlpha(yellow, 0.3f);
         
-        ImageView green = (ImageView) findViewById(R.id.green);
+        final ImageView green = (ImageView) findViewById(R.id.green);
         createListener(green, Color.GREEN);
         colors.add(green);
         setAlpha(green, 0.3f);
         
-        ImageView red = (ImageView) findViewById(R.id.red);
+        final ImageView red = (ImageView) findViewById(R.id.red);
         createListener(red, Color.RED);
         colors.add(red);
         setAlpha(red, 0.3f);
