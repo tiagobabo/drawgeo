@@ -21,8 +21,8 @@ public class CanvasTestActivity extends Activity {
         setContentView(R.layout.main);
         
         DrawingPanel drawView = new DrawingPanel(this);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.teste);
+        LinearLayout canvas = (LinearLayout) findViewById(R.id.teste);
         
-        layout.addView(drawView);
+        canvas.addView(drawView);
     }
 }
