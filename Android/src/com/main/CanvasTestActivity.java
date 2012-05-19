@@ -22,18 +22,22 @@ public class CanvasTestActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        // Set full screen view
+        // Modo fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.main);
         
-        LinearLayout canvas = (LinearLayout) findViewById(R.id.teste);
         
+        // layout que vai conter o canvas
+        LinearLayout canvas = (LinearLayout) findViewById(R.id.canvas);
+        
+        // criação de um novo canvas
         drawView = new DrawingPanel(this);
         canvas.addView(drawView);
         
+        // listener para a acção de limpar o ecrã todo
         final ImageView clean = (ImageView) findViewById(R.id.clean);
         clean.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -43,6 +47,7 @@ public class CanvasTestActivity extends Activity {
         
         colors = new ArrayList<ImageView>();
         
+     // listener para a acção de limpar o ecrã com a borracha
         final ImageView eraser = (ImageView) findViewById(R.id.eraser);
         setAlpha(eraser, 0.3f);
         colors.add(eraser);
@@ -54,10 +59,10 @@ public class CanvasTestActivity extends Activity {
             	setAlpha(eraser, 1.0f);
             	drawView.eraseMode();
             }
-        });
+        });      
         
-        //WHY YOU NO WORK?
-
+        // criação do listener para as várias cores
+        
         final ImageView black = (ImageView) findViewById(R.id.black);
         createListener(black, Color.BLACK);
         colors.add(black);
@@ -79,20 +84,21 @@ public class CanvasTestActivity extends Activity {
     }
 
     
+    // função que adiciona o efeito alpha a uma ImageView
     private static void setAlpha(View view, float alphaValue){
 
         if(alphaValue == 1){
             view.clearAnimation();
         }else{
             AlphaAnimation alpha = new AlphaAnimation(alphaValue, alphaValue);
-            alpha.setDuration(0); // Make animation instant
-            alpha.setFillAfter(true); // Tell it to persist after the animation ends        
+            alpha.setDuration(0);
+            alpha.setFillAfter(true);     
             view.startAnimation(alpha);
         }
 
     }
 
-    
+    // listener que muda o alpha da imagem que é seleccionada e muda a cor de desenho
 	private void createListener(final ImageView view, final int color) {
 		view.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
