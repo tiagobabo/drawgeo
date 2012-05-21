@@ -19,25 +19,31 @@ public class DrawingPanel extends View implements OnTouchListener {
 	private Paint mPaint;
 	private ArrayList<Path> paths = new ArrayList<Path>();
 	private Boolean clean = false;
-	private int currentColor= Color.BLACK;
-	private int strokeWidth = 6; 
+	private Boolean toReplay = true;
+	private int currentColor = Color.BLACK;
+	private int strokeWidth = 6;
 	private ArrayList<Integer> pathsByPaint;
+	private ArrayList<Float> xs;
+	private ArrayList<Float> ys;
 
 	public DrawingPanel(Context context) {
 		super(context);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		this.setOnTouchListener(this);
-		
+
+		xs = new ArrayList<Float>();
+		ys = new ArrayList<Float>();
+
 		pathsByPaint = new ArrayList<Integer>();
 		mPaints = new ArrayList<Paint>();
 		mCanvas = new Canvas();
 		mCanvas.drawColor(Color.WHITE);
-		
+
 		createPaint();
 	}
-	
-	//cria uma nova instancia paint, que guardará os desenhos
+
+	// cria uma nova instancia paint, que guardará os desenhos
 	private void createPaint() {
 		mPaint = new Paint();
 		mPaint.setAntiAlias(true);
@@ -61,19 +67,21 @@ public class DrawingPanel extends View implements OnTouchListener {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.WHITE);
+		System.out.println("AKLFAJLKSFJHASHFKJASHF");
 		// limpa o ecrã se a flag estiver ativa
-		if(clean) {
+		if (clean) {
 			paths.clear();
 			pathsByPaint.clear();
 			mPaints.clear();
 			createPaint();
 			clean = false;
-		}
-		else {
-			//desenha cada paint com a sua cor
+		} else {
+			// desenha cada paint com a sua cor
 			int acum = 0;
-			for(int j = 0; j < mPaints.size(); j++) {
-				for(int n = pathsByPaint.get(j); n > 0; n--) {
+
+			for (int j = 0; j < mPaints.size(); j++) {
+				for (int n = pathsByPaint.get(j); n > 0; n--) {
+
 					canvas.drawPath(paths.get(acum++), mPaints.get(j));
 				}
 			}
@@ -84,10 +92,15 @@ public class DrawingPanel extends View implements OnTouchListener {
 	private static final float TOUCH_TOLERANCE = 4;
 
 	private void touch_start(float x, float y) {
+
 		mPath.reset();
 		mPath.moveTo(x, y);
 		mX = x;
 		mY = y;
+		if (toReplay) {
+			xs.add(mX);
+			ys.add(mY);
+		}
 	}
 
 	private void touch_move(float x, float y) {
@@ -97,69 +110,102 @@ public class DrawingPanel extends View implements OnTouchListener {
 			mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
 			mX = x;
 			mY = y;
+			if (toReplay) {
+				xs.add(mX);
+				ys.add(mY);
+			}
 		}
 	}
 
 	private void touch_up() {
 		mPath.lineTo(mX, mY);
-		// envia o path para o canvas de background 
+		// envia o path para o canvas de background
 		mCanvas.drawPath(mPath, mPaint);
 		// elimina o caminho atual, para não desenhar duas vezes o mesmo
 		mPath = new Path();
 		paths.add(mPath);
-		pathsByPaint.set(pathsByPaint.size()-1, pathsByPaint.get(pathsByPaint.size()-1)+1);
+		pathsByPaint.set(pathsByPaint.size() - 1,
+				pathsByPaint.get(pathsByPaint.size() - 1) + 1);
+		if (toReplay) {
+			xs.add(-1.0f);
+			ys.add(-1.0f);
+		}
 	}
 
 	public boolean onTouch(View arg0, MotionEvent event) {
-		float x = event.getX();
-		float y = event.getY();
-		
-		// switch para os eventos relacionados com o toque no ecrã
-		switch (event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			touch_start(x, y);
+		if (toReplay) {
+			float x = event.getX();
+			float y = event.getY();
+
+			// switch para os eventos relacionados com o toque no ecrã
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				touch_start(x, y);
+				invalidate();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				touch_move(x, y);
+				invalidate();
+				break;
+			case MotionEvent.ACTION_UP:
+				touch_up();
+				invalidate();
+				break;
+			}
+		} else
 			invalidate();
-			break;
-		case MotionEvent.ACTION_MOVE:
-			touch_move(x, y);
-			invalidate();
-			break;
-		case MotionEvent.ACTION_UP:
-			touch_up();
-			invalidate();
-			break;
-		}
 		return true;
 	}
-	
-	/*@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)  {
-	    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-	        // regista intenção de limpar o canvas na próxima atualização
-	    	clean = true;
-	    	this.invalidate();
-	    }
-	    return true;
-	}*/
+
+	/*
+	 * @Override public boolean onKeyDown(int keyCode, KeyEvent event) { if
+	 * (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { //
+	 * regista intenção de limpar o canvas na próxima atualização clean = true;
+	 * this.invalidate(); } return true; }
+	 */
 
 	public void cleanCanvas() {
 		clean = true;
 		this.invalidate();
 	}
-	
+
 	public void eraseMode() {
 		currentColor = Color.WHITE;
 		strokeWidth = 12;
-		
+
 		// é criado um novo paint com a cor a branco, que serve para apagar
 		createPaint();
 	}
-	
+
 	public void changeColor(int color) {
 		currentColor = color;
 		strokeWidth = 6;
-		
+
 		// é criado um novo paint com a nova cor seleccionada
 		createPaint();
+	}
+
+	public void replay() {
+		toReplay = false;
+		touch_start(xs.get(0), ys.get(0));
+		new Thread(new Runnable() {
+			public void run() {
+				for (int i = 1; i < xs.size(); i++) {
+					if (xs.get(i) == -1.0f) {
+						touch_up();
+						if (i != xs.size() - 1)
+							touch_start(xs.get(i + 1), ys.get(i + 1));
+					} else {
+						touch_move(xs.get(i), ys.get(i));
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+						}
+					}
+					DrawingPanel.this.postInvalidate();
+				}
+				toReplay = true;
+			}
+		}).start();
 	}
 }

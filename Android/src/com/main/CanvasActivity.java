@@ -3,6 +3,7 @@ package com.main;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class CanvasTestActivity extends Activity {
+public class CanvasActivity extends Activity {
 	
 	private  DrawingPanel drawView; 
 	private ArrayList<ImageView> colors;
@@ -36,6 +37,15 @@ public class CanvasTestActivity extends Activity {
         drawView = new DrawingPanel(this);
         canvas.addView(drawView);
         
+        // listener para a acção de desenho concluído
+        final ImageView done = (ImageView) findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	drawView.replay();
+            }
+        }); 
+        
+        
         // listener para a acção de limpar o ecrã todo
         final ImageView clean = (ImageView) findViewById(R.id.clean);
         clean.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +56,19 @@ public class CanvasTestActivity extends Activity {
         
         colors = new ArrayList<ImageView>();
         
+        
+        // listener para a loja
      // listener para a acção de limpar o ecrã com a borracha
+        final ImageView store = (ImageView) findViewById(R.id.store);
+        
+        store.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	Intent i = new Intent(CanvasActivity.this, Store.class);
+                startActivity(i);
+            }
+        });  
+        
+        // listener para a acção de limpar o ecrã com a borracha
         final ImageView eraser = (ImageView) findViewById(R.id.eraser);
         setAlpha(eraser, 0.3f);
         colors.add(eraser);

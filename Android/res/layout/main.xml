@@ -63,14 +63,14 @@
             android:layout_toRightOf="@+id/red"
             android:paddingLeft="10px"
             android:src="@drawable/color3" />
-
+
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/noun_project_2332"/>
+            android:src="@drawable/noun_project_2332" />
 
     </RelativeLayout>
 
@@ -94,14 +94,15 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:src="@drawable/noun_project_2056" />
-
+
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/noun_project_835" android:layout_marginLeft="10px"/>
+            android:layout_marginLeft="10px"
+            android:src="@drawable/noun_project_835" />
 
         <ImageView
             android:id="@+id/clean"
