@@ -25,6 +25,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 	private ArrayList<Integer> pathsByPaint;
 	private ArrayList<Float> xs;
 	private ArrayList<Float> ys;
+	private ArrayList<Integer> colors;
 
 	public DrawingPanel(Context context) {
 		super(context);
@@ -34,6 +35,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 
 		xs = new ArrayList<Float>();
 		ys = new ArrayList<Float>();
+		colors = new ArrayList<Integer>();
 
 		pathsByPaint = new ArrayList<Integer>();
 		mPaints = new ArrayList<Paint>();
@@ -100,6 +102,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		if (toReplay) {
 			xs.add(mX);
 			ys.add(mY);
+			colors.add(mPaint.getColor());
 		}
 	}
 
@@ -113,6 +116,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 			if (toReplay) {
 				xs.add(mX);
 				ys.add(mY);
+				colors.add(mPaint.getColor());
 			}
 		}
 	}
@@ -129,6 +133,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		if (toReplay) {
 			xs.add(-1.0f);
 			ys.add(-1.0f);
+			colors.add(mPaint.getColor());
 		}
 	}
 
@@ -188,13 +193,20 @@ public class DrawingPanel extends View implements OnTouchListener {
 	public void replay() {
 		toReplay = false;
 		touch_start(xs.get(0), ys.get(0));
+		mPaint.setColor(colors.get(0));
 		new Thread(new Runnable() {
 			public void run() {
 				for (int i = 1; i < xs.size(); i++) {
+					mPaint.setColor(colors.get(i));
 					if (xs.get(i) == -1.0f) {
+						
 						touch_up();
 						if (i != xs.size() - 1)
+						{
+							if(colors.get(i+1) != mPaint.getColor())
+								createPaint();
 							touch_start(xs.get(i + 1), ys.get(i + 1));
+						}
 					} else {
 						touch_move(xs.get(i), ys.get(i));
 						try {
