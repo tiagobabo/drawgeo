@@ -1,4 +1,14 @@
 Server::Application.routes.draw do
+  resources :users
+
+  resources :draws
+
+  resources :colors
+
+  resources :users do
+    resources :colors
+  end
+
   get "home/index"
 
   root :to => 'home#index'

@@ -1,0 +1,27 @@
+<h1>Listing colors</h1>
+
+<table>
+  <tr>
+    <th>Hex</th>
+    <th>User</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @colors.each do |color| %>
+  <tr>
+    <td><%= color.hex %></td>
+    <td><%= color.user.id %></td>
+    <td><%= link_to 'Show', color %></td>
+    <td><%= link_to 'Edit', edit_color_path(color) %></td>
+    <td><%= link_to 'Destroy', color, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Color', new_user_color_path(@user.id) %>
+
+<%= link_to 'Back', user_path(@user.id) %>
