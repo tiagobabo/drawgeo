@@ -3,5 +3,7 @@
 
     <string name="hello">Your are drawing CHEWBACCA</string>
     <string name="app_name">Draw Geo</string>
+    <string name="storeTitle">Store</string>
+    <string name="piggies">120</string>
 
 </resources>
