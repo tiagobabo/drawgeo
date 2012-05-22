@@ -26,6 +26,10 @@ public class DrawingPanel extends View implements OnTouchListener {
 	private ArrayList<Float> xs;
 	private ArrayList<Float> ys;
 	private ArrayList<Integer> colors;
+	private float mX, mY;
+	private int defaultstrokewidth = 6;
+	private int erasestrokewidth = 20;
+	private static final float TOUCH_TOLERANCE = 4;
 
 	public DrawingPanel(Context context) {
 		super(context);
@@ -62,11 +66,6 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	@Override
-	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		super.onSizeChanged(w, h, oldw, oldh);
-	}
-
-	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.WHITE);
 		System.out.println("AKLFAJLKSFJHASHFKJASHF");
@@ -80,7 +79,6 @@ public class DrawingPanel extends View implements OnTouchListener {
 		} else {
 			// desenha cada paint com a sua cor
 			int acum = 0;
-
 			for (int j = 0; j < mPaints.size(); j++) {
 				for (int n = pathsByPaint.get(j); n > 0; n--) {
 
@@ -90,19 +88,21 @@ public class DrawingPanel extends View implements OnTouchListener {
 		}
 	}
 
-	private float mX, mY;
-	protected int defaultstrokewidth = 6;
-	protected int erasestrokewidth = 20;
-	private static final float TOUCH_TOLERANCE = 4;
+	
 
 	private void touch_start(float x, float y) {
-
+		// limpa o caminho anterior
 		mPath.reset();
+		
+		// posiciona o primeiro ponto no canvas
 		mPath.moveTo(x, y);
-
 		mX = x;
 		mY = y;
+		
+		// desenha um ponto simples no ecrã
 		mPath.quadTo(mX, mY, ((x + 0.1f) + mX) / 2, ((y + 0.1f) + mY) / 2);
+		
+		// guarda os dados necessários para o replay
 		if (toReplay) {
 			xs.add(mX);
 			ys.add(mY);
@@ -134,6 +134,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 		paths.add(mPath);
 		pathsByPaint.set(pathsByPaint.size() - 1,
 				pathsByPaint.get(pathsByPaint.size() - 1) + 1);
+		
+		// guarda os dados necessários para o replay
 		if (toReplay) {
 			xs.add(-1.0f);
 			ys.add(-1.0f);
@@ -142,6 +144,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	public boolean onTouch(View arg0, MotionEvent event) {
+		
+		// entra se estiver em modo de desenho
 		if (toReplay) {
 			float x = event.getX();
 			float y = event.getY();
@@ -165,18 +169,13 @@ public class DrawingPanel extends View implements OnTouchListener {
 			invalidate();
 		return true;
 	}
-
-	/*
-	 * @Override public boolean onKeyDown(int keyCode, KeyEvent event) { if
-	 * (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) { //
-	 * regista intenÁ„o de limpar o canvas na prÛxima atualizaÁ„o clean = true;
-	 * this.invalidate(); } return true; }
-	 */
-
+	
+	// limpa o canvas atual
 	public void cleanCanvas() {
 		clean = true;
 		this.invalidate();
-
+		
+		// adiciona ponto fictício para informar que o canvas foi limpo num dado momento
 		if (toReplay) {
 			xs.add(-2.0f);
 			ys.add(-2.0f);
@@ -185,6 +184,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	public void eraseMode() {
+		
+		// definições para o efeito de apagar
 		currentColor = Color.WHITE;
 		strokeWidth = erasestrokewidth;
 
@@ -193,26 +194,38 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	public void changeColor(int color) {
+		
+		// definições para a cor atual
 		currentColor = color;
 		strokeWidth = defaultstrokewidth;
 
-		// È criado um novo paint com a nova cor seleccionada
+		// É criado um novo paint com a nova cor seleccionada
 		createPaint();
 	}
-
+	
+	// função que mostra o replay de jogo
 	public void replay() {
 		toReplay = false;
+		
+		// inicia o desenho com o ponto inicial guardado
 		touch_start(xs.get(0), ys.get(0));
+		
+		// define a cor desse ponto incial
 		mPaint.setColor(colors.get(0));
+		
+		// thread que vai desenhar tudo, com um dado delay entre operações
 		new Thread(new Runnable() {
 			public void run() {
 				for (int i = 1; i < xs.size(); i++) {
 					mPaint.setColor(colors.get(i));
+					
+					// verfica se está em modo de apagar, para mudar o stroke
 					if (colors.get(i) != Color.WHITE)
 						mPaint.setStrokeWidth(defaultstrokewidth);
 					else
 						mPaint.setStrokeWidth(erasestrokewidth);
-
+					
+					// se o ponto atual é -1.0f, então acabou o path atual 
 					if (xs.get(i) == -1.0f) {
 
 						touch_up();
@@ -221,7 +234,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 								createPaint();
 							touch_start(xs.get(i + 1), ys.get(i + 1));
 						}
-					} else if (xs.get(i) == -2.0f) {
+					} else if (xs.get(i) == -2.0f) { // se for -2.0f, o utilizador limpou o ecrã todo
 						touch_up();
 						clean = true;
 						DrawingPanel.this.postInvalidate();
@@ -231,7 +244,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 						}
 						if (i != xs.size() - 1)
 							touch_start(xs.get(i + 1), ys.get(i + 1));
-					} else {
+					} else { // no caso genérico, desenha o movimento efetuado
 						touch_move(xs.get(i), ys.get(i));
 						try {
 							Thread.sleep(50);
