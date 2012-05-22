@@ -97,8 +97,10 @@ public class DrawingPanel extends View implements OnTouchListener {
 
 		mPath.reset();
 		mPath.moveTo(x, y);
+		
 		mX = x;
 		mY = y;
+		mPath.quadTo(mX, mY, ((x+0.1f) + mX) / 2, ((y+0.1f) + mY) / 2);
 		if (toReplay) {
 			xs.add(mX);
 			ys.add(mY);
@@ -210,7 +212,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 					} else {
 						touch_move(xs.get(i), ys.get(i));
 						try {
-							Thread.sleep(100);
+							Thread.sleep(50);
 						} catch (InterruptedException e) {
 						}
 					}
