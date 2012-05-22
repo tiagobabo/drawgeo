@@ -91,16 +91,18 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	private float mX, mY;
+	protected int defaultstrokewidth = 6;
+	protected int erasestrokewidth = 20;
 	private static final float TOUCH_TOLERANCE = 4;
 
 	private void touch_start(float x, float y) {
 
 		mPath.reset();
 		mPath.moveTo(x, y);
-		
+
 		mX = x;
 		mY = y;
-		mPath.quadTo(mX, mY, ((x+0.1f) + mX) / 2, ((y+0.1f) + mY) / 2);
+		mPath.quadTo(mX, mY, ((x + 0.1f) + mX) / 2, ((y + 0.1f) + mY) / 2);
 		if (toReplay) {
 			xs.add(mX);
 			ys.add(mY);
@@ -174,19 +176,25 @@ public class DrawingPanel extends View implements OnTouchListener {
 	public void cleanCanvas() {
 		clean = true;
 		this.invalidate();
+
+		if (toReplay) {
+			xs.add(-2.0f);
+			ys.add(-2.0f);
+			colors.add(mPaint.getColor());
+		}
 	}
 
 	public void eraseMode() {
 		currentColor = Color.WHITE;
-		strokeWidth = 12;
+		strokeWidth = erasestrokewidth;
 
-		// é criado um novo paint com a cor a branco, que serve para apagar
+		// ƒ criado um novo paint com a cor a branco, que serve para apagar
 		createPaint();
 	}
 
 	public void changeColor(int color) {
 		currentColor = color;
-		strokeWidth = 6;
+		strokeWidth = defaultstrokewidth;
 
 		// é criado um novo paint com a nova cor seleccionada
 		createPaint();
@@ -200,15 +208,29 @@ public class DrawingPanel extends View implements OnTouchListener {
 			public void run() {
 				for (int i = 1; i < xs.size(); i++) {
 					mPaint.setColor(colors.get(i));
+					if (colors.get(i) != Color.WHITE)
+						mPaint.setStrokeWidth(defaultstrokewidth);
+					else
+						mPaint.setStrokeWidth(erasestrokewidth);
+
 					if (xs.get(i) == -1.0f) {
-						
+
 						touch_up();
-						if (i != xs.size() - 1)
-						{
-							if(colors.get(i+1) != mPaint.getColor())
+						if (i != xs.size() - 1) {
+							if (colors.get(i + 1) != mPaint.getColor())
 								createPaint();
 							touch_start(xs.get(i + 1), ys.get(i + 1));
 						}
+					} else if (xs.get(i) == -2.0f) {
+						touch_up();
+						clean = true;
+						DrawingPanel.this.postInvalidate();
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+						}
+						if (i != xs.size() - 1)
+							touch_start(xs.get(i + 1), ys.get(i + 1));
 					} else {
 						touch_move(xs.get(i), ys.get(i));
 						try {
