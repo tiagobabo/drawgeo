@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120522141855) do
+ActiveRecord::Schema.define(:version => 20120523153149) do
 
   create_table "colors", :force => true do |t|
     t.string   "hex"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20120522141855) do
 
   create_table "draws", :force => true do |t|
     t.string   "id_creator"
-    t.string   "latitude"
-    t.string   "longitude"
+    t.float    "latitude"
+    t.float    "longitude"
     t.text     "draw"
     t.boolean  "challenge"
     t.text     "description"

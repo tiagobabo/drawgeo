@@ -2,8 +2,8 @@
 
 one:
   id_creator: MyString
-  latitude: MyString
-  longitude: MyString
+  latitude: 1.5
+  longitude: 1.5
   draw: MyText
   challenge: false
   description: MyText
@@ -11,8 +11,8 @@ one:
 
 two:
   id_creator: MyString
-  latitude: MyString
-  longitude: MyString
+  latitude: 1.5
+  longitude: 1.5
   draw: MyText
   challenge: false
   description: MyText
