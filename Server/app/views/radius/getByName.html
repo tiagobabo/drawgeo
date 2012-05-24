@@ -1,0 +1,20 @@
+<h1>Listing nearbys</h1>
+
+<% if !@nearbys.nil? && !@nearbys.empty? %>
+    <% @nearbys.each do |near| %>
+    <table>
+      <tr>
+        <td><%= near.id_creator %></td>
+        <td><%= near.latitude %></td>
+        <td><%= near.longitude %></td>
+        <td><%= near.draw %></td>
+        <td><%= near.challenge %></td>
+        <td><%= near.description %></td>
+        <td><%= near.password %></td>
+        <td><%= near.distance %> Km</td>
+      </tr>
+    </table>
+    <% end %>
+<% else %>
+    <div> No results! </div>
+<%end%>

@@ -10,7 +10,8 @@ Server::Application.routes.draw do
   end
 
   get "home/index"
-  get "radius/get"
+  get "radius/getByCoordinates"
+  get "radius/getByName"
   root :to => 'home#index'
 
   # The priority is based upon order of creation:
