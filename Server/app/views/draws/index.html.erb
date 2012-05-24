@@ -31,8 +31,8 @@
 </table>
 
 <div> Draws near Porto (300km radius) </div>
-<% @nearbys.each do |near| %>
 <table>
+<% @nearbys.each do |near| %>
   <tr>
     <td><%= near.id_creator %></td>
     <td><%= near.latitude %></td>
@@ -42,8 +42,8 @@
     <td><%= near.description %></td>
     <td><%= near.password %></td>
   </tr>
-</table>
 <% end %>
+</table>
 
 <br />
 
