@@ -3,6 +3,7 @@ class DrawsController < ApplicationController
   # GET /draws.json
   def index
     @draws = Draw.all
+    @nearbys = Draw.near('Porto, Portugal', 300, {:order => "distance", :units => :km})
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,6 +36,7 @@ class DrawsController < ApplicationController
   # GET /draws/1/edit
   def edit
     @draw = Draw.find(params[:id])
+    @distance = @draw.distance_to('Porto, Portugal', units = :km)
   end
 
   # POST /draws
@@ -80,4 +82,5 @@ class DrawsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end
