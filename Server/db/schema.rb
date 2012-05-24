@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120523153149) do
+ActiveRecord::Schema.define(:version => 20120524223413) do
 
   create_table "colors", :force => true do |t|
     t.string   "hex"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20120523153149) do
     t.string   "password"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "word_id"
   end
 
   create_table "users", :force => true do |t|
@@ -43,6 +44,14 @@ ActiveRecord::Schema.define(:version => 20120523153149) do
     t.integer  "num_success"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "word_id"
+  end
+
+  create_table "words", :force => true do |t|
+    t.string   "word"
+    t.integer  "difficulty"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
