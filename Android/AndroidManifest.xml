@@ -7,15 +7,20 @@
 
     <application android:icon="@drawable/ic_launcher" android:label="@string/app_name">
         <activity android:name=".CanvasActivity" android:label="@string/app_name">
+            
+        </activity>
+        <activity android:theme="@android:style/Theme.NoTitleBar" android:name=".HomeActivity" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        
-        <activity android:name=".Store" android:label="@string/app_name">
+        <activity android:theme="@android:style/Theme.NoTitleBar"  android:name=".Store" android:label="@string/app_name">
         </activity>
+        <activity android:theme="@android:style/Theme.NoTitleBar"  android:name=".MainMenuActivity" android:label="@string/app_name">
+        </activity>
+        
     <service android:name="com.couchbase.android.CouchbaseService" android:enabled="true" android:exported="false"/></application>
 
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/></manifest>
