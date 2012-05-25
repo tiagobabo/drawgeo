@@ -1,0 +1,56 @@
+<h1>Listing draws</h1>
+
+<table>
+  <tr>
+    <th>Id</th>
+    <th>Id creator</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th>Word Id</th>
+    <th>Draw</th>
+    <th>Challenge</th>
+    <th>Description</th>
+    <th>Password</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @draws.each do |draw| %>
+  <tr>
+    <td><%= draw.id %></td>
+    <td><%= draw.id_creator %></td>
+    <td><%= draw.latitude %></td>
+    <td><%= draw.longitude %></td>
+    <td><%= draw.word_id %></td>
+    <td><%= draw.draw %></td>
+    <td><%= draw.challenge %></td>
+    <td><%= draw.description %></td>
+    <td><%= draw.password %></td>
+    <td><%= link_to 'Show', draw %></td>
+    <td><%= link_to 'Edit', edit_draw_path(draw) %></td>
+    <td><%= link_to 'Destroy', draw, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<div> Draws near Porto (300km radius) </div>
+<table>
+<% @nearbys.each do |near| %>
+  <tr>
+    <td><%= near.id %></td>
+    <td><%= near.id_creator %></td>
+    <td><%= near.latitude %></td>
+    <td><%= near.longitude %></td>
+    <td><%= near.word_id %></td>
+    <td><%= near.draw %></td>
+    <td><%= near.challenge %></td>
+    <td><%= near.description %></td>
+    <td><%= near.password %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Draw', new_draw_path %>

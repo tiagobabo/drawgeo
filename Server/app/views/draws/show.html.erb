@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id creator:</b>
+  <%= @draw.id_creator %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @draw.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @draw.longitude %>
+</p>
+
+<p>
+  <b>Word Id:</b>
+  <%= @draw.word_id %>
+</p>
+
+<p>
+  <b>Draw:</b>
+  <%= @draw.draw %>
+</p>
+
+<p>
+  <b>Challenge:</b>
+  <%= @draw.challenge %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @draw.description %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @draw.password %>
+</p>
+
+
+<%= link_to 'Edit', edit_draw_path(@draw) %> |
+<%= link_to 'Back', draws_path %>

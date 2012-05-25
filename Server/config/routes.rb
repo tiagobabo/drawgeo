@@ -1,6 +1,22 @@
 Server::Application.routes.draw do
-  get "home/index"
+  resources :draw_users
 
+  resources :words
+
+  resources :users
+
+  resources :draws
+
+  resources :colors
+
+  resources :users do
+    resources :colors
+  end
+
+  get "home/index"
+  get "radius/getByCoordinates"
+  get "radius/getByName"
+  get "play/guess"
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id_creator: MyString
+  latitude: 1.5
+  longitude: 1.5
+  draw: MyText
+  challenge: false
+  description: MyText
+  password: MyString
+
+two:
+  id_creator: MyString
+  latitude: 1.5
+  longitude: 1.5
+  draw: MyText
+  challenge: false
+  description: MyText
+  password: MyString

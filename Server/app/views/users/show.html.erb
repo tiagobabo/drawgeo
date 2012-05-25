@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+</p>
+
+<p>
+  <b>Id avatar:</b>
+  <%= @user.id_avatar %>
+</p>
+
+<p>
+  <b>Piggies:</b>
+  <%= @user.piggies %>
+</p>
+
+<p>
+  <b>Keys:</b>
+  <%= @user.keys %>
+</p>
+
+<p>
+  <b>Num done:</b>
+  <%= @user.num_done %>
+</p>
+
+<p>
+  <b>Num success:</b>
+  <%= @user.num_success %>
+</p>
+
+<b>Colors:</b>
+[
+<% @user.colors.each do |color| %>
+    <%= color.hex %>
+<% end %>
+]
+</p>
+<h4>Add a color:</h4>
+<%= form_for([@user, @user.colors.build]) do |f| %>
+  <div class="field">
+    <%= f.label :hex %><br />
+    <%= f.text_field :hex %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
