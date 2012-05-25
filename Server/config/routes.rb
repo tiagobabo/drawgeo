@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  resources :draw_users
+
   resources :words
 
   resources :users

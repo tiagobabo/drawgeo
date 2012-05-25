@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524223413) do
+ActiveRecord::Schema.define(:version => 20120525101701) do
 
   create_table "colors", :force => true do |t|
     t.string   "hex"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(:version => 20120524223413) do
   end
 
   add_index "colors", ["user_id"], :name => "index_colors_on_user_id"
+
+  create_table "draw_users", :force => true do |t|
+    t.integer  "id_draw"
+    t.integer  "id_user"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "draws", :force => true do |t|
     t.string   "id_creator"
