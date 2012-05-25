@@ -16,8 +16,9 @@ public class MainMenuActivity extends Activity {
 		final Button pButton = (Button) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
-				
+				Intent intent = new Intent(v.getContext(),
+						CanvasActivity.class);
+				startActivity(intent);
 			}
 		});
 		final Button sButton = (Button) findViewById(R.id.btnStore);
