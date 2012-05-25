@@ -1,5 +1,8 @@
 package com.main;
 
+import com.facebook.android.*;
+import com.facebook.android.Facebook.*;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,8 +23,33 @@ public class HomeActivity extends Activity{
 		final Button fButton = (Button) findViewById(R.id.loginFacebook);
 		fButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//TODO facebook login
-				goToMainMenu(v);
+				Facebook facebook = new Facebook("374936152553880");
+				facebook.authorize(HomeActivity.this, new DialogListener() {
+
+					public void onComplete(Bundle values) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onFacebookError(FacebookError e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onError(DialogError e) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					public void onCancel() {
+						// TODO Auto-generated method stub
+						
+					}
+		           
+		        });
+				
+				//goToMainMenu(v);
+				
 			}
 		});
 		final Button eButton = (Button) findViewById(R.id.loginEmail);
