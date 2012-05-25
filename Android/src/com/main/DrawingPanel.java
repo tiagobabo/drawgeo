@@ -234,7 +234,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 								createPaint();
 							touch_start(xs.get(i + 1), ys.get(i + 1));
 						}
-					} else if (xs.get(i) == -2.0f) { // se for -2.0f, o utilizador limpou o ecr‹ todo
+					} else if (xs.get(i) == -2.0f && i != xs.size()-1) { // se for -2.0f, o utilizador limpou o ecr‹ todo
 						touch_up();
 						clean = true;
 						DrawingPanel.this.postInvalidate();
