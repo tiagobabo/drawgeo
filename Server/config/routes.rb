@@ -21,6 +21,8 @@ Server::Application.routes.draw do
   get "play/guess"
   get "play/getUserByEmail"
   get "play/getNewWords"
+  get "play/changeAvatar"
+  get "play/addNewColor"
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

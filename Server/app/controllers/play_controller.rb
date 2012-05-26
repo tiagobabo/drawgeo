@@ -6,7 +6,7 @@ class PlayController < ApplicationController
 		@word = Word.find(@draw.word_id)
 		@author = User.find(@draw.id_creator)
 		@draw_user = DrawUser.where("id_draw = ? AND id_user= ?", params[:draw_id], params[:id])
-		if(!@player.nil? && !@player.empty?)
+		if(!@player.nil?)
 			if(@draw_user.empty?)
 				if(@player.id != @author.id)
 					if(@guess == @word.word)
@@ -77,8 +77,8 @@ class PlayController < ApplicationController
 	def changeAvatar
 		@player = User.find(params[:id])
 		@avatar = Avatar.find(params[:id_avatar])
-		if(!player.nil? && !player.empty?)
-			if(!avatar.nil? && !avatar.empty?)
+		if(!@player.nil?)
+			if(!@avatar.nil?)
 				@player.update_attribute(:id_avatar, @avatar.id)
 				respond_to do |format|
 			      	format.json { render :json => {:status => "Avatar changed."}.to_json }
@@ -88,6 +88,21 @@ class PlayController < ApplicationController
 			      	format.json { render :json => {:status => "Avatar doesn't exist."}.to_json }
 			    end
 			end
+		else
+			respond_to do |format|
+		      	format.json { render :json => {:status => "User doesn't exist."}.to_json }
+		    end	
+		end
+	end
+
+	def addNewColor
+		@user = User.find(params[:id])
+		@hex = params[:hex]
+		if(!@user.nil?)
+			@user.colors.create(:hex => @hex)
+			respond_to do |format|
+		      	format.json { render :json => {:status => "Color added."}.to_json }
+		    end
 		else
 			respond_to do |format|
 		      	format.json { render :json => {:status => "User doesn't exist."}.to_json }
