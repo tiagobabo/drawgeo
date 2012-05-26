@@ -39,7 +39,9 @@ public class MainMenuActivity extends Activity {
 		final Button oButton = (Button) findViewById(R.id.btnOptions);
 		oButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+				Intent intent = new Intent(v.getContext(),
+						OptionsActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
