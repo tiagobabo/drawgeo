@@ -96,8 +96,6 @@ public class HomeActivity extends Activity{
 
 	    int i = 0;
 	    for (Account account : accounts) {
-	      // TODO: Check possibleEmail against an email regex or treat
-	      // account.name as an email address only for certain account.type values.
 	      possibleEmails[i] = account.name;
 	      i++;
 	    }
