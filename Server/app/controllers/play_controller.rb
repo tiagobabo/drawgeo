@@ -41,4 +41,21 @@ class PlayController < ApplicationController
 		    end
 		end
 	end
+
+	def getUserByEmail
+		@user = User.where("email = ?", params[:email])
+
+		if(!@user.nil? && !@user.empty?)
+			respond_to do |format|
+		      	format.json { render :json => {:status => "Ok", :user => @user.first}.to_json }
+		    end
+		else
+			respond_to do |format|
+		      	format.json { render :json => {:status => "User not found."}.to_json }
+		    end
+		end
+	end
+
+	
+
 end
