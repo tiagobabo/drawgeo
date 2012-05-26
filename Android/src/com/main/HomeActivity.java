@@ -3,6 +3,8 @@ package com.main;
 import com.facebook.android.*;
 import com.facebook.android.Facebook.*;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -13,9 +15,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 public class HomeActivity extends Activity{
+	
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
@@ -57,6 +62,7 @@ public class HomeActivity extends Activity{
 			public void onClick(View v) {
 				//emailLogin(HomeActivity.this);
 				goToMainMenu(v);
+				
 			}
 		});
 	}
@@ -66,29 +72,36 @@ public class HomeActivity extends Activity{
 		startActivity(intent);
 		
 	}
-	public static void emailLogin(Context context) {
+	
+	
+	
+	public static void emailLogin(final Context context) {
+
+		final CharSequence[] possibleEmails = getPossibleEmails(context);
 		
-		// isto não faz sentido  xD
-		// se não conseguir fazer login, como é que vou ás opçoes escolher a conta?
-		// tem que ser algo para escolher/escrever logo aqui
-		// Hélder
-		
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		String account = prefs.getString("accountchooser",null);
-		if (account == null) {
-			
-			AlertDialog.Builder builder = new AlertDialog.Builder(context);
-			builder.setMessage("Please choose an account to synchonize in the configurations!")
-			       .setCancelable(false)
-			       .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                dialog.cancel();
-			                
-			           }
-			       });
-			AlertDialog alert = builder.create();
-			alert.show();
-		}
+	    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+	    builder.setTitle("Account chooser");
+	    builder.setItems(possibleEmails, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int item) {
+	        	Toast.makeText(context, possibleEmails[item], Toast.LENGTH_SHORT).show();
+	        	//login
+	        }
+	    }).show();
+	
+	}
+	private static CharSequence[] getPossibleEmails(final Context context) {
+		AccountManager manager = AccountManager.get(context); 
+	    Account[] accounts = manager.getAccountsByType("com.google"); 
+	    CharSequence[] possibleEmails = new CharSequence[accounts.length];
+
+	    int i = 0;
+	    for (Account account : accounts) {
+	      // TODO: Check possibleEmail against an email regex or treat
+	      // account.name as an email address only for certain account.type values.
+	      possibleEmails[i] = account.name;
+	      i++;
+	    }
+		return possibleEmails;
 	}
 	
 
