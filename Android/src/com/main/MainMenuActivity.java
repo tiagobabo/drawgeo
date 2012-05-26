@@ -17,7 +17,7 @@ public class MainMenuActivity extends Activity {
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),
-						CanvasActivity.class);
+						MapsActivity.class);
 				startActivity(intent);
 			}
 		});

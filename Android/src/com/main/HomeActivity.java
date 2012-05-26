@@ -112,7 +112,7 @@ public class HomeActivity extends Activity{
 	
 	protected void goToMainMenu(View v) {
 		Intent intent = new Intent(v.getContext(),
-				MapsActivity.class);
+				MainMenuActivity.class);
 		startActivity(intent);
 		
 	}
