@@ -56,6 +56,15 @@ class PlayController < ApplicationController
 		end
 	end
 
-	
+	def getNewWords
+		@easy = Word.where("difficulty = ?", 1).sample
+		@medium = Word.where("difficulty = ?", 2).sample
+		@hard = Word.where("difficulty = ?", 3).sample
+
+		respond_to do |format|
+	      	format.json { render :json => {:status => "Ok", :easy => @easy, :medium => @medium, :hard => @hard }.to_json }
+	    end
+
+	end
 
 end
