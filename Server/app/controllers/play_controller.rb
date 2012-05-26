@@ -110,5 +110,20 @@ class PlayController < ApplicationController
 		end
 	end
 
-
+	def addNewDraw
+		@creator = User.find(params[:id_creator])
+		@word = Word.find(params[:word_id])
+		if(!@creator.nil? && !@word.nil?)
+			@new_draw = Draw.new(:id_creator => @creator.id, :word_id => @word.id, :latitude => params[:latitude], :longitude => params[:longitude], :draw => params[:draw], :challenge => params[:challenge], :description => params[:description], :password => params[:password]  )
+			if @new_draw.save
+				respond_to do |format|
+			      	format.json { render :json => {:status => "Draw added."}.to_json }
+			    end
+			end
+		else
+			respond_to do |format|
+		      	format.json { render :json => {:status => "User or word doesn't exist."}.to_json }
+		    end
+		end
+	end
 end
