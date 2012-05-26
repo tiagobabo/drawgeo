@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  resources :avatars
+
   resources :draw_users
 
   resources :words
@@ -19,6 +21,9 @@ Server::Application.routes.draw do
   get "play/guess"
   get "play/getUserByEmail"
   get "play/getNewWords"
+  get "play/changeAvatar"
+  get "play/addNewColor"
+  get "play/addNewDraw"
   root :to => 'home#index'
 
   # The priority is based upon order of creation:
