@@ -25,7 +25,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -79,18 +78,18 @@ public class FbDialog extends Dialog {
          * at this point, we only need to know its drawable width and height 
          * to place the webview
          */
-       // createCrossImage();
+        createCrossImage();
         
         /* Now we know 'x' drawable width and height, 
          * layout the webivew and add it the mContent layout
          */
-        //int crossWidth = mCrossImage.getDrawable().getIntrinsicWidth();
-       // setUpWebView(crossWidth / 2);
+        int crossWidth = mCrossImage.getDrawable().getIntrinsicWidth();
+        setUpWebView(crossWidth / 2);
         
         /* Finally add the 'x' image to the mContent layout and
          * add mContent to the Dialog view
          */
-        //mContent.addView(mCrossImage, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+        mContent.addView(mCrossImage, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         addContentView(mContent, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     }
     
