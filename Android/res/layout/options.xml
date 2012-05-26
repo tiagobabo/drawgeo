@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is a primitive example showing the different types of preferences available. -->
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="Options">
+
+        <CheckBoxPreference
+                android:key="soundOption"
+                android:title="@string/soundOption"
+                android:summary="@string/soundOptionSummary" />
+                
+         <CheckBoxPreference
+                android:key="notifiyOption"
+                android:title="@string/notifyOption"
+                android:summary="@string/notifyOptionSummary" />
+                
+		 <Preference 
+		 		android:key="feedbackOption" 
+		 		android:title="@string/feedbackOption" 
+		 		android:summary="@string/feedbackOptionSummary"/>
+		 		
+		<Preference 
+		 		android:key="logoutOption" 
+		 		android:title="@string/logoutOption" 
+		 		android:summary="@string/logoutOptionSummary"/>
+                
+
+    </PreferenceCategory>
+
+   
+
+</PreferenceScreen>

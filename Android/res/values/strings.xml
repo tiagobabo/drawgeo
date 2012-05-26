@@ -5,5 +5,18 @@
     <string name="app_name">Draw Geo</string>
     <string name="storeTitle">Store</string>
     <string name="piggies">120</string>
+    <string name="coinName">Piggies</string>
+    <string name="challenges_done">25</string>
+    <string name="challenges_created">10</string>
+    <string name="challenges_guessed">1</string>
+    <string name="user_name">User</string>
+    <string name="soundOption">Sound</string>
+    <string name="soundOptionSummary">Set to enable the app sound</string>
+    <string name="notifyOption">Notifications</string>
+    <string name="notifyOptionSummary">Set to enable notifications</string>
+    <string name="feedbackOption">Feedback</string>
+    <string name="feedbackOptionSummary">Give us some feedback </string>
+    <string name="logoutOption">Logout</string>
+    <string name="logoutOptionSummary">Click to logout of the application</string>
 
 </resources>
