@@ -50,9 +50,12 @@ class PlayController < ApplicationController
 		      	format.json { render :json => {:status => "Ok", :user => @user.first}.to_json }
 		    end
 		else
-			respond_to do |format|
-		      	format.json { render :json => {:status => "User not found."}.to_json }
-		    end
+			@user_new = User.new(:email => params[:email])
+			if @user_new.save
+				respond_to do |format|
+			      	format.json { render :json => {:status => "User created.", :user => @user_new}.to_json }
+			    end
+			end
 		end
 	end
 
