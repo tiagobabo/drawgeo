@@ -1,5 +1,12 @@
 package com.main;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -12,14 +19,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
+import com.facebook.android.Util;
 
 
 public class HomeActivity extends Activity{
 	
+	// objeto para a ligação com o Facebook
+	final Facebook facebook = new Facebook("374936152553880");
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,30 +40,54 @@ public class HomeActivity extends Activity{
 		final Button fButton = (Button) findViewById(R.id.loginFacebook);
 		fButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Facebook facebook = new Facebook("374936152553880");
-				facebook.authorize(HomeActivity.this, new DialogListener() {
+				// chamada à função de autenticação do facebook
+				facebook.authorize(HomeActivity.this, new String[] { "email" }, new DialogListener() {
 
 					public void onComplete(Bundle values) {
-						// TODO Auto-generated method stub
+						// depois de completar o login e a verificação das permissões da app, passamos a ter acesso à informação do jogador
+						// requisitamos os dados deste, para sabermos o seu e-mail
+						 new AsyncFacebookRunner(facebook).request("/me", 
+			                        new RequestListener () {
+			                   
+								public void onComplete(String response,
+										Object state) {
+									
+									// a string está no formato JSON
+									JSONObject obj;
+									try {
+										obj = Util.parseJson(response);
+										
+										// retiramos a informação que precisamos, neste caso, o email
+				                        final String name = obj.optString("email");
+				                        
+				                        HomeActivity.this.runOnUiThread(new Runnable() {
+				                        	  public void run() {
+				                        		  Toast.makeText(HomeActivity.this, name, Toast.LENGTH_SHORT).show();
+				                        	  }
+			                        	});
+									} catch (FacebookError e) {} 
+									catch (JSONException e) {}
+								}
+
+								public void onIOException(IOException e,
+										Object state) {}
+								public void onFileNotFoundException(
+										FileNotFoundException e, Object state) {}
+								public void onMalformedURLException(
+										MalformedURLException e, Object state) {}
+								public void onFacebookError(FacebookError e,
+										Object state) {}
+			                }, null);
 						
 					}
 
-					public void onFacebookError(FacebookError e) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					public void onError(DialogError e) {
-						// TODO Auto-generated method stub
-						
-					}
-
-					public void onCancel() {
-						// TODO Auto-generated method stub
-						
-					}
+					public void onFacebookError(FacebookError e) {}
+					public void onError(DialogError e) {}
+					public void onCancel() {}
 		           
 		        });
+				
+				
 				
 				//goToMainMenu(v);
 				
@@ -66,6 +102,14 @@ public class HomeActivity extends Activity{
 			}
 		});
 	}
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // depois do login, verifica as permissões da aplicação
+        facebook.authorizeCallback(requestCode, resultCode, data);
+    }
+	
 	protected void goToMainMenu(View v) {
 		Intent intent = new Intent(v.getContext(),
 				MapsActivity.class);

@@ -41,4 +41,33 @@ class PlayController < ApplicationController
 		    end
 		end
 	end
+
+	def getUserByEmail
+		@user = User.where("email = ?", params[:email])
+
+		if(!@user.nil? && !@user.empty?)
+			respond_to do |format|
+		      	format.json { render :json => {:status => "Ok", :user => @user.first}.to_json }
+		    end
+		else
+			@user_new = User.new(:email => params[:email])
+			if @user_new.save
+				respond_to do |format|
+			      	format.json { render :json => {:status => "User created.", :user => @user_new}.to_json }
+			    end
+			end
+		end
+	end
+
+	def getNewWords
+		@easy = Word.where("difficulty = ?", 1).sample
+		@medium = Word.where("difficulty = ?", 2).sample
+		@hard = Word.where("difficulty = ?", 3).sample
+
+		respond_to do |format|
+	      	format.json { render :json => {:status => "Ok", :easy => @easy, :medium => @medium, :hard => @hard }.to_json }
+	    end
+
+	end
+
 end
