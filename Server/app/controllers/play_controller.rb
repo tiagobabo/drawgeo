@@ -6,38 +6,43 @@ class PlayController < ApplicationController
 		@word = Word.find(@draw.word_id)
 		@author = User.find(@draw.id_creator)
 		@draw_user = DrawUser.where("id_draw = ? AND id_user= ?", params[:draw_id], params[:id])
+		if(!@player.nil? && !@player.empty?)
+			if(@draw_user.empty?)
+				if(@player.id != @author.id)
+					if(@guess == @word.word)
+						@draw_user = DrawUser.new(:id_draw => @draw.id, :id_user => @player.id)
+						if @draw_user.save
+							@player.update_attribute(:num_done, @player.num_done + 1)
+							@author.update_attribute(:num_success, @author.num_success + 1)
+							@player.update_attribute(:piggies, @player.piggies + (@word.difficulty * 2))
+							@author.update_attribute(:piggies, @author.piggies + (@word.difficulty))
+						end
 
-		if(@draw_user.empty?)
-			if(@player.id != @author.id)
-				if(@guess == @word.word)
-					@draw_user = DrawUser.new(:id_draw => @draw.id, :id_user => @player.id)
-					if @draw_user.save
-						@player.update_attribute(:num_done, @player.num_done + 1)
-						@author.update_attribute(:num_success, @author.num_success + 1)
-						@player.update_attribute(:piggies, @player.piggies + (@word.difficulty * 2))
-						@author.update_attribute(:piggies, @author.piggies + (@word.difficulty))
+						if(@draw.challenge)
+							@player.update_attribute(:piggies, @player.piggies + 1)
+							@author.update_attribute(:piggies, @author.piggies + 1)
+						end
+						respond_to do |format|
+					      format.json { render :json => {:status => "Ok", :word => @word}.to_json }
+					    end
+					else
+						respond_to do |format|
+					      format.json { render :json => {:status => "Incorrect guess."}.to_json }
+					    end
 					end
-
-					if(@draw.challenge)
-						@player.update_attribute(:piggies, @player.piggies + 1)
-						@author.update_attribute(:piggies, @author.piggies + 1)
-					end
-					respond_to do |format|
-				      format.json { render :json => {:status => "Ok", :word => @word}.to_json }
-				    end
 				else
 					respond_to do |format|
-				      format.json { render :json => {:status => "Incorrect guess."}.to_json }
+				      format.json { render :json => {:status => "You can't guess your own word."}.to_json }
 				    end
 				end
 			else
 				respond_to do |format|
-			      format.json { render :json => {:status => "You can't guess your own word."}.to_json }
+			      format.json { render :json => {:status => "Draw already guessed."}.to_json }
 			    end
 			end
 		else
 			respond_to do |format|
-		      format.json { render :json => {:status => "Draw already guessed."}.to_json }
+		      format.json { render :json => {:status => "User doesn't exist."}.to_json }
 		    end
 		end
 	end
@@ -47,13 +52,13 @@ class PlayController < ApplicationController
 
 		if(!@user.nil? && !@user.empty?)
 			respond_to do |format|
-		      	format.json { render :json => {:status => "Ok", :user => @user.first}.to_json }
+		      	format.json { render :json => {:status => "Ok", :user => @user.first, :avatar => Avatar.find(@user.first.id_avatar)}.to_json }
 		    end
 		else
 			@user_new = User.new(:email => params[:email])
 			if @user_new.save
 				respond_to do |format|
-			      	format.json { render :json => {:status => "User created.", :user => @user_new}.to_json }
+			      	format.json { render :json => {:status => "User created.", :user => @user_new, :avatar => Avatar.find(@user_new.id_avatar)}.to_json }
 			    end
 			end
 		end
@@ -67,7 +72,28 @@ class PlayController < ApplicationController
 		respond_to do |format|
 	      	format.json { render :json => {:status => "Ok", :easy => @easy, :medium => @medium, :hard => @hard }.to_json }
 	    end
-
 	end
+
+	def changeAvatar
+		@player = User.find(params[:id])
+		@avatar = Avatar.find(params[:id_avatar])
+		if(!player.nil? && !player.empty?)
+			if(!avatar.nil? && !avatar.empty?)
+				@player.update_attribute(:id_avatar, @avatar.id)
+				respond_to do |format|
+			      	format.json { render :json => {:status => "Avatar changed."}.to_json }
+			    end
+			else
+				respond_to do |format|
+			      	format.json { render :json => {:status => "Avatar doesn't exist."}.to_json }
+			    end
+			end
+		else
+			respond_to do |format|
+		      	format.json { render :json => {:status => "User doesn't exist."}.to_json }
+		    end	
+		end
+	end
+
 
 end
