@@ -1,4 +1,8 @@
-package com.main;
+package pt.drawgeo.main;
+
+import pt.drawgeo.map.MapsActivity;
+
+import com.main.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,4 +1,6 @@
-package com.main;
+package pt.drawgeo.main;
+
+import com.main.R;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

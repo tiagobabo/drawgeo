@@ -1,6 +1,8 @@
-package com.main;
+package pt.drawgeo.main;
 
 import java.util.ArrayList;
+
+import com.main.R;
 
 import android.app.Activity;
 import android.content.Intent;
