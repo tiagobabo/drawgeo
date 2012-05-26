@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
   <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
   <script type="text/javascript" src="/javascripts/smooth-scroll.min.js"></script>
   <script type="text/javascript">
@@ -12,6 +13,14 @@
       $('a').smoothScroll();
     });
   </script>
+
+  <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+  <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 </head>
 <body>
 <%= yield %>

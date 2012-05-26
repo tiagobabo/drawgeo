@@ -34,7 +34,10 @@
 <% end %>
 </table>
 
-<div> Draws near Porto (300km radius) </div>
+<div>See drawings on a map: </div>
+<a id="gm" href=<%= see_map_path %>><img src='/gm-icon.png' style="height:50px; width:auto;"/></a>
+
+<div class="title"> Draws near Porto (300km radius) </div>
 <table>
 <% @nearbys.each do |near| %>
   <tr>
@@ -54,3 +57,5 @@
 <br />
 
 <%= link_to 'New Draw', new_draw_path %>
+
+

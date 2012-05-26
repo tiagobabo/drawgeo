@@ -24,6 +24,8 @@ Server::Application.routes.draw do
   get "play/changeAvatar"
   get "play/addNewColor"
   get "play/addNewDraw"
+
+  get "home/map" => "home#map", :as => "see_map"
   root :to => 'home#index'
 
   # The priority is based upon order of creation:
