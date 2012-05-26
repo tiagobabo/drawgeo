@@ -67,6 +67,12 @@ public class HomeActivity extends Activity{
 		
 	}
 	public static void emailLogin(Context context) {
+		
+		// isto não faz sentido  xD
+		// se não conseguir fazer login, como é que vou ás opçoes escolher a conta?
+		// tem que ser algo para escolher/escrever logo aqui
+		// Hélder
+		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		String account = prefs.getString("accountchooser",null);
 		if (account == null) {
