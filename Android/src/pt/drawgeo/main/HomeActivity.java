@@ -1,4 +1,4 @@
-package com.main;
+package pt.drawgeo.main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,6 +26,7 @@ import com.facebook.android.Facebook;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
+import com.main.R;
 
 
 public class HomeActivity extends Activity{

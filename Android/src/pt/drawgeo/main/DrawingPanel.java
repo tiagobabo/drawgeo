@@ -1,4 +1,4 @@
-package com.main;
+package pt.drawgeo.main;
 
 import java.util.ArrayList;
 
@@ -185,7 +185,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 
 	public void eraseMode() {
 		
-		// definições para o efeito de apagar
+		// defini?ões para o efeito de apagar
 		currentColor = Color.WHITE;
 		strokeWidth = erasestrokewidth;
 
@@ -195,7 +195,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 
 	public void changeColor(int color) {
 		
-		// definições para a cor atual
+		// defini?ões para a cor atual
 		currentColor = color;
 		strokeWidth = defaultstrokewidth;
 
@@ -203,7 +203,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		createPaint();
 	}
 	
-	// função que mostra o replay de jogo
+	// fun?ão que mostra o replay de jogo
 	public void replay() {
 		toReplay = false;
 		
@@ -213,7 +213,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		// define a cor desse ponto incial
 		mPaint.setColor(colors.get(0));
 		
-		// thread que vai desenhar tudo, com um dado delay entre operações
+		// thread que vai desenhar tudo, com um dado delay entre opera?ões
 		new Thread(new Runnable() {
 			public void run() {
 				for (int i = 1; i < xs.size(); i++) {
