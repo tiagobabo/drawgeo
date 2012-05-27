@@ -16,7 +16,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.android.AsyncFacebookRunner;
@@ -38,7 +38,7 @@ public class HomeActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		
-		final Button fButton = (Button) findViewById(R.id.loginFacebook);
+		final ImageView fButton = (ImageView) findViewById(R.id.loginFacebook);
 		fButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				// chamada à função de autenticação do facebook
@@ -94,7 +94,7 @@ public class HomeActivity extends Activity{
 				
 			}
 		});
-		final Button eButton = (Button) findViewById(R.id.loginEmail);
+		final ImageView eButton = (ImageView) findViewById(R.id.loginEmail);
 		eButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				//emailLogin(HomeActivity.this);
