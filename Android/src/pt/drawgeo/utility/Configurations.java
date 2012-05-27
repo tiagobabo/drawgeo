@@ -1,5 +1,7 @@
 package pt.drawgeo.utility;
 
+import android.graphics.Bitmap;
+
 public class Configurations {
 
 	final public static float AVALIABLE_RADIUS = 100;
@@ -20,4 +22,6 @@ public class Configurations {
 	public static int num_success;
 	public static int piggies;
 	public static String avatarURL;
+	public static String name;
+	public static Bitmap avatarImage;
 }

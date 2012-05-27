@@ -1,6 +1,7 @@
 package pt.drawgeo.main;
 
 import pt.drawgeo.map.MapsActivity;
+import pt.drawgeo.utility.Configurations;
 
 import com.main.R;
 
@@ -12,8 +13,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainMenuActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,21 @@ public class MainMenuActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		 
 		setContentView(R.layout.mainmenu);
+		
+		final TextView challengesdone = (TextView) findViewById(R.id.challengesdonetext);
+		challengesdone.setText(Configurations.num_done+"");
+		
+		final TextView guessedyours = (TextView) findViewById(R.id.guessedyourstext);
+		guessedyours.setText(Configurations.num_success+"");
+		
+		final TextView piggies = (TextView) findViewById(R.id.piggiestext);
+		piggies.setText(Configurations.piggies+"");
+		
+		final TextView name = (TextView) findViewById(R.id.name);
+		name.setText(Configurations.name+"");
+		
+		final ImageView avatar = (ImageView) findViewById(R.id.avatar);
+		avatar.setImageBitmap(Configurations.avatarImage);
 		
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {

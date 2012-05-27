@@ -1,14 +1,19 @@
 package pt.drawgeo.main;
 
+import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
+import pt.drawgeo.utility.MD5Util;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -17,6 +22,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,8 +31,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -40,6 +45,7 @@ public class HomeActivity extends Activity{
 	
 	// objeto para a ligação com o Facebook
 	final Facebook facebook = new Facebook("374936152553880");
+	Boolean loginFacebook = false;
 	
 	// ecrã de loading para o pedido da informação do utilizador
 	ProgressDialog dialog;
@@ -76,12 +82,15 @@ public class HomeActivity extends Activity{
 										
 										// retiramos a informação que precisamos, neste caso, o email
 				                        final String email = obj.optString("email");
+				                        final String id = obj.optString("id");
 				                        
 				                        HomeActivity.this.runOnUiThread(new Runnable() {
 				                        	  public void run() {
+				                        		  loginFacebook = true;
 				                        		  dialog = ProgressDialog.show(HomeActivity.this, "", 
 							                                "Retreiving information...", true);
-				                        		  new DownloadFilesTask().execute(email);
+				                        		  
+				                        		  new DownloadFilesTask().execute(email, id);
 				                        	  }
 			                        	});
 				                        
@@ -173,12 +182,12 @@ public class HomeActivity extends Activity{
 	private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
 
 		@Override
-		protected Long doInBackground(String... email) {
+		protected Long doInBackground(String... userInfo) {
 			Uri uri = new Uri.Builder()
             .scheme(Configurations.SCHEME)
             .authority(Configurations.AUTHORITY)
             .path(Configurations.CHECKUSER)
-            .appendQueryParameter("email", email[0])              
+            .appendQueryParameter("email", userInfo[0])              
             .appendQueryParameter("format", Configurations.FORMAT)
             .build();
         	
@@ -190,13 +199,40 @@ public class HomeActivity extends Activity{
 				if(status.equals("Ok")) {
 					JSONObject user = info.getJSONObject("user"); 
 					Configurations.email = user.getString("email");
+					Configurations.name = user.getString("name");
 					Configurations.id = user.getInt("id");
 					Configurations.keys = user.getInt("keys");
 					Configurations.num_done = user.getInt("num_done");
 					Configurations.num_success = user.getInt("num_success");
 					Configurations.piggies = user.getInt("piggies");
-					JSONObject avatar = info.getJSONObject("avatar"); 
-					Configurations.avatarURL = avatar.getString("url");
+					//JSONObject avatar = info.getJSONObject("avatar"); 
+					//Configurations.avatarURL = avatar.getString("url");
+					
+					if(loginFacebook)
+						Configurations.avatarURL = "https://graph.facebook.com/" + userInfo[1] + "/picture";
+					else
+						Configurations.avatarURL = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(Configurations.email) + "?s=100&d=identicon&r=PG";
+					
+					URL connectURL = new URL(Configurations.avatarURL);
+					HttpURLConnection conn = (HttpURLConnection)connectURL.openConnection(); 
+
+					// do some setup
+					conn.setDoInput(true); 
+					conn.setDoOutput(true); 
+					conn.setUseCaches(false); 
+					conn.setRequestMethod("GET"); 
+
+					// connect and flush the request out
+					//conn.connect();
+					
+					InputStream is = conn.getInputStream();
+					BufferedInputStream bis = new BufferedInputStream(is, 8 * 1024);
+					Bitmap bmp = BitmapFactory.decodeStream(bis);
+					bis.close();
+					is.close(); 
+					
+					Configurations.avatarImage = bmp;
+
 				}
 		}
 	    catch (Exception e) {}
