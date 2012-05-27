@@ -76,12 +76,15 @@ public class HomeActivity extends Activity{
 										
 										// retiramos a informação que precisamos, neste caso, o email
 				                        final String email = obj.optString("email");
-
-				                        dialog = ProgressDialog.show(HomeActivity.this, "", 
-				                                "Retreiving information...", true);
-				        	        
-				        	        	new DownloadFilesTask().execute(email);
-				        	        	
+				                        
+				                        HomeActivity.this.runOnUiThread(new Runnable() {
+				                        	  public void run() {
+				                        		  dialog = ProgressDialog.show(HomeActivity.this, "", 
+							                                "Retreiving information...", true);
+				                        		  new DownloadFilesTask().execute(email);
+				                        	  }
+			                        	});
+				                        
 									} catch (FacebookError e) {} 
 									catch (JSONException e) {}
 								}
