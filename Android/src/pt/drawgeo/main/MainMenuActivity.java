@@ -10,11 +10,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 public class MainMenuActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		// Modo fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+		 
 		setContentView(R.layout.mainmenu);
 		
 		final Button pButton = (Button) findViewById(R.id.btnPlay);
@@ -65,5 +73,5 @@ public class MainMenuActivity extends Activity {
 			}
 					).show();
 	}
-
+	
 }

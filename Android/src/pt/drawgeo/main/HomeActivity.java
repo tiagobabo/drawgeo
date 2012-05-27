@@ -43,7 +43,7 @@ public class HomeActivity extends Activity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        
+
 		setContentView(R.layout.home);
 
 		final ImageView fButton = (ImageView) findViewById(R.id.loginFacebook);
@@ -117,15 +117,20 @@ public class HomeActivity extends Activity{
         super.onActivityResult(requestCode, resultCode, data);
         // depois do login, verifica as permissões da aplicação
         facebook.authorizeCallback(requestCode, resultCode, data);
+        this.overridePendingTransition(R.anim.animation_enter2,
+                R.anim.animation_leave2);
     }
+	
+
 	
 	protected void goToMainMenu(View v) {
 		Intent intent = new Intent(v.getContext(),
 				MainMenuActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, 500);
 		
+		this.overridePendingTransition(R.anim.animation_enter,
+                R.anim.animation_leave);
 	}
-	
 	
 	
 	public static void emailLogin(final Context context) {
