@@ -58,27 +58,23 @@ public class MapsActivity extends MapActivity
             	List<Overlay> mapOverlays = mapView.getOverlays();
             	
             	// a minha posição
-            	Drawable drawable = MapsActivity.this.getResources().getDrawable(R.drawable.myposition);
-            	MapChallenge itemizedoverlay = new MapChallenge(drawable, MapsActivity.this);
-            	
             	GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
-            	OverlayItem overlayitem = new OverlayItem(point, "Hola, Mundo!", "I'm here!");
 
-            	itemizedoverlay.addOverlay(overlayitem);
-            	mapOverlays.add(itemizedoverlay);
+            	MapCircleOverlay avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255);
+            	mapOverlays.add(avaliable);
             	
-            	MapCircleOverlay radiusOverlay = new MapCircleOverlay(point);
-            	mapOverlays.add(radiusOverlay);
+            	MapCircleOverlay me = new MapCircleOverlay(point, 5,255,0,0);
+            	mapOverlays.add(me);
             	
         		// desenhos perto de mim
             	Uri uri = new Uri.Builder()
-                .scheme("http")
-                .authority("drawgeo.herokuapp.com")
-                .path("radius/getByCoordinates")
+                .scheme(Configurations.SCHEME)
+                .authority(Configurations.AUTHORITY)
+                .path(Configurations.GETBYCOORDINATES)
                 .appendQueryParameter("lat", location.getLatitude()+"")
                 .appendQueryParameter("long", location.getLongitude()+"")
                 .appendQueryParameter("radius", Configurations.SEARCH_RADIUS + "")
-                .appendQueryParameter("format", "json")
+                .appendQueryParameter("format", Configurations.FORMAT)
                 .build();
             	
             	// são representados os desafios próximos de mim

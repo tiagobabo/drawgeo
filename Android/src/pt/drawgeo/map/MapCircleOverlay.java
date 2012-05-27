@@ -1,6 +1,5 @@
 package pt.drawgeo.map;
 
-import pt.drawgeo.utility.Configurations;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -13,20 +12,22 @@ public class MapCircleOverlay extends Overlay {
 
 private GeoPoint point;
 private Paint paint1, paint2;
+private float radius;
 
-public MapCircleOverlay(GeoPoint point) {
+public MapCircleOverlay(GeoPoint point, float radius, int r, int g, int b) {
     this.point = point;
-
+    this.radius = radius;
+    
     paint1 = new Paint();
-    paint1.setARGB(128, 0, 0, 255);
+    paint1.setARGB(128, r, g, b);
     paint1.setStrokeWidth(2);
     paint1.setStrokeCap(Paint.Cap.ROUND);
     paint1.setAntiAlias(true);
     paint1.setDither(false);
     paint1.setStyle(Paint.Style.STROKE);
-
+    
     paint2 = new Paint();
-    paint2.setARGB(64, 0, 0, 255);  
+    paint2.setARGB(64, r, g, b);  
 
 }
 
@@ -34,7 +35,7 @@ public MapCircleOverlay(GeoPoint point) {
 public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 
     Point pt = mapView.getProjection().toPixels(point, null);
-    float radius = mapView.getProjection().metersToEquatorPixels(Configurations.AVALIABLE_RADIUS);
+    float radius = mapView.getProjection().metersToEquatorPixels(this.radius);
     
     // para não desaparecer totalmente o círculo, pode-se limitr o raio
    /* if(radius < canvas.getHeight()/25){
