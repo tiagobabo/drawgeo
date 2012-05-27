@@ -69,7 +69,7 @@ public class MapsActivity extends MapActivity
             	itemizedoverlay.addOverlay(overlayitem);
             	mapOverlays.add(itemizedoverlay);
             	
-            	RadiusOverlay radiusOverlay = new RadiusOverlay(MapsActivity.this, location.getLatitude(), location.getLongitude(), Configurations.AVALIABLE_RADIUS);
+            	MapCircleOverlay radiusOverlay = new MapCircleOverlay(point);
             	mapOverlays.add(radiusOverlay);
             	
         		// desenhos perto de mim
