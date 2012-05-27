@@ -7,16 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background" >
-
-       
-        <ImageView
-            android:id="@+id/loginFacebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/loginEmail"
-            android:layout_alignLeft="@+id/loginEmail"
-            android:layout_marginBottom="30dp"
-            android:src="@drawable/facebook" />
         
          <ImageView
             android:id="@+id/loginEmail"
@@ -26,7 +16,15 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="213dp"
             android:src="@drawable/google" />
-        
+
+         <ImageView
+             android:id="@+id/loginFacebook"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_above="@+id/loginEmail"
+             android:layout_alignLeft="@+id/loginEmail"
+             android:layout_marginBottom="15dp"
+             android:src="@drawable/facebook" />
 
     </RelativeLayout>
 
