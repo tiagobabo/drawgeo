@@ -1,10 +1,8 @@
 package pt.drawgeo.map;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.drawgeo.utility.Configurations;
@@ -16,13 +14,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.facebook.android.FacebookError;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -49,7 +48,6 @@ public class MapsActivity extends MapActivity
         		startActivity(intent);
         	}
         
-       
         // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
@@ -73,7 +71,6 @@ public class MapsActivity extends MapActivity
             	mapOverlays.add(radiusOverlay);
             	
         		// desenhos perto de mim
-            	
             	Uri uri = new Uri.Builder()
                 .scheme("http")
                 .authority("drawgeo.herokuapp.com")
@@ -83,7 +80,8 @@ public class MapsActivity extends MapActivity
                 .appendQueryParameter("radius", Configurations.SEARCH_RADIUS + "")
                 .appendQueryParameter("format", "json")
                 .build();
-
+            	
+            	// são representados os desafios próximos de mim
             	String response = null;
             	try {
 					response = Connection.getJSONLine(uri);
@@ -99,19 +97,7 @@ public class MapsActivity extends MapActivity
 		            	mapOverlays.add(itemizedoverlay2);
 					}
 
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (FacebookError e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				} catch (Exception e) {} 
             	
             }
 
@@ -122,7 +108,7 @@ public class MapsActivity extends MapActivity
             public void onProviderDisabled(String provider) {}
           };
 
-        // Register the listener with the Location Manager to receive location updates
+        // regista o listener para as mudanças de localização
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         
         getMockLocation();
@@ -134,6 +120,7 @@ public class MapsActivity extends MapActivity
         return false;
     }
     
+    // cria uma localização fictícia
     private void getMockLocation()
     {
     	try{
@@ -184,7 +171,25 @@ public class MapsActivity extends MapActivity
           newLocation
         );      
     }
-
     
+    // menu de contexto com as opções para criar novos desafios
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.mapmenu, menu);
+    	return true;
+    }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+    	case R.id.newdraw:
+    		//TODO
+    		break;
+    	case R.id.newchallenge:
+    		//TODO
+    		break;
+    	}
+    	return true;
+    }
 }
