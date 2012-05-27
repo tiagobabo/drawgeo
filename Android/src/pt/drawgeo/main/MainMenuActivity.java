@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class MainMenuActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class MainMenuActivity extends Activity {
 		 
 		setContentView(R.layout.mainmenu);
 		
-		final Button pButton = (Button) findViewById(R.id.btnPlay);
+		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),
@@ -33,7 +34,7 @@ public class MainMenuActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-		final Button sButton = (Button) findViewById(R.id.btnStore);
+		final ImageView sButton = (ImageView) findViewById(R.id.btnStore);
 		sButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),
@@ -42,13 +43,13 @@ public class MainMenuActivity extends Activity {
 			}
 		});
 		
-		final Button aButton = (Button) findViewById(R.id.btnAbout);
+		final ImageView aButton = (ImageView) findViewById(R.id.btnAbout);
 		aButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				showAbout();
 			}
 		});
-		final Button oButton = (Button) findViewById(R.id.btnOptions);
+		final ImageView oButton = (ImageView) findViewById(R.id.btnOptions);
 		oButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),

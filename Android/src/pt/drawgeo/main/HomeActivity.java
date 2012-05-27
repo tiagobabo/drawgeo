@@ -197,7 +197,6 @@ public class HomeActivity extends Activity{
 					Configurations.piggies = user.getInt("piggies");
 					JSONObject avatar = info.getJSONObject("avatar"); 
 					Configurations.avatarURL = avatar.getString("url");
-					goToMainMenu();
 				}
 		}
 	    catch (Exception e) {}
@@ -206,11 +205,9 @@ public class HomeActivity extends Activity{
 		
 		protected void onPostExecute(Long result) {
           		dialog.dismiss();
+          		goToMainMenu();
 	     }
-
-		
 	}
 
-	
 
 }
