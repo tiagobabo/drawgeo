@@ -7,13 +7,18 @@ import java.net.MalformedURLException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.Connection;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -35,6 +40,9 @@ public class HomeActivity extends Activity{
 	
 	// objeto para a ligação com o Facebook
 	final Facebook facebook = new Facebook("374936152553880");
+	
+	// ecrã de loading para o pedido da informação do utilizador
+	ProgressDialog dialog;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,13 +75,13 @@ public class HomeActivity extends Activity{
 										obj = Util.parseJson(response);
 										
 										// retiramos a informação que precisamos, neste caso, o email
-				                        final String name = obj.optString("email");
-				                        
-				                        HomeActivity.this.runOnUiThread(new Runnable() {
-				                        	  public void run() {
-				                        		  Toast.makeText(HomeActivity.this, name, Toast.LENGTH_SHORT).show();
-				                        	  }
-			                        	});
+				                        final String email = obj.optString("email");
+
+				                        dialog = ProgressDialog.show(HomeActivity.this, "", 
+				                                "Retreiving information...", true);
+				        	        
+				        	        	new DownloadFilesTask().execute(email);
+				        	        	
 									} catch (FacebookError e) {} 
 									catch (JSONException e) {}
 								}
@@ -95,19 +103,14 @@ public class HomeActivity extends Activity{
 					public void onCancel() {}
 		           
 		        });
-				
-				
-				
+								
 				//goToMainMenu(v);
-				
 			}
 		});
 		final ImageView eButton = (ImageView) findViewById(R.id.loginEmail);
 		eButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				//emailLogin(HomeActivity.this);
-				goToMainMenu(v);
-				
+				emailLogin();
 			}
 		});
 	}
@@ -123,8 +126,8 @@ public class HomeActivity extends Activity{
 	
 
 	
-	protected void goToMainMenu(View v) {
-		Intent intent = new Intent(v.getContext(),
+	protected void goToMainMenu() {
+		Intent intent = new Intent(this,
 				MainMenuActivity.class);
 		startActivityForResult(intent, 500);
 		
@@ -133,20 +136,24 @@ public class HomeActivity extends Activity{
 	}
 	
 	
-	public static void emailLogin(final Context context) {
+	public void emailLogin() {
 
-		final CharSequence[] possibleEmails = getPossibleEmails(context);
+		final CharSequence[] possibleEmails = getPossibleEmails(HomeActivity.this);
 		
-	    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+	    AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 	    builder.setTitle("Account chooser");
 	    builder.setItems(possibleEmails, new DialogInterface.OnClickListener() {
-	        public void onClick(DialogInterface dialog, int item) {
-	        	Toast.makeText(context, possibleEmails[item], Toast.LENGTH_SHORT).show();
-	        	//login
+	        public void onClick(DialogInterface d, int email) {
+	        	
+	        	dialog = ProgressDialog.show(HomeActivity.this, "", 
+                        "Retreiving information...", true);
+	        
+	        	new DownloadFilesTask().execute(possibleEmails[email].toString());
 	        }
 	    }).show();
 	
 	}
+	
 	private static CharSequence[] getPossibleEmails(final Context context) {
 		AccountManager manager = AccountManager.get(context); 
 	    Account[] accounts = manager.getAccountsByType("com.google"); 
@@ -159,6 +166,48 @@ public class HomeActivity extends Activity{
 	    }
 		return possibleEmails;
 	}
+	
+	private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
+
+		@Override
+		protected Long doInBackground(String... email) {
+			Uri uri = new Uri.Builder()
+            .scheme(Configurations.SCHEME)
+            .authority(Configurations.AUTHORITY)
+            .path(Configurations.CHECKUSER)
+            .appendQueryParameter("email", email[0])              
+            .appendQueryParameter("format", Configurations.FORMAT)
+            .build();
+        	
+        	String response = null;
+        	try {
+				response = Connection.getJSONLine(uri);
+				JSONObject info = new JSONObject(response);
+				String status = info.getString("status");
+				if(status.equals("Ok")) {
+					JSONObject user = info.getJSONObject("user"); 
+					Configurations.email = user.getString("email");
+					Configurations.id = user.getInt("id");
+					Configurations.keys = user.getInt("keys");
+					Configurations.num_done = user.getInt("num_done");
+					Configurations.num_success = user.getInt("num_success");
+					Configurations.piggies = user.getInt("piggies");
+					JSONObject avatar = info.getJSONObject("avatar"); 
+					Configurations.avatarURL = avatar.getString("url");
+					goToMainMenu();
+				}
+		}
+	    catch (Exception e) {}
+			return null;
+		}
+		
+		protected void onPostExecute(Long result) {
+          		dialog.dismiss();
+	     }
+
+		
+	}
+
 	
 
 }

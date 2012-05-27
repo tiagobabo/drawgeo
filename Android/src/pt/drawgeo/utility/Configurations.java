@@ -8,7 +8,16 @@ public class Configurations {
 	final public static String SCHEME = "http";
 	final public static String FORMAT = "json";
 					
-	//METODOS
+	// MÉTODOS
 	final public static String GETBYCOORDINATES = "radius/getByCoordinates";
-
+	final public static String CHECKUSER = "/play/getUserByEmail";
+	
+	// DADOS DO UTILIZADOR
+	public static String email;
+	public static int id;
+	public static int keys;
+	public static int num_done;
+	public static int num_success;
+	public static int piggies;
+	public static String avatarURL;
 }
