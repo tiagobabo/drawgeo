@@ -60,10 +60,10 @@ public class MapsActivity extends MapActivity
             	// a minha posição
             	GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
 
-            	MapCircleOverlay avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255);
+            	MapCircleOverlay avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255, 32);
             	mapOverlays.add(avaliable);
             	
-            	MapCircleOverlay me = new MapCircleOverlay(point, 5,255,0,0);
+            	MapCircleOverlay me = new MapCircleOverlay(point, 3,255,0,0, 255);
             	mapOverlays.add(me);
             	
         		// desenhos perto de mim

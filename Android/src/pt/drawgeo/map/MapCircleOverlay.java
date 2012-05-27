@@ -14,7 +14,7 @@ private GeoPoint point;
 private Paint paint1, paint2;
 private float radius;
 
-public MapCircleOverlay(GeoPoint point, float radius, int r, int g, int b) {
+public MapCircleOverlay(GeoPoint point, float radius, int r, int g, int b, int a) {
     this.point = point;
     this.radius = radius;
     
@@ -27,7 +27,7 @@ public MapCircleOverlay(GeoPoint point, float radius, int r, int g, int b) {
     paint1.setStyle(Paint.Style.STROKE);
     
     paint2 = new Paint();
-    paint2.setARGB(64, r, g, b);  
+    paint2.setARGB(a, r, g, b);  
 
 }
 
