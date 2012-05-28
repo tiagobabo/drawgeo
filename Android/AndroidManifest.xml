@@ -15,8 +15,13 @@
         
         <uses-library android:name="com.google.android.maps" />
         <activity
-            android:name="pt.drawgeo.main.CanvasActivity"
+            android:name="pt.drawgeo.canvas.CanvasActivity"
             android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="pt.drawgeo.canvas.ReplayCanvasActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="pt.drawgeo.main.HomeActivity"
@@ -47,5 +52,6 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        
     </application>
 </manifest>
