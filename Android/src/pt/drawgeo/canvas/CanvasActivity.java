@@ -1,6 +1,8 @@
-package pt.drawgeo.main;
+package pt.drawgeo.canvas;
 
 import java.util.ArrayList;
+
+import pt.drawgeo.main.Store;
 
 import com.main.R;
 
@@ -30,7 +32,7 @@ public class CanvasActivity extends Activity {
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.main);
+        setContentView(R.layout.drawcanvas);
         
         // layout que vai conter o canvas
         LinearLayout canvas = (LinearLayout) findViewById(R.id.canvas);
@@ -43,7 +45,8 @@ public class CanvasActivity extends Activity {
         final ImageView done = (ImageView) findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	drawView.replay();
+            	//drawView.replay();
+            	drawView.save();
             }
         }); 
         

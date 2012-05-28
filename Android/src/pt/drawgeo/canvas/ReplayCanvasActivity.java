@@ -1,17 +1,16 @@
-package pt.drawgeo.main;
-
-import pt.drawgeo.utility.Configurations;
-
-import com.main.R;
+package pt.drawgeo.canvas;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-public class Store extends Activity{
+import com.main.R;
+
+public class ReplayCanvasActivity extends Activity {
 	
+	private  DrawingPanel drawView; 
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,10 +21,16 @@ public class Store extends Activity{
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        setContentView(R.layout.store);
+        setContentView(R.layout.replaycanvas);
         
-        final TextView piggies = (TextView) findViewById(R.id.piggiestext);
-		piggies.setText(Configurations.piggies+"");
+        // layout que vai conter o canvas
+        LinearLayout canvas = (LinearLayout) findViewById(R.id.canvas);
+        
+        // criação de um novo canvas
+        drawView = new DrawingPanel(this);
+        canvas.addView(drawView);
+        
+        drawView.replay();
     }
-
+    
 }

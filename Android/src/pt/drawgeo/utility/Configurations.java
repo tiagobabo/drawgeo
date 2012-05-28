@@ -13,6 +13,8 @@ public class Configurations {
 	// MÉTODOS
 	final public static String GETBYCOORDINATES = "radius/getByCoordinates";
 	final public static String CHECKUSER = "/play/getUserByEmail";
+	final public static String ADDCHALLENGE = "/play/addNewDraw";
+	final public static String GETDRAW ="draws";
 	
 	// DADOS DO UTILIZADOR
 	public static String email;
@@ -24,4 +26,8 @@ public class Configurations {
 	public static String avatarURL;
 	public static String name;
 	public static Bitmap avatarImage;
+	public static double latitude = 41.3;
+	public static double longitude = -8.6366445;
+	public static String drawidreplay;
+	public static int num_created;
 }

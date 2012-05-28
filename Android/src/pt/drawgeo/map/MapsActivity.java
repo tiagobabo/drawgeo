@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import pt.drawgeo.canvas.CanvasActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import android.content.Context;
@@ -20,6 +21,8 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -38,6 +41,12 @@ public class MapsActivity extends MapActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        
+        // Modo fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
         setContentView(R.layout.map);
         
         // Acquire a reference to the system Location Manager
@@ -88,8 +97,9 @@ public class MapsActivity extends MapActivity
 					for(int i = 0; i < info.length(); i++) {
 						JSONObject o = info.getJSONObject(i);
 		            	GeoPoint point2 = new GeoPoint((int)(o.getDouble("latitude") * 1E6),((int)(o.getDouble("longitude") * 1E6)));
-		            	OverlayItem overlayitem2 = new OverlayItem(point2, o.getString("draw"), o.getString("description"));
+		            	OverlayItem overlayitem2 = new OverlayItem(point2, "Draw", o.getString("description"));
 		            	itemizedoverlay2.addOverlay(overlayitem2);
+		            	itemizedoverlay2.addItem(o.getString("id"));
 		            	mapOverlays.add(itemizedoverlay2);
 					}
 
@@ -180,7 +190,11 @@ public class MapsActivity extends MapActivity
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
     	case R.id.newdraw:
-    		//TODO
+    	{
+    		Intent intent = new Intent(this,
+    				CanvasActivity.class);
+    				startActivity(intent);
+    	}
     		break;
     	case R.id.newchallenge:
     		//TODO

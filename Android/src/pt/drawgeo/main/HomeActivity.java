@@ -31,6 +31,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -83,6 +85,7 @@ public class HomeActivity extends Activity{
 										// retiramos a informação que precisamos, neste caso, o email
 				                        final String email = obj.optString("email");
 				                        final String id = obj.optString("id");
+				                        final String name = obj.optString("name");
 				                        
 				                        HomeActivity.this.runOnUiThread(new Runnable() {
 				                        	  public void run() {
@@ -90,7 +93,7 @@ public class HomeActivity extends Activity{
 				                        		  dialog = ProgressDialog.show(HomeActivity.this, "", 
 							                                "Retreiving information...", true);
 				                        		  
-				                        		  new DownloadFilesTask().execute(email, id);
+				                        		  new DownloadFilesTask().execute(email, id, name);
 				                        	  }
 			                        	});
 				                        
@@ -141,7 +144,7 @@ public class HomeActivity extends Activity{
 	protected void goToMainMenu() {
 		Intent intent = new Intent(this,
 				MainMenuActivity.class);
-		startActivityForResult(intent, 500);
+		startActivityForResult(intent, 100);
 		
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);
@@ -204,12 +207,16 @@ public class HomeActivity extends Activity{
 					Configurations.keys = user.getInt("keys");
 					Configurations.num_done = user.getInt("num_done");
 					Configurations.num_success = user.getInt("num_success");
+					Configurations.num_created = info.getInt("created");
 					Configurations.piggies = user.getInt("piggies");
 					//JSONObject avatar = info.getJSONObject("avatar"); 
 					//Configurations.avatarURL = avatar.getString("url");
 					
-					if(loginFacebook)
+					if(loginFacebook) {
 						Configurations.avatarURL = "https://graph.facebook.com/" + userInfo[1] + "/picture";
+						Configurations.name = userInfo[2];
+						loginFacebook = false;
+					}
 					else
 						Configurations.avatarURL = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(Configurations.email) + "?s=100&d=identicon&r=PG";
 					
@@ -235,13 +242,22 @@ public class HomeActivity extends Activity{
 
 				}
 		}
-	    catch (Exception e) {}
+	    catch (Exception e) {
+	    	HomeActivity.this.runOnUiThread(new Runnable() {
+          	  public void run() {
+          		Toast.makeText(HomeActivity.this.getApplicationContext(), "Something went wrong. Try again...", Toast.LENGTH_SHORT).show();
+          		
+          	  }
+	    	});
+	    	return (long) 1;
+	    }
 			return null;
 		}
 		
 		protected void onPostExecute(Long result) {
           		dialog.dismiss();
-          		goToMainMenu();
+          		if(result == null)
+          			goToMainMenu();
 	     }
 	}
 

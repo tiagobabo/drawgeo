@@ -2,17 +2,25 @@ package pt.drawgeo.map;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
+import pt.drawgeo.canvas.ReplayCanvasActivity;
+import pt.drawgeo.utility.Configurations;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
+import com.main.R;
 
 @SuppressWarnings("rawtypes")
 public class MapChallenge extends ItemizedOverlay {
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+	private ArrayList<String> ids = new ArrayList<String>();
 	private Context mContext;
 	
 	public MapChallenge(Drawable defaultMarker, Context context) {
@@ -37,13 +45,35 @@ public class MapChallenge extends ItemizedOverlay {
 	}
 
 	@Override
-	protected boolean onTap(int index) {
+	protected boolean onTap(final int index) {
 	  OverlayItem item = mOverlays.get(index);
-	  AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+	  final Dialog dialog = new Dialog(mContext);
+
+	  
+	  dialog.setContentView(R.layout.challengedialog);
 	  dialog.setTitle(item.getTitle());
-	  dialog.setMessage(item.getSnippet());
+	  
+	  TextView text = (TextView) dialog.findViewById(R.id.textView1);
+	  text.setText(item.getSnippet());
+	  
+	  final Button pButton = (Button) dialog.findViewById(R.id.button1);
+		pButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(),
+						ReplayCanvasActivity.class);
+				
+				Configurations.drawidreplay = ids.get(index);
+				dialog.dismiss();
+				mContext.startActivity(intent);
+			}
+		});
+	  
 	  dialog.show();
 	  return true;
+	}
+
+	public void addItem(String string) {
+		ids.add(string);
 	}
 	
 }

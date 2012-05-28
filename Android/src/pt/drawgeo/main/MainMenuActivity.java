@@ -2,9 +2,6 @@ package pt.drawgeo.main;
 
 import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.utility.Configurations;
-
-import com.main.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,6 +12,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.main.R;
 
 public class MainMenuActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,9 @@ public class MainMenuActivity extends Activity {
 		final TextView challengesdone = (TextView) findViewById(R.id.challengesdonetext);
 		challengesdone.setText(Configurations.num_done+"");
 		
+		final TextView challengescreated = (TextView) findViewById(R.id.challengescreatedtext);
+		challengescreated.setText(Configurations.num_created+"");
+		
 		final TextView guessedyours = (TextView) findViewById(R.id.guessedyourstext);
 		guessedyours.setText(Configurations.num_success+"");
 		
@@ -41,12 +43,15 @@ public class MainMenuActivity extends Activity {
 		
 		final ImageView avatar = (ImageView) findViewById(R.id.avatar);
 		avatar.setImageBitmap(Configurations.avatarImage);
+
 		
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				/*Intent intent = new Intent(v.getContext(),
+						ReplayCanvasActivity.class);*/
 				Intent intent = new Intent(v.getContext(),
-						MapsActivity.class);
+				MapsActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -55,7 +60,11 @@ public class MainMenuActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),
 						Store.class);
-				startActivity(intent);
+				
+				startActivityForResult(intent,100);
+				MainMenuActivity.this.overridePendingTransition(R.anim.animation_enter,
+		                R.anim.animation_leave);
+				
 			}
 		});
 		
@@ -90,5 +99,12 @@ public class MainMenuActivity extends Activity {
 			}
 					).show();
 	}
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.overridePendingTransition(R.anim.animation_enter2,
+                R.anim.animation_leave2);
+    }
 	
 }
