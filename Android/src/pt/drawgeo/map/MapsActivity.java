@@ -21,6 +21,8 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -39,6 +41,12 @@ public class MapsActivity extends MapActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        
+        // Modo fullscreen
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                                         WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        
         setContentView(R.layout.map);
         
         // Acquire a reference to the system Location Manager

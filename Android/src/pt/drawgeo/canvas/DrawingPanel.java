@@ -250,7 +250,7 @@ public class DrawingPanel extends View implements OnTouchListener {
     	try {
 			response = Connection.getJSONLine(uri);
 			JSONObject info = new JSONObject(response);
-			
+			info = info.getJSONObject("draw");
 			String colorsString = info.getString("draw");
 			String xsString = info.getString("drawx");
 			String ysString = info.getString("drawy");
