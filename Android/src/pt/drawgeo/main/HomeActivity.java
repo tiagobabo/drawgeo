@@ -144,7 +144,7 @@ public class HomeActivity extends Activity{
 	protected void goToMainMenu() {
 		Intent intent = new Intent(this,
 				MainMenuActivity.class);
-		startActivityForResult(intent, 500);
+		startActivityForResult(intent, 100);
 		
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);

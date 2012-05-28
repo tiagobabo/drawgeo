@@ -60,7 +60,11 @@ public class MainMenuActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),
 						Store.class);
-				startActivity(intent);
+				
+				startActivityForResult(intent,100);
+				MainMenuActivity.this.overridePendingTransition(R.anim.animation_enter,
+		                R.anim.animation_leave);
+				
 			}
 		});
 		
@@ -95,5 +99,12 @@ public class MainMenuActivity extends Activity {
 			}
 					).show();
 	}
+	
+	@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        this.overridePendingTransition(R.anim.animation_enter2,
+                R.anim.animation_leave2);
+    }
 	
 }

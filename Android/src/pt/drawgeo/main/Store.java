@@ -1,11 +1,14 @@
 package pt.drawgeo.main;
 
+import pt.drawgeo.utility.Configurations;
+
 import com.main.R;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 public class Store extends Activity{
 	
@@ -20,6 +23,9 @@ public class Store extends Activity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.store);
+        
+        final TextView piggies = (TextView) findViewById(R.id.piggiestext);
+		piggies.setText(Configurations.piggies+"");
     }
 
 }
