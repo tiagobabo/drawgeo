@@ -24,6 +24,7 @@ Server::Application.routes.draw do
   get "play/changeAvatar"
   get "play/addNewColor"
   get "play/addNewDraw"
+  post "play/addNewDraw"
 
   get "home/map" => "home#map", :as => "see_map"
   root :to => 'home#index'

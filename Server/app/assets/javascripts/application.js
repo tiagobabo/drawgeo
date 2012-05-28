@@ -38,9 +38,8 @@ $(document).ready(function() {
 			            position: myLatlng,
 			            animation: google.maps.Animation.DROP,
 			            icon: image,
-			            title: data[index].id_creator
+			            title: ''+data[index].id_creator			            
 			        });
-			        
 					google.maps.event.addListener(marker, 'click', (function(index){ 
 						return function(){
 							var url = '/draws/'+data[index].id;

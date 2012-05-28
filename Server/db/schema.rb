@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120526162430) do
+ActiveRecord::Schema.define(:version => 20120527235622) do
 
   create_table "avatars", :force => true do |t|
     t.string   "url"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(:version => 20120526162430) do
   end
 
   create_table "draws", :force => true do |t|
-    t.string   "id_creator"
     t.float    "latitude"
     t.float    "longitude"
     t.text     "draw"
@@ -45,6 +44,9 @@ ActiveRecord::Schema.define(:version => 20120526162430) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "word_id"
+    t.integer  "id_creator"
+    t.text     "drawx"
+    t.text     "drawy"
   end
 
   create_table "users", :force => true do |t|

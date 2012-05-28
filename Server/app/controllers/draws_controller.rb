@@ -15,10 +15,10 @@ class DrawsController < ApplicationController
   # GET /draws/1.json
   def show
     @draw = Draw.find(params[:id])
-
+    @guess = getGuess(@draw,16)
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @draw }
+      format.json { render :json => {:draw => @draw, :guess => @guess}.to_json }
     end
   end
 
@@ -81,6 +81,15 @@ class DrawsController < ApplicationController
       format.html { redirect_to draws_url }
       format.json { head :no_content }
     end
+  end
+
+  def getGuess(draw,num)
+    @word = Word.find(draw.word_id)
+    @guess = @word.word.split(//)
+    @num_words = num-@guess.length
+    @abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    @num_words.times{ @guess.push(@abc.sample) }
+    @guess = @guess.shuffle
   end
 
 end

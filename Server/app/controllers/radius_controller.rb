@@ -10,7 +10,7 @@ class RadiusController < ApplicationController
 	    	@nearbys = Draw.near(@lat+","+@long, @radius, {:order => "distance", :units => :km})
 		    respond_to do |format|
 		    	format.html
-		      	format.json { render :json => @nearbys }
+		      	format.json { render :json => @nearbys.to_json(:only => [ :id, :latitude, :longitude, :challenge, :description ]) }
 		    end
 		else
 			respond_to do |format|
@@ -32,7 +32,7 @@ class RadiusController < ApplicationController
 
 		    respond_to do |format|
 		    	format.html
-		      	format.json { render :json => @nearbys }
+		      	format.json { render :json => @nearbys.to_json(:only => [ :id, :latitude, :longitude, :challenge, :description ]) }
 		    end
 		else
 			respond_to do |format|

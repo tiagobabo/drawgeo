@@ -49,16 +49,15 @@ class PlayController < ApplicationController
 
 	def getUserByEmail
 		@user = User.where("email = ?", params[:email])
-
 		if(!@user.nil? && !@user.empty?)
 			respond_to do |format|
-		      	format.json { render :json => {:status => "Ok", :user => @user.first, :avatar => Avatar.find(@user.first.id_avatar)}.to_json }
+		      	format.json { render :json => {:status => "Ok", :user => @user.first, :avatar => Avatar.find(@user.first.id_avatar), :created => Draw.where("id_creator = ?", @user.first.id).length }.to_json }
 		    end
 		else
 			@user_new = User.new(:email => params[:email])
 			if @user_new.save
 				respond_to do |format|
-			      	format.json { render :json => {:status => "User created.", :user => @user_new, :avatar => Avatar.find(@user_new.id_avatar)}.to_json }
+			      	format.json { render :json => {:status => "User created.", :user => @user_new, :avatar => Avatar.find(@user_new.id_avatar), :created => 0}.to_json }
 			    end
 			end
 		end
@@ -114,7 +113,7 @@ class PlayController < ApplicationController
 		@creator = User.find(params[:id_creator])
 		@word = Word.find(params[:word_id])
 		if(!@creator.nil? && !@word.nil?)
-			@new_draw = Draw.new(:id_creator => @creator.id, :word_id => @word.id, :latitude => params[:latitude], :longitude => params[:longitude], :draw => params[:draw], :challenge => params[:challenge], :description => params[:description], :password => params[:password]  )
+			@new_draw = Draw.new(:id_creator => @creator.id, :word_id => @word.id, :latitude => params[:latitude], :longitude => params[:longitude], :draw => params[:draw], :drawx => params[:drawx], :drawy => params[:drawy], :challenge => params[:challenge], :description => params[:description], :password => params[:password]  )
 			if @new_draw.save
 				respond_to do |format|
 			      	format.json { render :json => {:status => "Draw added."}.to_json }

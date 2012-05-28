@@ -4,7 +4,7 @@
 
 .logo{
 	width:100%;
-	background-color:#91d8e6;
+	background-color:#a0d6e4;
 }
 
 .logo-img{
@@ -15,6 +15,7 @@
 
 .city-banner{
 	background-image: url(landscape.png);
+	background-repeat:no-repeat;
 	min-height:381px;
 	width:100%;
 }
@@ -22,7 +23,7 @@
 body{
 	width:100%;
 	min-height:100%;
-	background-color:#72cf3f;
+	background-color:#8ec641;
 	
 }
 
@@ -61,6 +62,7 @@ margin-bottom: 0px;
 
 .footer{
 	margin-top:50px;
+	min-height:50px;
 }
 
 
