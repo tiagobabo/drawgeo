@@ -3,26 +3,20 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
-    android:background="#E9E9E9">
+    android:background="@drawable/canvasbackground">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50px" android:background="#B0EEB2">
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/noun_project_347" android:layout_marginTop="10px" android:layout_marginBottom="10px"/>
-
+        android:layout_height="50px">
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="10px"
             android:layout_marginTop="10px"
-            android:text="You are guessing tiago.babo draw"
-            android:textColor="#000000" />
+            android:text="You are guessing tiago.babo&apos;s draw"
+            android:textColor="#ffffff" android:layout_marginLeft="40dp"/>
 
     </LinearLayout>
 
