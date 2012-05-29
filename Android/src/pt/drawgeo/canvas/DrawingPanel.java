@@ -1,11 +1,15 @@
 package pt.drawgeo.canvas;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.main.R;
 
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
@@ -21,6 +25,8 @@ import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 
 public class DrawingPanel extends View implements OnTouchListener {
 
@@ -49,7 +55,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		this.setOnTouchListener(this);
-
+		
 		xs = new ArrayList<Float>();
 		ys = new ArrayList<Float>();
 		colors = new ArrayList<Integer>();
@@ -60,6 +66,22 @@ public class DrawingPanel extends View implements OnTouchListener {
 		mCanvas.drawColor(Color.WHITE);
 		mContext = context;
 		createPaint();
+	}
+
+	public DrawingPanel(Context context,
+			String colorsString, String xsString, String ysString) {
+		super(context);
+		xs = stringToFloatList(xsString);
+		ys = stringToFloatList(ysString);
+		colors = stringToIntList(colorsString);
+
+		pathsByPaint = new ArrayList<Integer>();
+		mPaints = new ArrayList<Paint>();
+		mCanvas = new Canvas();
+		mCanvas.drawColor(Color.WHITE);
+		mContext = context;
+		createPaint();
+		
 	}
 
 	// cria uma nova instancia paint, que guardará os desenhos
@@ -238,27 +260,7 @@ public class DrawingPanel extends View implements OnTouchListener {
 	// fun?‹o que mostra o replay de jogo
 	public void replay() {
 		
-		Uri uri = new Uri.Builder()
-        .scheme(Configurations.SCHEME)
-        .authority(Configurations.AUTHORITY)
-        .path(Configurations.GETDRAW+"/" + Configurations.drawidreplay)          
-        .appendQueryParameter("format", Configurations.FORMAT)
-        .build();
-    	
-    	String response = null;
-    	
-    	try {
-			response = Connection.getJSONLine(uri);
-			JSONObject info = new JSONObject(response);
-			info = info.getJSONObject("draw");
-			String colorsString = info.getString("draw");
-			String xsString = info.getString("drawx");
-			String ysString = info.getString("drawy");
-			
-			this.colors = stringToIntList(colorsString);
-			this.xs = stringToFloatList(xsString);
-			this.ys = stringToFloatList(ysString);
-			
+		
 			toReplay = false;
 			
 			// inicia o desenho com o ponto inicial guardado
@@ -311,13 +313,20 @@ public class DrawingPanel extends View implements OnTouchListener {
 				}
 			}).start();
 			
-		} catch (Exception e1) {} 
+			
+			
+			
+			
+			
+		
 		
 		//List<String> list = Arrays.asList(s.substring(1, s.length() - 1).split(", "));
 		
 		
 		
 	}
+
+	
 
 	public void save() {
 		
