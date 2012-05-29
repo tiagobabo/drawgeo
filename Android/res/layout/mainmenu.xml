@@ -20,105 +20,128 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/avatar"
-            android:layout_below="@+id/avatar"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/avatar"
             android:paddingTop="2dp"
             android:text="Tiago Babo"
             android:textColor="#ffffff" />
 
     </RelativeLayout>
-
+
 	<RelativeLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_marginTop="20dp" android:gravity="center_horizontal">
+	    android:layout_marginTop="20dp"
+	    android:gravity="center_horizontal" >
 
-	    <ImageView
-	        android:id="@+id/challengesdone"
+	    <RelativeLayout
+	        android:id="@+id/relativeLayout1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/challendesdone" />
-
-	    <ImageView
-	        android:id="@+id/challengescreated"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toRightOf="@+id/challengesdone"
-	        android:paddingLeft="10dp"
-	        android:src="@drawable/challengescreated" />
-
-	    <ImageView
-	        android:id="@+id/guessedyours"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toRightOf="@+id/challengescreated"
-	        android:paddingLeft="10dp"
-	        android:src="@drawable/guessedyours" />
-
-	    <TextView
-	        android:id="@+id/guessedyourstext"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_alignRight="@+id/guessedyours"
-	        android:gravity="center_horizontal"
-	        android:paddingTop="2dp"
-	        android:text="10"
-	        android:textColor="#ffffff"
-	        android:textSize="10pt"
-	        android:width="99px" />
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true">
 
-	    <TextView
-	        android:id="@+id/challengesdonetext"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@+id/challengescreated"
-	        android:gravity="center_horizontal"
-	        android:paddingTop="2dp"
-	        android:text="123"
-	        android:textColor="#ffffff"
-	        android:textSize="10pt"
-	        android:width="99px" />
-
-	    <TextView
-	        android:id="@+id/challengescreatedtext"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toLeftOf="@+id/guessedyours"
-	        android:gravity="center_horizontal"
-	        android:paddingTop="2dp"
-	        android:text="123"
-	        android:textColor="#ffffff"
-	        android:textSize="10pt"
-	        android:width="99px" />
-
-	    <ImageView
-	        android:id="@+id/piggies"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toRightOf="@+id/guessedyours"
-	        android:paddingLeft="10dp"
-	        android:src="@drawable/piggies" />
-
-	    <TextView
-	        android:id="@+id/piggiestext"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_alignRight="@+id/piggies"
-	        android:bufferType="normal"
-	        android:gravity="center_horizontal"
-	        android:paddingTop="6dp"
-	        android:text="250"
-	        android:textColor="#ffffff"
-	        android:textSize="10pt"
-	        android:width="99px" />
+	        <ImageView
+	            android:id="@+id/challengesdone"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/challendesdone" />
 
+	        <TextView
+	            android:id="@+id/challengesdonetext"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentTop="true"
+	            android:layout_centerHorizontal="true"
+	            android:gravity="center_horizontal"
+	            android:paddingTop="2dp"
+	            android:text="123"
+	            android:textColor="#ffffff"
+	            android:textSize="22sp" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:id="@+id/relativeLayout2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/relativeLayout1" android:layout_marginLeft="10dp">
+
+	        <ImageView
+	            android:id="@+id/challengescreated"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/challengescreated" />
+
+	        <TextView
+	            android:id="@+id/challengescreatedtext"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentTop="true"
+	            android:layout_centerHorizontal="true"
+	            android:gravity="center_horizontal"
+	            android:paddingTop="2dp"
+	            android:text="123"
+	            android:textColor="#ffffff"
+	            android:textSize="22sp" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:id="@+id/relativeLayout3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/relativeLayout2" android:layout_marginLeft="10dp">
+
+	        <ImageView
+	            android:id="@+id/guessedyours"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/guessedyours" />
+
+	        <TextView
+	            android:id="@+id/guessedyourstext"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentTop="true"
+	            android:layout_centerHorizontal="true"
+	            android:gravity="center_horizontal"
+	            android:paddingTop="2dp"
+	            android:text="10"
+	            android:textColor="#ffffff"
+	            android:textSize="22sp" />
+
+	    </RelativeLayout>
+
+	    <RelativeLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_toRightOf="@+id/relativeLayout3" android:layout_marginLeft="10dp">
+
+	        <ImageView
+	            android:id="@+id/piggies"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/piggies" />
+
+	        <TextView
+	            android:id="@+id/piggiestext"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentTop="true"
+	            android:layout_centerHorizontal="true"
+	            android:bufferType="normal"
+	            android:gravity="center_horizontal"
+	            android:paddingTop="6dp"
+	            android:text="250"
+	            android:textColor="#ffffff"
+	            android:textSize="22sp" />
+
+	    </RelativeLayout>
 	</RelativeLayout>
 
 	<RelativeLayout

@@ -8,15 +8,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50px">
+        android:layout_height="32dp">
 
         <TextView
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="10px"
-            android:layout_marginTop="10px"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:text="You are guessing tiago.babo&apos;s draw"
             android:textColor="#ffffff" android:layout_marginLeft="40dp"/>
 
