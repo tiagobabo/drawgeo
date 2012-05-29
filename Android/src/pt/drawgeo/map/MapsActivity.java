@@ -23,7 +23,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -61,8 +60,7 @@ public class MapsActivity extends MapActivity
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
               // Called when a new location is found by the network location provider.
-            	Toast.makeText(MapsActivity.this.getApplicationContext(), location.getLongitude()+"", Toast.LENGTH_SHORT).show();
-
+ 
         		MapView mapView = (MapView)findViewById(R.id.mapview); 
             	List<Overlay> mapOverlays = mapView.getOverlays();
             	
@@ -91,16 +89,27 @@ public class MapsActivity extends MapActivity
             	try {
 					response = Connection.getJSONLine(uri);
 					JSONArray info = new JSONArray(response);
-					Drawable drawable2 = MapsActivity.this.getResources().getDrawable(R.drawable.pencil);
-	            	MapChallenge itemizedoverlay2 = new MapChallenge(drawable2, MapsActivity.this);
+					Drawable drawableDraw = MapsActivity.this.getResources().getDrawable(R.drawable.pencil);
+					Drawable drawableChallenge = MapsActivity.this.getResources().getDrawable(R.drawable.pencilchallenge);
+	            	MapChallenge itemizedoverlayDraw = new MapChallenge(drawableDraw, MapsActivity.this);
+	            	MapChallenge itemizedoverlayChallenge = new MapChallenge(drawableChallenge, MapsActivity.this);
 					
 					for(int i = 0; i < info.length(); i++) {
 						JSONObject o = info.getJSONObject(i);
 		            	GeoPoint point2 = new GeoPoint((int)(o.getDouble("latitude") * 1E6),((int)(o.getDouble("longitude") * 1E6)));
-		            	OverlayItem overlayitem2 = new OverlayItem(point2, "Draw", o.getString("description"));
-		            	itemizedoverlay2.addOverlay(overlayitem2);
-		            	itemizedoverlay2.addItem(o.getString("id"));
-		            	mapOverlays.add(itemizedoverlay2);
+		            	OverlayItem overlay = new OverlayItem(point2, "Draw", o.getString("description"));
+		            	if (!o.getBoolean("challenge"))
+		            	{
+		            		itemizedoverlayDraw.addOverlay(overlay);
+		            		itemizedoverlayDraw.addItem(o.getString("id"));
+		            		mapOverlays.add(itemizedoverlayDraw);
+		            	}
+		            	else
+		            	{
+		            		itemizedoverlayChallenge.addOverlay(overlay);
+		            		itemizedoverlayChallenge.addItem(o.getString("id"));
+		            		mapOverlays.add(itemizedoverlayChallenge);
+		            	}  	
 					}
 
 				} catch (Exception e) {} 

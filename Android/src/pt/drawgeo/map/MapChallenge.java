@@ -9,7 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.maps.ItemizedOverlay;
@@ -48,15 +49,15 @@ public class MapChallenge extends ItemizedOverlay {
 	protected boolean onTap(final int index) {
 	  OverlayItem item = mOverlays.get(index);
 	  final Dialog dialog = new Dialog(mContext);
-
+	  dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 	  
 	  dialog.setContentView(R.layout.challengedialog);
-	  dialog.setTitle(item.getTitle());
+
 	  
-	  TextView text = (TextView) dialog.findViewById(R.id.textView1);
-	  text.setText(item.getSnippet());
+	  TextView title = (TextView) dialog.findViewById(R.id.title);
+	  title.setText(item.getTitle());
 	  
-	  final Button pButton = (Button) dialog.findViewById(R.id.button1);
+	  final ImageView pButton = (ImageView) dialog.findViewById(R.id.playnow);
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(),

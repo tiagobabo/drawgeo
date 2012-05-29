@@ -37,11 +37,6 @@ public void draw(Canvas canvas, MapView mapView, boolean shadow) {
     Point pt = mapView.getProjection().toPixels(point, null);
     float radius = mapView.getProjection().metersToEquatorPixels(this.radius);
     
-    // para não desaparecer totalmente o círculo, pode-se limitr o raio
-   /* if(radius < canvas.getHeight()/25){
-        radius = canvas.getHeight()/25;
-    }*/
-
     canvas.drawCircle(pt.x, pt.y, radius, paint2);
     canvas.drawCircle(pt.x, pt.y, radius, paint1);
 
