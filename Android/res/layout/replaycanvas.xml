@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@drawable/canvasbackground">
+    android:background="@drawable/canvasbackground"
+    android:gravity="bottom"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50px">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -30,68 +32,18 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/guessLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <EditText
-            android:id="@+id/char100"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
-            android:width="35dp" android:focusable="false"/>
-
-        <EditText
-            android:id="@+id/char101"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/char100"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
-            android:width="35dp" android:focusable="false"/>
-
-        <EditText
-            android:id="@+id/char102"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/char101"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
-            android:width="35dp" android:focusable="false"/>
-
-        <EditText
-            android:id="@+id/char103"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/char102"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
-            android:width="35dp" android:focusable="false"/>
-
-        <EditText
-            android:id="@+id/char104"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/char103"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
-            android:width="35dp" android:focusable="false"/>
+        
 
     </RelativeLayout>
-
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="85dp"
         android:gravity="center" >
 
         <EditText
@@ -100,9 +52,10 @@
             android:layout_height="40dp"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="I"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char1"
@@ -112,9 +65,10 @@
             android:layout_toRightOf="@+id/char0"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="T"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char2"
@@ -124,9 +78,10 @@
             android:layout_toRightOf="@+id/char1"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="A"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char3"
@@ -136,9 +91,10 @@
             android:layout_toRightOf="@+id/char2"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="U"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char4"
@@ -148,9 +104,10 @@
             android:layout_toRightOf="@+id/char3"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="B"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char5"
@@ -160,9 +117,10 @@
             android:layout_toRightOf="@+id/char4"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="C"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char6"
@@ -172,9 +130,10 @@
             android:layout_toRightOf="@+id/char5"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="O"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char7"
@@ -184,112 +143,117 @@
             android:layout_toRightOf="@+id/char6"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="E"
-            android:width="35dp" android:focusable="false"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:gravity="center">
-
-        <EditText
-            android:id="@+id/char8"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="I" android:width="35dp" android:focusable="false">
-
-            <requestFocus />
-        </EditText>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char9"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char8"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="T"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" >
+
+            <requestFocus />
+        </EditText>
 
         <EditText
             android:id="@+id/char10"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char9"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="A"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char11"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char10"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="U"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char12"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char11"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="B"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char13"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char12"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="C"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char14"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char13"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="O"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
         <EditText
             android:id="@+id/char15"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char14"
             android:layout_weight="1"
             android:ems="10"
+            android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="E"
-            android:width="35dp" android:focusable="false"/>
+            android:width="35dp" />
 
+        <EditText
+            android:id="@+id/char8"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/char1"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="I"
+            android:width="35dp" />
     </RelativeLayout>
 
 </LinearLayout>
