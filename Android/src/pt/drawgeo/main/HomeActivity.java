@@ -91,7 +91,7 @@ public class HomeActivity extends Activity{
 				                        	  public void run() {
 				                        		  loginFacebook = true;
 				                        		  dialog = ProgressDialog.show(HomeActivity.this, "", 
-							                                "Retreiving information...", true);
+							                                "Retrieving information...", true);
 				                        		  
 				                        		  new DownloadFilesTask().execute(email, id, name);
 				                        	  }

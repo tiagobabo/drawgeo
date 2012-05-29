@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1">
+
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" android:paddingBottom="20dp">
+  
+     <TextView
+         android:id="@+id/easyWord"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_vertical"
+         android:text="OLA"
+         android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/imgEasy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:src="@drawable/smallpencil" />
+   
+	 </TableRow>
+    <TableRow  
+        android:id="@+id/tableRow2"  
+        android:layout_height="wrap_content"  
+        android:layout_width="match_parent" android:paddingBottom="20dp">  
+
+     <TextView
+         android:id="@+id/mediumWord"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="left"
+         android:text=""  android:textSize="20dp"/>
+
+    <ImageView
+        android:id="@+id/imgMedium1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/smallpencil" />
+
+    <ImageView
+        android:id="@+id/imgMedium2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/smallpencil" />
+
+    </TableRow>
+    <TableRow  
+        android:id="@+id/tableRow3"  
+        android:layout_height="wrap_content"  
+        android:layout_width="match_parent" android:paddingBottom="20dp">  
+
+    <TextView
+        android:id="@+id/hardWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text=""  android:textSize="20dp"/>
+
+    <ImageView
+        android:id="@+id/imgHard1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/smallpencil" />
+
+    <ImageView
+        android:id="@+id/imgHard2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/smallpencil" />
+    
+    <ImageView
+        android:id="@+id/imgHard3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/smallpencil" />
+    
+   </TableRow>
+
+</TableLayout>

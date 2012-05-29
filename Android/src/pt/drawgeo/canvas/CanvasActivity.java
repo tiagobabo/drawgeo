@@ -3,9 +3,7 @@ package pt.drawgeo.canvas;
 import java.util.ArrayList;
 
 import pt.drawgeo.main.Store;
-
-import com.main.R;
-
+import pt.drawgeo.utility.Configurations;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,6 +14,9 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.main.R;
 
 public class CanvasActivity extends Activity {
 	
@@ -27,12 +28,16 @@ public class CanvasActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+       
+        
         // Modo fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.drawcanvas);
+        TextView text2 = (TextView) findViewById(R.id.title);
+		text2.setText("You are now drawing " + Configurations.current_word);
         
         // layout que vai conter o canvas
         LinearLayout canvas = (LinearLayout) findViewById(R.id.canvas);
