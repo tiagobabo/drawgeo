@@ -15,12 +15,16 @@ class PlayController < ApplicationController
 							@player.update_attribute(:num_done, @player.num_done + 1)
 							@author.update_attribute(:num_success, @author.num_success + 1)
 							@player.update_attribute(:piggies, @player.piggies + (@word.difficulty * 2))
+							@player.update_attribute(:ranking, @player.ranking + (@word.difficulty * 2))
 							@author.update_attribute(:piggies, @author.piggies + (@word.difficulty))
+							@author.update_attribute(:ranking, @author.ranking + (@word.difficulty))
 						end
 
 						if(@draw.challenge)
 							@player.update_attribute(:piggies, @player.piggies + 1)
+							@player.update_attribute(:ranking, @player.ranking + 1)
 							@author.update_attribute(:piggies, @author.piggies + 1)
+							@author.update_attribute(:ranking, @author.ranking + 1)
 						end
 						respond_to do |format|
 					      format.json { render :json => {:status => "Ok", :word => @word}.to_json }
