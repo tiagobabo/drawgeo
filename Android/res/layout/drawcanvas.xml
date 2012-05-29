@@ -10,6 +10,7 @@
         android:layout_height="50px" android:layout_marginBottom="5dp">
 
         <TextView
+            android:id = "@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/hello" android:layout_gravity="center_vertical" android:textColor="#ffffff" android:layout_marginTop="0dp" android:layout_marginLeft="40dp"/>

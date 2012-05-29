@@ -17,10 +17,15 @@
 
 $(document).ready(function() {
 	var map;
+	var longitude = $("#longitude").val();
+	var latitude = $("#latitude").val();
 	function initialize() {
+		var height = document.getElementById('main').offsetHeight - 52;
+		document.getElementById('map_canvas').style.height = height + 'px';
+
 		var myOptions = {
-		  zoom: 3,
-		  center: new google.maps.LatLng(41.147476, -8.609505),
+		  zoom: 15,
+		  center: new google.maps.LatLng(latitude, longitude),
 		  mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 		map = new google.maps.Map(document.getElementById('map_canvas'),

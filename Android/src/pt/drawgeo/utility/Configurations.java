@@ -15,6 +15,7 @@ public class Configurations {
 	final public static String CHECKUSER = "/play/getUserByEmail";
 	final public static String ADDCHALLENGE = "/play/addNewDraw";
 	final public static String GETDRAW ="draws";
+	final public static String GETNEWWORDS ="/play/getNewWords";
 	
 	// DADOS DO UTILIZADOR
 	public static String email;
@@ -30,4 +31,5 @@ public class Configurations {
 	public static double longitude = -8.6366445;
 	public static String drawidreplay;
 	public static int num_created;
+	public static String current_word;
 }
