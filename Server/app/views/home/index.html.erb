@@ -5,6 +5,13 @@
 			<li><a href="#getting-started">Getting started</a></li>
 			<li><a href="#how-it-works">How it works?</a></li>
 			<li><a href="#about-us">About Us</a></li>
+			<span id="search-tab">
+				<%= form_tag( { :action => :map, }, { :method => :get }) %>
+					Seek around the world: 
+					<input id="search" type="text" value="" name="search"/>
+					<%= submit_tag( "Search" ) %>
+				</form>
+			</span>
 		</ul>
 	</div>
 

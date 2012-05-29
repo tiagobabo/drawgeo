@@ -8,9 +8,22 @@ class RadiusController < ApplicationController
 
 	    if !@lat.nil? && !@long.nil? && !@radius.nil?
 	    	@nearbys = Draw.near(@lat+","+@long, @radius, {:order => "distance", :units => :km})
+	    	@final = Array.new
+	    	@nearbys.each do |draw|
+			  elem = Array.new
+			  elem << "id: #{draw.id}"
+			  elem << "latitude: #{draw.latitude}"
+			  elem << "longitude: #{draw.longitude}"
+			  elem << "challenge: #{draw.challenge}"
+			  elem << "description: #{draw.description}"
+			  elem << "creator: #{User.find(draw.id_creator).name}"
+			  elem << "times_guessed: #{DrawUser.where("id_draw = ?", draw.id).length}"
+			  elem << "created: #{draw.created_at}"
+			  @final << elem
+			end
 		    respond_to do |format|
 		    	format.html
-		      	format.json { render :json => @nearbys.to_json(:only => [ :id, :latitude, :longitude, :challenge, :description ]) }
+		      	format.json { render :json => @final.to_json }
 		    end
 		else
 			respond_to do |format|
@@ -29,10 +42,22 @@ class RadiusController < ApplicationController
 	    if !@name.nil? && !@radius.nil?
 	    	@nearbys = Draw.near(@name, @radius, {:order => "distance", :units => :km})
 	    	logger.info(@nearbys.count)
-
+	    	@final = Array.new
+	    	@nearbys.each do |draw|
+			  elem = Array.new
+			  elem << "id: #{draw.id}"
+			  elem << "latitude: #{draw.latitude}"
+			  elem << "longitude: #{draw.longitude}"
+			  elem << "challenge: #{draw.challenge}"
+			  elem << "description: #{draw.description}"
+			  elem << "creator: #{User.find(draw.id_creator).name}"
+			  elem << "times_guessed: #{DrawUser.where("id_draw = ?", draw.id).length}"
+			  elem << "created: #{draw.created_at}"
+			  @final << elem
+			end
 		    respond_to do |format|
 		    	format.html
-		      	format.json { render :json => @nearbys.to_json(:only => [ :id, :latitude, :longitude, :challenge, :description ]) }
+		      	format.json { render :json => @final.to_json }
 		    end
 		else
 			respond_to do |format|

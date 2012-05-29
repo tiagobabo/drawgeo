@@ -3,5 +3,6 @@ class HomeController < ApplicationController
   end
 
   def map
+  	@s = Geocoder.search(params[:search]);
   end
 end
