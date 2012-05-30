@@ -1,5 +1,6 @@
 package pt.drawgeo.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -105,17 +106,22 @@ public class MapsActivity extends MapActivity
 					for(int i = 0; i < info.length(); i++) {
 						JSONObject o = info.getJSONObject(i);
 		            	GeoPoint point2 = new GeoPoint((int)(o.getDouble("latitude") * 1E6),((int)(o.getDouble("longitude") * 1E6)));
-		            	OverlayItem overlay = new OverlayItem(point2, "Draw", o.getString("description"));
+		            	OverlayItem overlay = new OverlayItem(point2, "Draw", o.getString("creator_email"));
+		            	
 		            	if (!o.getBoolean("challenge"))
 		            	{
 		            		itemizedoverlayDraw.addOverlay(overlay);
 		            		itemizedoverlayDraw.addItem(o.getString("id"));
+		            		itemizedoverlayDraw.allPiggies.add(o.getString("piggies"));
+		            		itemizedoverlayDraw.allNumguess.add(o.getString("times_guessed"));
 		            		mapOverlays.add(itemizedoverlayDraw);
 		            	}
 		            	else
 		            	{
 		            		itemizedoverlayChallenge.addOverlay(overlay);
 		            		itemizedoverlayChallenge.addItem(o.getString("id"));
+		            		itemizedoverlayChallenge.allPiggies.add(o.getString("piggies"));
+		            		itemizedoverlayChallenge.allNumguess.add(o.getString("times_guessed"));
 		            		mapOverlays.add(itemizedoverlayChallenge);
 		            	}  	
 

@@ -7,8 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" android:paddingTop="5dp" android:gravity="center_horizontal">
-
-        <ImageView
+		<ImageView
             android:id="@+id/avatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,9 +19,7 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/avatar"
             android:layout_below="@+id/avatar"
-            android:paddingTop="2dp"
             android:text="Tiago Babo"
             android:textColor="#ffffff" />
 
