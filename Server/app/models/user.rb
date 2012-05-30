@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 	has_many :colors
- 	attr_accessible :email, :id_avatar, :keys, :name, :num_done, :num_success, :piggies
+ 	attr_accessible :email, :id_avatar, :keys, :name, :num_done, :num_success, :piggies, :ranking
  	before_save :default_values
 
   def default_values
@@ -10,5 +10,6 @@ class User < ActiveRecord::Base
     self.num_done ||= 0
     self.num_success ||= 0
     self.piggies ||= 0
+    self.ranking ||= 0
   end
 end

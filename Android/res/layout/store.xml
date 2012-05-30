@@ -26,15 +26,15 @@
             android:paddingTop="2dp"
             android:text="123"
             android:textColor="#ffffff"
-            android:textSize="10pt"
-            android:width="99px" />
+            android:textSize="22sp"
+            android:width="65dp" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginBottom="0px" android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
+        android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -47,28 +47,28 @@
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color1" />
 
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color2" />
 
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color3" />
 
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color4" />
         </TableRow>
 
@@ -84,28 +84,28 @@
                 android:id="@+id/ImageView03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color1" />
 
             <ImageView
                 android:id="@+id/ImageView04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color2" />
 
             <ImageView
                 android:id="@+id/ImageView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color3" />
 
             <ImageView
                 android:id="@+id/ImageView02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color4" />
         </TableRow>
 
@@ -115,7 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tableRow1"
-            android:layout_marginRight="10px"
+            android:layout_marginRight="10dp"
             android:src="@drawable/path3" />
 
         <ImageView
@@ -124,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/TableRow01"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="10px"
+            android:layout_marginRight="10dp"
             android:src="@drawable/path3" />
 
         <TableRow
@@ -139,28 +139,28 @@
                 android:id="@+id/ImageView08"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color1" />
 
             <ImageView
                 android:id="@+id/ImageView09"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color2" />
 
             <ImageView
                 android:id="@+id/ImageView06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color3" />
 
             <ImageView
                 android:id="@+id/ImageView07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
+                android:layout_marginLeft="10dp"
                 android:src="@drawable/color4" />
         </TableRow>
 
@@ -170,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/TableRow02"
-            android:layout_marginRight="10px"
+            android:layout_marginRight="10dp"
             android:src="@drawable/path3" />
     </RelativeLayout>
 

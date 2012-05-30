@@ -10,16 +10,9 @@ class RadiusController < ApplicationController
 	    	@nearbys = Draw.near(@lat+","+@long, @radius, {:order => "distance", :units => :km})
 	    	@final = Array.new
 	    	@nearbys.each do |draw|
-			  elem = Array.new
-			  elem << "id: #{draw.id}"
-			  elem << "latitude: #{draw.latitude}"
-			  elem << "longitude: #{draw.longitude}"
-			  elem << "challenge: #{draw.challenge}"
-			  elem << "description: #{draw.description}"
-			  elem << "creator: #{User.find(draw.id_creator).name}"
-			  elem << "times_guessed: #{DrawUser.where("id_draw = ?", draw.id).length}"
-			  elem << "created: #{draw.created_at}"
-			  @final << elem
+			  	creator = User.find(draw.id_creator)
+			  	elem = Hash[:id => "#{draw.id}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}"]
+			  	@final << elem
 			end
 		    respond_to do |format|
 		    	format.html
@@ -44,16 +37,9 @@ class RadiusController < ApplicationController
 	    	logger.info(@nearbys.count)
 	    	@final = Array.new
 	    	@nearbys.each do |draw|
-			  elem = Array.new
-			  elem << "id: #{draw.id}"
-			  elem << "latitude: #{draw.latitude}"
-			  elem << "longitude: #{draw.longitude}"
-			  elem << "challenge: #{draw.challenge}"
-			  elem << "description: #{draw.description}"
-			  elem << "creator: #{User.find(draw.id_creator).name}"
-			  elem << "times_guessed: #{DrawUser.where("id_draw = ?", draw.id).length}"
-			  elem << "created: #{draw.created_at}"
-			  @final << elem
+    			creator = User.find(draw.id_creator)
+			  	elem = Hash[:id => "#{draw.id}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}"]
+			  	@final << elem
 			end
 		    respond_to do |format|
 		    	format.html

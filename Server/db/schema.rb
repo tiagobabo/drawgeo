@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120527235622) do
+ActiveRecord::Schema.define(:version => 20120529131716) do
 
   create_table "avatars", :force => true do |t|
     t.string   "url"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20120527235622) do
     t.integer  "num_success"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "word_id"
+    t.integer  "ranking"
   end
 
   create_table "words", :force => true do |t|

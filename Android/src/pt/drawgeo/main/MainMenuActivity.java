@@ -42,7 +42,7 @@ public class MainMenuActivity extends Activity {
 		name.setText(Configurations.name+"");
 		
 		final ImageView avatar = (ImageView) findViewById(R.id.avatar);
-		//avatar.setImageBitmap(Configurations.avatarImage);
+		avatar.setImageBitmap(Configurations.avatarImage);
 	
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {
