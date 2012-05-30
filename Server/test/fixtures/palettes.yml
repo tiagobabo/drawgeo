@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  hex1: MyString
+  hex2: MyString
+  hex3: MyString
+  hex4: MyString
+  cost: 1
+
+two:
+  hex1: MyString
+  hex2: MyString
+  hex3: MyString
+  hex4: MyString
+  cost: 1

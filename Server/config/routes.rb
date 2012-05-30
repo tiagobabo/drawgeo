@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  resources :palettes
+
   resources :avatars
 
   resources :draw_users
@@ -9,12 +11,6 @@ Server::Application.routes.draw do
 
   resources :draws
 
-  resources :colors
-
-  resources :users do
-    resources :colors
-  end
-
   get "home/index"
   get "radius/getByCoordinates"
   get "radius/getByName"
@@ -22,9 +18,10 @@ Server::Application.routes.draw do
   get "play/getUserByEmail"
   get "play/getNewWords"
   get "play/changeAvatar"
-  get "play/addNewColor"
+  get "play/buyNewPalette"
   get "play/addNewDraw"
   post "play/addNewDraw"
+  get "play/getPaletteByUser"
 
   get "home/map" => "home#map", :as => "see_map"
   root :to => 'home#index'

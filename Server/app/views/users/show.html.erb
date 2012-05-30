@@ -40,24 +40,12 @@
   <%= @user.ranking %>
 </p>
 
-<b>Colors:</b>
-[
-<% @user.colors.each do |color| %>
-    <%= color.hex %>
-<% end %>
-]
+<p>
+  <b>Colors:</b>
+  <% @palettes.each do |palette| %>
+    <p>Palette <%=palette.id%>: {Hex1: <%= palette.hex1 %> | Hex2: <%= palette.hex2 %> | Hex3: <%= palette.hex3 %> | Hex4: <%= palette.hex4 %>}</p>
+  <% end %>
 </p>
-<h4>Add a color:</h4>
-<%= form_for([@user, @user.colors.build]) do |f| %>
-  <div class="field">
-    <%= f.label :hex %><br />
-    <%= f.text_field :hex %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
-
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

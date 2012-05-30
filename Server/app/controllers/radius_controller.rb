@@ -11,7 +11,8 @@ class RadiusController < ApplicationController
 	    	@final = Array.new
 	    	@nearbys.each do |draw|
 			  	creator = User.find(draw.id_creator)
-			  	elem = Hash[:id => "#{draw.id}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}"]
+			  	word = Word.find(draw.word_id)
+			  	elem = Hash[:id => "#{draw.id}", :piggies => "#{word.difficulty * 2}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}"]
 			  	@final << elem
 			end
 		    respond_to do |format|
@@ -38,7 +39,8 @@ class RadiusController < ApplicationController
 	    	@final = Array.new
 	    	@nearbys.each do |draw|
     			creator = User.find(draw.id_creator)
-			  	elem = Hash[:id => "#{draw.id}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}"]
+    			word = Word.find(draw.word_id)
+			  	elem = Hash[:id => "#{draw.id}", :piggies => "#{word.difficulty * 2}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}"]
 			  	@final << elem
 			end
 		    respond_to do |format|

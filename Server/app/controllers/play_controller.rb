@@ -67,6 +67,17 @@ class PlayController < ApplicationController
 		end
 	end
 
+	def getPaletteByUser
+		@paletteUsers = PaletteUser.where("id_user = ?", params[:id])
+		@palettes = Array.new
+	    @paletteUsers.each do |paletteUser|
+	      @palettes.push(Palette.find(paletteUser.id_palette))
+	    end
+	    respond_to do |format|
+	      	format.json { render :json => @palettes }
+	    end
+	end
+
 	def getNewWords
 		@easy = Word.where("difficulty = ?", 1).sample
 		@medium = Word.where("difficulty = ?", 2).sample
@@ -98,17 +109,33 @@ class PlayController < ApplicationController
 		end
 	end
 
-	def addNewColor
+	def buyNewPalette
 		@user = User.find(params[:id])
-		@hex = params[:hex]
-		if(!@user.nil?)
-			@user.colors.create(:hex => @hex)
-			respond_to do |format|
-		      	format.json { render :json => {:status => "Color added."}.to_json }
-		    end
+		@palette = Palette.find(params[:id_palette])
+		if(!@user.nil? && !@palette.nil?)
+			@check = PaletteUser.where("id_user = ? AND id_palette = ?", params[:id],params[:id_palette])
+			if(@check.empty?)
+				if(@user.piggies >= @palette.cost)
+					@user.update_attribute(:piggies, @user.piggies - @palette.cost)
+					@user_palette_new = PaletteUser.new(:id_palette => params[:id_palette], :id_user => params[:id])
+					if @user_palette_new.save
+						respond_to do |format|
+					      	format.json { render :json => {:status => "Palette bought successfully."}.to_json }
+					    end
+					end
+				else
+					respond_to do |format|
+				      	format.json { render :json => {:status => "You don't have enough piggies."}.to_json }
+				    end
+				end
+			else
+				respond_to do |format|
+			      	format.json { render :json => {:status => "You already have this palette."}.to_json }
+			    end
+			end
 		else
 			respond_to do |format|
-		      	format.json { render :json => {:status => "User doesn't exist."}.to_json }
+		      	format.json { render :json => {:status => "User/Palette doesn't exist."}.to_json }
 		    end	
 		end
 	end
