@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +68,7 @@ public class ReplayCanvasActivity extends Activity {
 			String xsString = draw.getString("drawx");
 			String ysString = draw.getString("drawy");
 			drawView = new DrawingPanel(this,colorsString,xsString,ysString);
-		    canvas.addView(drawView);
+		   
 		    word = info.getString("word");
 		    TextView tv = (TextView) findViewById(R.id.title);
 		    tv.setText(word);
@@ -83,6 +84,7 @@ public class ReplayCanvasActivity extends Activity {
 				letters[i].setClickable(true);
 				letters[i].setOnClickListener(new LetterClickListener(letters[i]));
 			}
+			canvas.addView(drawView);
 			drawView.replay();
     	}
     	catch (Exception e){
@@ -95,12 +97,14 @@ public class ReplayCanvasActivity extends Activity {
     	guessLetters =   new EditText[length];
     	usedLetters =   new EditText[length];
     	RelativeLayout guessLayout = (RelativeLayout) findViewById(R.id.guessLayout);
+    	float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+    	float ems = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics());
     	for(int i = 1; i <= length; i++){
 	    	EditText et = new EditText(this);
 	    	et.setId(i);
 	    	
 	    	
-	    	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( LayoutParams.WRAP_CONTENT, 40 );
+	    	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( LayoutParams.WRAP_CONTENT, (int)px );
 	        if( i != 1 ){
 	            params.addRule(RelativeLayout.RIGHT_OF, i-1 );
 	            params.addRule(RelativeLayout.ALIGN_PARENT_TOP,1);
@@ -108,9 +112,9 @@ public class ReplayCanvasActivity extends Activity {
 	        
 	        et.setLayoutParams(params);
 	        et.setGravity(Gravity.CENTER_VERTICAL| Gravity.CENTER_VERTICAL);
-	        et.setEms(10);
+	        et.setEms((int)ems);
 	        et.setFocusable(false);
-	        et.setWidth(35);
+	        et.setWidth((int)px);
 	        et.setClickable(true);
 	        et.setOnClickListener(new GuessClickListener());
 	        et.setText("");
@@ -151,12 +155,15 @@ public class ReplayCanvasActivity extends Activity {
     	}
 		public void onClick(View v) {
 			
-			if(lastLetterPos<guessLetters.length ){
+			if(lastLetterPos<guessLetters.length  ){
 				usedLetters[lastLetterPos] = et;
 				guessLetters[lastLetterPos++].setText(et.getText());
 				et.setVisibility(4);
 				et.setClickable(false);
 				
+				while(lastLetterPos<guessLetters.length && !guessLetters[lastLetterPos].getText().toString().equals(""))
+					lastLetterPos++;
+			
 				
 			}
 			
