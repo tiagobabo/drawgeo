@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Hex1:</b>
+  <%= @palette.hex1 %>
+</p>
+
+<p>
+  <b>Hex2:</b>
+  <%= @palette.hex2 %>
+</p>
+
+<p>
+  <b>Hex3:</b>
+  <%= @palette.hex3 %>
+</p>
+
+<p>
+  <b>Hex4:</b>
+  <%= @palette.hex4 %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @palette.cost %>
+</p>
+
+
+<%= link_to 'Edit', edit_palette_path(@palette) %> |
+<%= link_to 'Back', palettes_path %>

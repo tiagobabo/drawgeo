@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  hex: MyString
-  user: 
+  id_user: 1
+  id_palette: 1
 
 two:
-  hex: MyString
-  user: 
+  id_user: 1
+  id_palette: 1

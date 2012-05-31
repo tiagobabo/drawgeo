@@ -1,0 +1,33 @@
+<h1>Listing palettes</h1>
+
+<table>
+  <tr>
+    <th>Id </th>
+    <th>Hex1</th>
+    <th>Hex2</th>
+    <th>Hex3</th>
+    <th>Hex4</th>
+    <th>Cost</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @palettes.each do |palette| %>
+  <tr>
+    <td><%= palette.id %></td>
+    <td><%= palette.hex1 %></td>
+    <td><%= palette.hex2 %></td>
+    <td><%= palette.hex3 %></td>
+    <td><%= palette.hex4 %></td>
+    <td><%= palette.cost %></td>
+    <td><%= link_to 'Show', palette %></td>
+    <td><%= link_to 'Edit', edit_palette_path(palette) %></td>
+    <td><%= link_to 'Destroy', palette, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Palette', new_palette_path %>

@@ -1,15 +1,11 @@
 package pt.drawgeo.canvas;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.main.R;
 
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
@@ -20,13 +16,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 public class DrawingPanel extends View implements OnTouchListener {
 

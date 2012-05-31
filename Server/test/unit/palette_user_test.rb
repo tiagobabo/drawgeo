@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ColorTest < ActiveSupport::TestCase
+class PaletteUserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

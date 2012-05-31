@@ -10,22 +10,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120529131716) do
+ActiveRecord::Schema.define(:version => 20120530190827) do
 
   create_table "avatars", :force => true do |t|
     t.string   "url"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "colors", :force => true do |t|
-    t.string   "hex"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "colors", ["user_id"], :name => "index_colors_on_user_id"
 
   create_table "draw_users", :force => true do |t|
     t.integer  "id_draw"
@@ -41,12 +32,30 @@ ActiveRecord::Schema.define(:version => 20120529131716) do
     t.boolean  "challenge"
     t.text     "description"
     t.string   "password"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "word_id"
     t.integer  "id_creator"
     t.text     "drawx"
     t.text     "drawy"
+    t.integer  "resolution",  :default => 0
+  end
+
+  create_table "palette_users", :force => true do |t|
+    t.integer  "id_user"
+    t.integer  "id_palette"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "palettes", :force => true do |t|
+    t.string   "hex1"
+    t.string   "hex2"
+    t.string   "hex3"
+    t.string   "hex4"
+    t.integer  "cost"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

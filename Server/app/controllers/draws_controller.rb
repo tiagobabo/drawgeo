@@ -18,7 +18,7 @@ class DrawsController < ApplicationController
     @guess = getGuess(@draw,16)
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => {:draw => @draw, :guess => @guess, :creator => User.find(@draw.id_creator), :times_guessed => DrawUser.where("id_draw = ?", @draw.id).length,  }.to_json }
+      format.json { render :json => {:draw => @draw, :guess => @guess, :creator => User.find(@draw.id_creator), :times_guessed => DrawUser.where("id_draw = ?", @draw.id).length, :piggies => (Word.find(@draw.word_id).difficulty * 2), :word => Word.find(@draw.word_id).word  }.to_json }
     end
   end
 
