@@ -80,25 +80,4 @@ public class MusicManager {
 			}
 		}
 	}
-
-	
-
-	public static void release() {
-		Log.d(TAG, "Releasing media players");
-		
-		Collection<MediaPlayer> mps = players.values();
-		for (MediaPlayer mp : mps) {
-			try {
-				if (mp != null) {
-					if (mp.isPlaying()) {
-						mp.stop();
-					}
-					mp.release();
-				}
-			} catch (Exception e) {
-				Log.e(TAG, e.getMessage(), e);
-			}
-		}
-		mps.clear();
-	}
 }
