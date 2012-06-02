@@ -6,18 +6,16 @@ import java.util.TimerTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import pt.drawgeo.main.HomeActivity;
-import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -28,7 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,7 +75,12 @@ public class ReplayCanvasActivity extends Activity {
 			String colorsString = draw.getString("draw");
 			String xsString = draw.getString("drawx");
 			String ysString = draw.getString("drawy");
-			drawView = new DrawingPanel(this,colorsString,xsString,ysString);
+			float xden = Float.parseFloat(draw.getString("xdensity"));
+			float yden = Float.parseFloat(draw.getString("ydensity"));
+			
+			DisplayMetrics metrics = new DisplayMetrics();
+			getWindowManager().getDefaultDisplay().getMetrics(metrics);
+			drawView = new DrawingPanel(this,colorsString,xsString,ysString, xden, yden, metrics.xdpi, metrics.ydpi);
 		   
 		    word = info.getString("word");
 		    piggiesEarned = info.getInt("piggies");

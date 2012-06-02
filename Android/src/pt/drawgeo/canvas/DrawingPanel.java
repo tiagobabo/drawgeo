@@ -14,9 +14,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.AsyncTask;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -43,7 +45,13 @@ public class DrawingPanel extends View implements OnTouchListener {
 	private Dialog dialog;
 	private Context mContext;
 
-	public DrawingPanel(Context context) {
+	private float xden;
+	private float yden;
+	
+	private float xdenDraw;
+	private float ydenDraw;
+
+	public DrawingPanel(Context context, float xden, float yden) {
 		super(context);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -53,6 +61,9 @@ public class DrawingPanel extends View implements OnTouchListener {
 		ys = new ArrayList<Float>();
 		colors = new ArrayList<Integer>();
 
+		this.xden = xden;
+		this.yden = yden;
+		
 		pathsByPaint = new ArrayList<Integer>();
 		mPaints = new ArrayList<Paint>();
 		mCanvas = new Canvas();
@@ -62,12 +73,17 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	public DrawingPanel(Context context,
-			String colorsString, String xsString, String ysString) {
+			String colorsString, String xsString, String ysString, float xdenDraw, float ydenDraw, float xden, float yden) {
 		super(context);
 		xs = stringToFloatList(xsString);
 		ys = stringToFloatList(ysString);
 		colors = stringToIntList(colorsString);
-
+		
+		this.xden = xden;
+		this.yden = yden;
+		
+		this.xdenDraw = xdenDraw;
+		this.ydenDraw = ydenDraw;
 		pathsByPaint = new ArrayList<Integer>();
 		mPaints = new ArrayList<Paint>();
 		mCanvas = new Canvas();
@@ -109,14 +125,11 @@ public class DrawingPanel extends View implements OnTouchListener {
 			int acum = 0;
 			for (int j = 0; j < mPaints.size(); j++) {
 				for (int n = pathsByPaint.get(j); n > 0; n--) {
-
 					canvas.drawPath(paths.get(acum++), mPaints.get(j));
 				}
 			}
 		}
 	}
-
-	
 
 	private void touch_start(float x, float y) {
 		// limpa o caminho anterior
@@ -139,6 +152,13 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	private void touch_move(float x, float y) {
+		
+		// Dividir a densidade nossa pela do desenho e aplicar esse valor 1+densidade à multiplicação
+		if(!toReplay) {
+			x = x*(xden/xdenDraw);
+			y = y*(yden/ydenDraw);
+		}
+	
 		float dx = Math.abs(x - mX);
 		float dy = Math.abs(y - mY);
 		if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
@@ -150,6 +170,9 @@ public class DrawingPanel extends View implements OnTouchListener {
 				ys.add(mY);
 				colors.add(mPaint.getColor());
 			}
+			Matrix m = new Matrix();
+			
+			mPath.transform(m);
 		}
 	}
 
@@ -306,17 +329,6 @@ public class DrawingPanel extends View implements OnTouchListener {
 				}
 			}).start();
 			
-			
-			
-			
-			
-			
-		
-		
-		//List<String> list = Arrays.asList(s.substring(1, s.length() - 1).split(", "));
-		
-		
-		
 	}
 
 	
@@ -345,6 +357,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 	        nameValuePairs.add(new BasicNameValuePair("draw", colors.toString()));
 	        nameValuePairs.add(new BasicNameValuePair("drawx", xs.toString()));
 	        nameValuePairs.add(new BasicNameValuePair("drawy", ys.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("xdensity", xden+""));
+	        nameValuePairs.add(new BasicNameValuePair("ydensity", yden+""));
 	        
 	        String response = Connection.postData("http://" + Configurations.AUTHORITY + Configurations.ADDCHALLENGE, nameValuePairs);
 	        JSONObject info;
