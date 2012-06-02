@@ -8,6 +8,7 @@ import pt.drawgeo.utility.Connection;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -63,7 +64,10 @@ public class ReplayCanvasActivity extends Activity {
 			String colorsString = draw.getString("draw");
 			String xsString = draw.getString("drawx");
 			String ysString = draw.getString("drawy");
-			drawView = new DrawingPanel(this,colorsString,xsString,ysString);
+			String resolution = draw.getString("resolution");
+			DisplayMetrics metrics = new DisplayMetrics();
+			getWindowManager().getDefaultDisplay().getMetrics(metrics);
+			drawView = new DrawingPanel(this,colorsString,xsString,ysString, resolution, metrics.densityDpi);
 		   
 		    word = info.getString("word");
 		    TextView tv = (TextView) findViewById(R.id.title);
