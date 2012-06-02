@@ -44,10 +44,14 @@ public class DrawingPanel extends View implements OnTouchListener {
 	private static final float TOUCH_TOLERANCE = 4;
 	private Dialog dialog;
 	private Context mContext;
-	private String resolution;
-	private int density;
 
-	public DrawingPanel(Context context) {
+	private float xden;
+	private float yden;
+	
+	private float xdenDraw;
+	private float ydenDraw;
+
+	public DrawingPanel(Context context, float xden, float yden) {
 		super(context);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -57,6 +61,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 		ys = new ArrayList<Float>();
 		colors = new ArrayList<Integer>();
 
+		this.xden = xden;
+		this.yden = yden;
 		
 		pathsByPaint = new ArrayList<Integer>();
 		mPaints = new ArrayList<Paint>();
@@ -67,13 +73,17 @@ public class DrawingPanel extends View implements OnTouchListener {
 	}
 
 	public DrawingPanel(Context context,
-			String colorsString, String xsString, String ysString, String resolution, int density) {
+			String colorsString, String xsString, String ysString, float xdenDraw, float ydenDraw, float xden, float yden) {
 		super(context);
 		xs = stringToFloatList(xsString);
 		ys = stringToFloatList(ysString);
 		colors = stringToIntList(colorsString);
-		this.resolution = resolution;
-		this.density = density;
+		
+		this.xden = xden;
+		this.yden = yden;
+		
+		this.xdenDraw = xdenDraw;
+		this.ydenDraw = ydenDraw;
 		pathsByPaint = new ArrayList<Integer>();
 		mPaints = new ArrayList<Paint>();
 		mCanvas = new Canvas();
@@ -145,33 +155,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 		
 		// Dividir a densidade nossa pela do desenho e aplicar esse valor 1+densidade à multiplicação
 		if(!toReplay) {
-			if (density == DisplayMetrics.DENSITY_HIGH) {     
-				if(resolution.equals("1")) {
-					x = x*1.33f;		
-					y = y*1.33f;
-				} else if(resolution.equals("2")) {
-					x = x*1.66f;		
-					y = y*1.66f;
-				}
-		    }
-		    else if (density == DisplayMetrics.DENSITY_MEDIUM) {     
-		    	if(resolution.equals("0")) {
-					x = x*0.66f;		
-					y = y*0.66f;
-				} else if(resolution.equals("2")) {
-					x = x*1.33f;		
-					y = y*1.33f;
-				}
-		    } 
-		    else if (density == DisplayMetrics.DENSITY_LOW) {     
-		    	if(resolution.equals("0")) {
-					x = x*0.33f;		
-					y = y*0.33f;
-				} else if(resolution.equals("1")) {
-					x = x*0.66f;		
-					y = y*0.66f;
-				}
-		    }
+			x = x*(xden/xdenDraw);
+			y = y*(yden/ydenDraw);
 		}
 	
 		float dx = Math.abs(x - mX);
@@ -372,9 +357,8 @@ public class DrawingPanel extends View implements OnTouchListener {
 	        nameValuePairs.add(new BasicNameValuePair("draw", colors.toString()));
 	        nameValuePairs.add(new BasicNameValuePair("drawx", xs.toString()));
 	        nameValuePairs.add(new BasicNameValuePair("drawy", ys.toString()));
-	        nameValuePairs.add(new BasicNameValuePair("density", density+""));
-	        
-	        
+	        nameValuePairs.add(new BasicNameValuePair("xdensity", xden+""));
+	        nameValuePairs.add(new BasicNameValuePair("ydensity", yden+""));
 	        
 	        String response = Connection.postData("http://" + Configurations.AUTHORITY + Configurations.ADDCHALLENGE, nameValuePairs);
 	        JSONObject info;

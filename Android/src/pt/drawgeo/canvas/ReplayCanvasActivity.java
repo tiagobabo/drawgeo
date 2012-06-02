@@ -1,13 +1,20 @@
 package pt.drawgeo.canvas;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -15,10 +22,12 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.main.R;
 
@@ -29,6 +38,8 @@ public class ReplayCanvasActivity extends Activity {
 	private String word = null;
 	EditText[] guessLetters =  null;
 	EditText[] usedLetters =  null;
+	
+	private int piggiesEarned = -1;
 	
 	/** Called when the activity is first created. */
     @Override
@@ -64,12 +75,15 @@ public class ReplayCanvasActivity extends Activity {
 			String colorsString = draw.getString("draw");
 			String xsString = draw.getString("drawx");
 			String ysString = draw.getString("drawy");
-			String resolution = draw.getString("resolution");
+			float xden = Float.parseFloat(draw.getString("xdensity"));
+			float yden = Float.parseFloat(draw.getString("ydensity"));
+			
 			DisplayMetrics metrics = new DisplayMetrics();
 			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			drawView = new DrawingPanel(this,colorsString,xsString,ysString, resolution, metrics.densityDpi);
+			drawView = new DrawingPanel(this,colorsString,xsString,ysString, xden, yden, metrics.xdpi, metrics.ydpi);
 		   
 		    word = info.getString("word");
+		    piggiesEarned = info.getInt("piggies");
 		    TextView tv = (TextView) findViewById(R.id.title);
 		    tv.setText(word);
 		    addEnoughSquares(word.length());
@@ -164,7 +178,23 @@ public class ReplayCanvasActivity extends Activity {
 				while(lastLetterPos<guessLetters.length && !guessLetters[lastLetterPos].getText().toString().equals(""))
 					lastLetterPos++;
 			
-				
+				if(lastLetterPos==guessLetters.length){
+					if(isGuessCorrect()){
+						Timer t = new Timer(); 
+						final Handler handler = new Handler(); 
+				        t.schedule(new TimerTask() { 
+				                public void run() { 
+				                	handler.post(new Runnable() { 
+		                                public void run() { 
+		                                playerGuessed(); 
+		                                } 
+		                        }); 
+				                } 
+				        }, 2000); 
+					}
+					else
+						playerFailed();
+				}
 			}
 			
 			
@@ -184,6 +214,108 @@ public class ReplayCanvasActivity extends Activity {
 			lastLetterPos = Math.min(lastLetterPos, id);
 			
 			
+			
+		}
+	}
+	public boolean isGuessCorrect() {
+
+		String guess = "";
+		for(int i = 0; i < usedLetters.length; i++)
+			guess+=usedLetters[i].getText().toString();
+		
+		return guess.equals(word);
+		
+	}
+
+	public void playerGuessed() {
+
+		
+		
+		final Dialog wDialog = new Dialog(ReplayCanvasActivity.this);
+		wDialog.setTitle("Congratulations!!!");
+		wDialog.setContentView(R.layout.wordguesseddialog);
+		TextView text = (TextView) wDialog.findViewById(R.id.title);
+		text.setText("You just guessed the word! You earned " + piggiesEarned + " piggies!! Do you want to replace this drawing with one of your own?");
+		
+		text.postInvalidate();
+		Button btnYes = (Button) wDialog.findViewById(R.id.btnYes);
+		btnYes.setClickable(true);
+		btnYes.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				
+				wDialog.dismiss();
+				Intent intent = new Intent(v.getContext(),
+				CanvasActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
+		
+		Button btnNo = (Button) wDialog.findViewById(R.id.btnNo);
+		btnNo.setClickable(true);
+		btnNo.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				
+				finish();
+				wDialog.dismiss();
+				
+			}
+		});
+		
+		wDialog.show();
+	
+		new sendSuccessTask().execute();
+		
+	}
+
+	public void playerFailed() {
+
+		ReplayCanvasActivity.this.runOnUiThread(new Runnable() {
+      	  public void run() {
+      		Toast.makeText(ReplayCanvasActivity.this.getApplicationContext(), "Daaaaamn you missed that one!",Toast.LENGTH_LONG).show();
+      		
+      	  }
+	    	});
+		
+	}
+	
+	private class sendSuccessTask extends AsyncTask<Void, Integer, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... nothing) {
+			Uri uri = new Uri.Builder()
+			.scheme(Configurations.SCHEME)
+			.authority(Configurations.AUTHORITY)
+			.path(Configurations.GUESS)
+			.appendQueryParameter("format", Configurations.FORMAT)
+			.appendQueryParameter("id", Configurations.id+"")
+			.appendQueryParameter("draw_id", Configurations.drawidreplay)
+			.appendQueryParameter("guess", word)
+			.build();
+			String response = null;
+			try {
+				response = Connection.getJSONLine(uri);
+				JSONObject info = new JSONObject(response);
+				String status = info.getString("status");
+				if(status.equals("Ok")) {
+					
+				}
+			}
+			catch (Exception e) {
+				ReplayCanvasActivity.this.runOnUiThread(new Runnable() {
+					public void run() {
+						Toast.makeText(ReplayCanvasActivity.this.getApplicationContext(), "Something went wrong. Try again...", Toast.LENGTH_SHORT).show();
+
+					}
+				});
+				return false;
+			}
+			return true;
+		}
+
+		protected void onPostExecute(final boolean succeess) {
 			
 		}
 	}
