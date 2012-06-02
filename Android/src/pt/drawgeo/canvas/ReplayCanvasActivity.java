@@ -316,9 +316,9 @@ public class ReplayCanvasActivity extends Activity {
 			return true;
 		}
 
-		protected void onPostExecute(final boolean succeess) {
+		/*protected void onPostExecute(final boolean succeess) {
 			
-		}
+		}*/
 	}
 
 	

@@ -18,12 +18,11 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.os.AsyncTask;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-public class DrawingPanel extends View implements OnTouchListener {
+public class DrawingPanel extends View implements OnTouchListener  {
 
 	private Canvas mCanvas;
 	private Path mPath;

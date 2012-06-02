@@ -43,13 +43,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="75dp"
         android:gravity="center" >
 
         <EditText
             android:id="@+id/char0"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:ems="10"
             android:focusable="false"
@@ -60,7 +60,7 @@
         <EditText
             android:id="@+id/char1"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char0"
             android:layout_weight="1"
@@ -73,7 +73,7 @@
         <EditText
             android:id="@+id/char2"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char1"
             android:layout_weight="1"
@@ -86,7 +86,7 @@
         <EditText
             android:id="@+id/char3"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char2"
             android:layout_weight="1"
@@ -99,7 +99,7 @@
         <EditText
             android:id="@+id/char4"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char3"
             android:layout_weight="1"
@@ -112,7 +112,7 @@
         <EditText
             android:id="@+id/char5"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char4"
             android:layout_weight="1"
@@ -125,7 +125,7 @@
         <EditText
             android:id="@+id/char6"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char5"
             android:layout_weight="1"
@@ -138,7 +138,7 @@
         <EditText
             android:id="@+id/char7"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/char6"
             android:layout_weight="1"
@@ -151,7 +151,7 @@
         <EditText
             android:id="@+id/char9"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char8"
             android:layout_weight="1"
@@ -167,7 +167,7 @@
         <EditText
             android:id="@+id/char10"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char9"
             android:layout_weight="1"
@@ -180,7 +180,7 @@
         <EditText
             android:id="@+id/char11"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char10"
             android:layout_weight="1"
@@ -193,7 +193,7 @@
         <EditText
             android:id="@+id/char12"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char11"
             android:layout_weight="1"
@@ -206,7 +206,7 @@
         <EditText
             android:id="@+id/char13"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char12"
             android:layout_weight="1"
@@ -219,7 +219,7 @@
         <EditText
             android:id="@+id/char14"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char13"
             android:layout_weight="1"
@@ -232,7 +232,7 @@
         <EditText
             android:id="@+id/char15"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@+id/char14"
             android:layout_weight="1"
@@ -245,7 +245,7 @@
         <EditText
             android:id="@+id/char8"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/char1"
             android:layout_weight="1"
