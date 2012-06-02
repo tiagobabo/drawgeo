@@ -22,6 +22,8 @@ Server::Application.routes.draw do
   get "play/addNewDraw"
   post "play/addNewDraw"
   get "play/getPaletteByUser"
+  get "play/replace"
+  post "play/replace"
 
   get "home/map" => "home#map", :as => "see_map"
   root :to => 'home#index'

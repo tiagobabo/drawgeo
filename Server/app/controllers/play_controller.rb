@@ -55,7 +55,7 @@ class PlayController < ApplicationController
 		@user = User.where("email = ?", params[:email])
 		if(!@user.nil? && !@user.empty?)
 			respond_to do |format|
-		      	format.json { render :json => {:status => "Ok", :user => @user.first, :avatar => Avatar.find(@user.first.id_avatar), :created => Draw.where("id_creator = ?", @user.first.id).length }.to_json }
+		      	format.json { render :json => {:status => "Ok", :user => @user.first, :avatar => Avatar.find(@user.first.id_avatar), :created => @user.first.num_created }.to_json }
 		    end
 		else
 			@user_new = User.new(:email => params[:email])
@@ -146,6 +146,7 @@ class PlayController < ApplicationController
 		if(!@creator.nil? && !@word.nil?)
 			@new_draw = Draw.new(:id_creator => @creator.id, :word_id => @word.id, :latitude => params[:latitude], :longitude => params[:longitude], :draw => params[:draw], :drawx => params[:drawx], :drawy => params[:drawy], :challenge => params[:challenge], :description => params[:description], :password => params[:password]  )
 			if @new_draw.save
+				@creator.update_attribute(:num_created, @creator.num_created + 1)
 				respond_to do |format|
 			      	format.json { render :json => {:status => "Draw added."}.to_json }
 			    end
@@ -153,6 +154,35 @@ class PlayController < ApplicationController
 		else
 			respond_to do |format|
 		      	format.json { render :json => {:status => "User or word doesn't exist."}.to_json }
+		    end
+		end
+	end
+
+
+	def replace
+		@user = User.find(params[:id])
+		@draw = Draw.find(params[:draw_id])
+		if(!@user.nil? && !@draw.nil?)
+			@draw.update_attribute(:word_id, params[:word_id])
+			@draw.update_attribute(:draw, params[:draw])
+			@draw.update_attribute(:drawx, params[:drawx])
+			@draw.update_attribute(:drawy, params[:drawy])
+			@draw.update_attribute(:challenge, params[:challenge])
+			@draw.update_attribute(:password, params[:password])
+			@draw.update_attribute(:description, params[:description])
+			@draw.update_attribute(:resolution, params[:resolution])
+			@draw.update_attribute(:id_creator, @user.id)
+			@draw_users = DrawUser.where("id_draw = ?", params[:draw_id])
+			@draw_users.each.each do|n|
+			  DrawUser.delete(n.id)
+			end
+			@user.update_attribute(:num_created, @user.num_created + 1)
+			respond_to do |format|
+		      	format.json { render :json => {:status => "Draw has been updated."}.to_json }
+		    end
+		else
+			respond_to do |format|
+		      	format.json { render :json => {:status => "User or draw doesn't exist."}.to_json }
 		    end
 		end
 	end
