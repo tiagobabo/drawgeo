@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120530190827) do
+ActiveRecord::Schema.define(:version => 20120602184537) do
 
   create_table "avatars", :force => true do |t|
     t.string   "url"
@@ -66,9 +66,10 @@ ActiveRecord::Schema.define(:version => 20120530190827) do
     t.integer  "keys"
     t.integer  "num_done"
     t.integer  "num_success"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "ranking"
+    t.integer  "num_created", :default => 0
   end
 
   create_table "words", :force => true do |t|
