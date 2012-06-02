@@ -44,7 +44,7 @@ public class CanvasActivity extends Activity {
         // criação de um novo canvas
         DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        drawView = new DrawingPanel(this, metrics.xdpi, metrics.ydpi);
+        drawView = new DrawingPanel(this, metrics.widthPixels, metrics.heightPixels);
         canvas.addView(drawView);
         
         // listener para a acção de desenho concluído
