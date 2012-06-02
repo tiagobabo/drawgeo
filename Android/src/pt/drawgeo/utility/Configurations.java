@@ -32,4 +32,11 @@ public class Configurations {
 	public static String drawidreplay;
 	public static int num_created;
 	public static String current_word;
+	
+	// MUSICA
+	public static final int MENU_MUSIC = 0;
+	public static final int GAME_MUSIC = 1;
+	public static final int END_MUSIC = 2;
+	public static int CURRENT_MUSIC = -1;
+	public static boolean PAUSED = false;
 }

@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.MD5Util;
+import pt.drawgeo.utility.MusicManager;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -259,6 +260,22 @@ public class HomeActivity extends Activity{
           		if(result == null)
           			goToMainMenu();
 	     }
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Configurations.PAUSED = true;
+		MusicManager.pause();
+	
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Configurations.CURRENT_MUSIC = Configurations.GAME_MUSIC;
+		MusicManager.start(this, Configurations.CURRENT_MUSIC);
+		
 	}
 
 

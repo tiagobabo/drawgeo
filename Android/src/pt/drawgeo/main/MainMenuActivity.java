@@ -2,6 +2,7 @@ package pt.drawgeo.main;
 
 import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.MusicManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,7 +26,7 @@ public class MainMenuActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		 
 		setContentView(R.layout.mainmenu);
-		
+	
 		final TextView challengesdone = (TextView) findViewById(R.id.challengesdonetext);
 		challengesdone.setText(Configurations.num_done+"");
 		
@@ -105,5 +106,22 @@ public class MainMenuActivity extends Activity {
         this.overridePendingTransition(R.anim.animation_enter2,
                 R.anim.animation_leave2);
     }
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Configurations.PAUSED = true;
+		MusicManager.pause();
+	
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Configurations.CURRENT_MUSIC = Configurations.MENU_MUSIC;
+		MusicManager.start(this, Configurations.CURRENT_MUSIC);
+	}
+
+
 	
 }
