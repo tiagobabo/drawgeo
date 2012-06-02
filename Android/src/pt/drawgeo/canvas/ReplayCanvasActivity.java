@@ -188,7 +188,7 @@ public class ReplayCanvasActivity extends Activity {
 		                                } 
 		                        }); 
 				                } 
-				        }, 2000); 
+				        }, 700); 
 					}
 					else
 						playerFailed();
