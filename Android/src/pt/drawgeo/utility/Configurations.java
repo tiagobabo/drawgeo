@@ -16,6 +16,7 @@ public class Configurations {
 	final public static String ADDCHALLENGE = "/play/addNewDraw";
 	final public static String GETDRAW ="draws";
 	final public static String GETNEWWORDS ="/play/getNewWords";
+	final public static String GUESS ="/play/guess";
 	
 	// DADOS DO UTILIZADOR
 	public static String email;
