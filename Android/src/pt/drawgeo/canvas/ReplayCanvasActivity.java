@@ -80,7 +80,8 @@ public class ReplayCanvasActivity extends Activity {
 			
 			DisplayMetrics metrics = new DisplayMetrics();
 			getWindowManager().getDefaultDisplay().getMetrics(metrics);
-			drawView = new DrawingPanel(this,colorsString,xsString,ysString, xden, yden, metrics.xdpi, metrics.ydpi);
+			
+			drawView = new DrawingPanel(this,colorsString,xsString,ysString, xden, yden, metrics.widthPixels, metrics.heightPixels);
 		   
 		    word = info.getString("word");
 		    piggiesEarned = info.getInt("piggies");
