@@ -55,7 +55,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="I"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char1"
@@ -68,7 +68,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="T"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char2"
@@ -81,7 +81,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="A"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char3"
@@ -94,7 +94,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="U"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char4"
@@ -107,7 +107,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="B"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char5"
@@ -120,7 +120,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="C"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char6"
@@ -133,7 +133,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="O"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char7"
@@ -146,7 +146,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="E"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char9"
@@ -159,7 +159,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="T"
-            android:width="35dp" >
+            android:width="40dp" >
 
             <requestFocus />
         </EditText>
@@ -175,7 +175,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="A"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char11"
@@ -188,7 +188,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="U"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char12"
@@ -201,7 +201,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="B"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char13"
@@ -214,7 +214,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="C"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char14"
@@ -227,7 +227,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="O"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char15"
@@ -240,7 +240,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="E"
-            android:width="35dp" />
+            android:width="40dp" />
 
         <EditText
             android:id="@+id/char8"
@@ -253,7 +253,7 @@
             android:focusable="false"
             android:gravity="center_vertical|center_horizontal"
             android:text="I"
-            android:width="35dp" />
+            android:width="40dp" />
     </RelativeLayout>
 
 </LinearLayout>
