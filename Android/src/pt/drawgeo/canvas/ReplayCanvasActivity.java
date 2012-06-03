@@ -39,6 +39,8 @@ public class ReplayCanvasActivity extends Activity {
 	EditText[] guessLetters =  null;
 	EditText[] usedLetters =  null;
 	
+	private final int WAITTIME = 700;
+	
 	private int piggiesEarned = -1;
 	
 	/** Called when the activity is first created. */
@@ -182,16 +184,17 @@ public class ReplayCanvasActivity extends Activity {
 				if(lastLetterPos==guessLetters.length){
 					if(isGuessCorrect()){
 						Timer t = new Timer(); 
-						final Handler handler = new Handler(); 
-				        t.schedule(new TimerTask() { 
-				                public void run() { 
-				                	handler.post(new Runnable() { 
-		                                public void run() { 
-		                                playerGuessed(); 
-		                                } 
-		                        }); 
+					    t.schedule(new TimerTask() { 
+				                public void run() {
+				                	ReplayCanvasActivity.this.runOnUiThread(new Runnable() {
+				                		public void run() {
+				                			playerGuessed();
+				                		}
+				                	});
+								
+		                       
 				                } 
-				        }, 700); 
+				        }, WAITTIME); 
 					}
 					else
 						playerFailed();
@@ -209,10 +212,12 @@ public class ReplayCanvasActivity extends Activity {
 		public void onClick(View v) {
 			
 			int id = v.getId()-1;
-			usedLetters[id].setVisibility(0);
-			usedLetters[id].setClickable(true);
-			guessLetters[id].setText("");
-			lastLetterPos = Math.min(lastLetterPos, id);
+			if(	!guessLetters[id].getText().toString().equals("")){
+				usedLetters[id].setVisibility(0);
+				usedLetters[id].setClickable(true);
+				guessLetters[id].setText("");
+				lastLetterPos = Math.min(lastLetterPos, id);
+			}
 			
 			
 			
