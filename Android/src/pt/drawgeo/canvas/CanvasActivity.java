@@ -3,10 +3,10 @@ package pt.drawgeo.canvas;
 import java.util.ArrayList;
 
 import pt.drawgeo.main.Store;
-import pt.drawgeo.utility.*;
+import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.Word;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;

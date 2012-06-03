@@ -47,7 +47,7 @@
             android:layout_alignTop="@+id/imageView1"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/imageView1"
-            android:src="@drawable/guessedyours" />
+            android:src="@drawable/timesguessed" />
 
         <ImageView
             android:id="@+id/playnow"
