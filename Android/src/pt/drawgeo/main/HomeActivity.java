@@ -273,7 +273,7 @@ public class HomeActivity extends Activity{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Configurations.CURRENT_MUSIC = Configurations.GAME_MUSIC;
+		Configurations.CURRENT_MUSIC = Configurations.MENU_MUSIC;
 		MusicManager.start(this, Configurations.CURRENT_MUSIC);
 		
 	}

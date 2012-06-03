@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.main.R;
 
 public class MainMenuActivity extends Activity {
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -26,7 +27,8 @@ public class MainMenuActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		 
 		setContentView(R.layout.mainmenu);
-	
+		
+		
 		final TextView challengesdone = (TextView) findViewById(R.id.challengesdonetext);
 		challengesdone.setText(Configurations.num_done+"");
 		
@@ -48,8 +50,7 @@ public class MainMenuActivity extends Activity {
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				/*Intent intent = new Intent(v.getContext(),
-						ReplayCanvasActivity.class);*/
+				
 				Intent intent = new Intent(v.getContext(),
 				MapsActivity.class);
 				startActivity(intent);
@@ -58,6 +59,8 @@ public class MainMenuActivity extends Activity {
 		final ImageView sButton = (ImageView) findViewById(R.id.btnStore);
 		sButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+              
 				Intent intent = new Intent(v.getContext(),
 						Store.class);
 				
@@ -71,12 +74,18 @@ public class MainMenuActivity extends Activity {
 		final ImageView aButton = (ImageView) findViewById(R.id.btnAbout);
 		aButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+               
 				showAbout();
 			}
 		});
 		final ImageView oButton = (ImageView) findViewById(R.id.btnOptions);
 		oButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+               
+              
+
 				Intent intent = new Intent(v.getContext(),
 						OptionsActivity.class);
 				startActivity(intent);
