@@ -60,6 +60,8 @@ public class CanvasActivity extends Activity {
             public void onClick(View v) {
             	//drawView.replay();
             	drawView.save();
+            	
+            	
             }
         }); 
         
