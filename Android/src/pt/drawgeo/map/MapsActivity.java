@@ -298,6 +298,7 @@ public class MapsActivity extends MapActivity
 		return true;
 	}
 
+
 	private class getNewWordsTask extends AsyncTask<Void, Integer, Word[]> {
 
 		@Override
