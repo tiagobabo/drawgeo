@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,8 +33,9 @@ public class NewChallenge extends Activity{
         final ImageView eButton = (ImageView) findViewById(R.id.okButton);
 		eButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				TextView description = (TextView) findViewById(R.id.textView1);
-				TextView password = (TextView) findViewById(R.id.textView2);
+				EditText description = (EditText) findViewById(R.id.description);
+				EditText password = (EditText) findViewById(R.id.password);
+	
 				if (description.getText().toString().length() == 0 || password.getText().toString().length() == 0)
 					Toast.makeText(NewChallenge.this.getApplicationContext(), "Fields cannot be empty...", Toast.LENGTH_SHORT).show();
 				else
