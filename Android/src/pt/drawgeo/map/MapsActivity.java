@@ -87,7 +87,7 @@ public class MapsActivity extends MapActivity
             	{
             		if(location.getProvider().equals(LocationManager.GPS_PROVIDER))
             			noGPS = false;
-	            	// a minha posi‹o
+	            	// a minha posiï¿½â€¹o
 	            	GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
 	            	
 	            	if(isCurrentLocationVisible(point) || firstTime) {
@@ -122,7 +122,7 @@ public class MapsActivity extends MapActivity
 		
 
 
-		// regista o listener para as mudanas de localiza‹o
+		// regista o listener para as mudanï¿½as de localizaï¿½â€¹o
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
@@ -157,7 +157,7 @@ public class MapsActivity extends MapActivity
             .appendQueryParameter("format", Configurations.FORMAT)
             .build();
         	
-        	// s‹o representados os desafios pr—ximos de mim
+        	// sâ€¹o representados os desafios prâ€”ximos de mim
         	String response = null;
         	try {
 				response = Connection.getJSONLine(uri);
@@ -207,7 +207,7 @@ public class MapsActivity extends MapActivity
 		return false;
 	}
 
-	// cria uma localiza‹o fict’cia
+	// cria uma localizaï¿½â€¹o fictâ€™cia
 	private void getMockLocation()
 	{
 		try{
@@ -259,7 +259,7 @@ public class MapsActivity extends MapActivity
 				);      
 	}
 
-	// menu de contexto com as op›es para criar novos desafios
+	// menu de contexto com as opï¿½â€ºes para criar novos desafios
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -284,9 +284,15 @@ public class MapsActivity extends MapActivity
 			}
 			break;
 			case R.id.newchallenge:
-				//TODO
+				Intent intent = new Intent(this,
+				NewChallenge.class);
+		startActivity(intent);
 				break;
 			}
+		}
+		else
+		{
+			Toast.makeText(MapsActivity.this.getApplicationContext(), "Waiting for location...", Toast.LENGTH_SHORT).show();
 		}
 		return true;
 	}
