@@ -393,16 +393,17 @@ public class DrawingPanel extends View implements OnTouchListener  {
 					mContext.runOnUiThread(new Runnable() {
 						public void run() {
 							AlertDialog.Builder builder = new AlertDialog.Builder(context);
-							builder.setMessage("Draw was successfuly created?")
+							builder.setMessage("Draw was successfuly created")
 							       .setCancelable(false)
-							       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
 							           public void onClick(DialogInterface dialog, int id) {
-							                
+							        	   mContext.finish();
+
 							           }
 							       });
-						builder.create();
-						mContext.finish();
-
+						builder.create().show();
+						
+						
 						}
 					});
 					
@@ -439,15 +440,15 @@ public class DrawingPanel extends View implements OnTouchListener  {
 					mContext.runOnUiThread(new Runnable() {
 						public void run() {
 							AlertDialog.Builder builder = new AlertDialog.Builder(context);
-							builder.setMessage("Draw was successfuly created?")
+							builder.setMessage("Draw was successfuly created")
 							       .setCancelable(false)
-							       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
 							           public void onClick(DialogInterface dialog, int id) {
-							                
+							        	   mContext.finish();
 							           }
 							       });
-						builder.create();
-						mContext.finish();
+						builder.create().show();
+						
 
 						}
 					});
