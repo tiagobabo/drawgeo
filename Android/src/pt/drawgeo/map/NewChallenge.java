@@ -40,15 +40,18 @@ public class NewChallenge extends Activity{
 				{
 					Configurations.current_description = description.getText().toString();
 					Configurations.current_password = password.getText().toString();
+					
+					dialog = ProgressDialog.show(NewChallenge.this, "", 
+							"Retrieving information...", true);
+					
+					GetNewWords gnw = new GetNewWords();
+					gnw.activity = NewChallenge.this;
+					gnw.dialog = NewChallenge.dialog;
+					gnw.execute();
+					
 				}
 				
-				dialog = ProgressDialog.show(NewChallenge.this, "", 
-						"Retreiving information...", true);
 				
-				GetNewWords gnw = new GetNewWords();
-				gnw.activity = NewChallenge.this;
-				gnw.dialog = NewChallenge.dialog;
-				gnw.execute();
 			}
 		});
         
