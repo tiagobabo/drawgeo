@@ -3,9 +3,10 @@ package pt.drawgeo.canvas;
 import java.util.ArrayList;
 
 import pt.drawgeo.main.Store;
-import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.*;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -23,12 +24,18 @@ public class CanvasActivity extends Activity {
 	
 	private  DrawingPanel drawView; 
 	private ArrayList<ImageView> colors;
+	private int replaceId = -1;
+	private Word word = null;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        Bundle b = this.getIntent().getExtras();
+        if(!(b==null) && !b.isEmpty())
+        	replaceId =  b.getInt("replaceID", -1);
+        word = Configurations.current_word;
         // Modo fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -36,7 +43,7 @@ public class CanvasActivity extends Activity {
 
         setContentView(R.layout.drawcanvas);
         TextView text2 = (TextView) findViewById(R.id.title);
-		text2.setText("You are now drawing " + Configurations.current_word);
+		text2.setText("You are now drawing " + word.getWord());
         
         // layout que vai conter o canvas
         LinearLayout canvas = (LinearLayout) findViewById(R.id.canvas);
@@ -44,7 +51,7 @@ public class CanvasActivity extends Activity {
         // criação de um novo canvas
         DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        drawView = new DrawingPanel(this, metrics.widthPixels, metrics.heightPixels);
+        drawView = new DrawingPanel(this, metrics.widthPixels, metrics.heightPixels,replaceId,word);
         canvas.addView(drawView);
         
         // listener para a acção de desenho concluído
@@ -53,6 +60,8 @@ public class CanvasActivity extends Activity {
             public void onClick(View v) {
             	//drawView.replay();
             	drawView.save();
+            	
+            	
             }
         }); 
         
