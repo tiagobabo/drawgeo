@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -58,9 +59,8 @@ public class MainMenuActivity extends Activity {
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
-				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-		    	if(myPreference.getBoolean("soundOption", false))		    
+				
+		    	if(!MusicManager.MUTE)		    
 		    		new Thread(
 		    				new Runnable() {
 		    					public void run() {
@@ -79,9 +79,8 @@ public class MainMenuActivity extends Activity {
 		sButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
-				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-		    	if(myPreference.getBoolean("soundOption", false))		    
+				
+		    	if(!MusicManager.MUTE)		    
 		    		new Thread(
 		    				new Runnable() {
 		    					public void run() {
@@ -105,9 +104,8 @@ public class MainMenuActivity extends Activity {
 		aButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
-				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-		    	if(myPreference.getBoolean("soundOption", false))		    
+				
+		    	if(!MusicManager.MUTE)		    
 		    		new Thread(
 		    				new Runnable() {
 		    					public void run() {
@@ -124,9 +122,8 @@ public class MainMenuActivity extends Activity {
 		oButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
-				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-		    	if(myPreference.getBoolean("soundOption", false))		    
+				
+		    	if(!MusicManager.MUTE)		    
 		    		new Thread(
 		    				new Runnable() {
 		    					public void run() {
@@ -137,8 +134,40 @@ public class MainMenuActivity extends Activity {
 		    				}).start();
 
 				Intent intent = new Intent(v.getContext(),
-						OptionsActivity.class);
-				startActivity(intent);
+						HowTo.class);
+				startActivityForResult(intent,100);
+				MainMenuActivity.this.overridePendingTransition(R.anim.animation_enter,
+		                R.anim.animation_leave);
+			}
+		});
+		
+		final ImageView soButton = (ImageView) findViewById(R.id.btnSound);
+		soButton.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				
+				
+		    	if(!MusicManager.MUTE)		    
+		    		new Thread(
+		    				new Runnable() {
+		    					public void run() {
+		    						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		    						float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		    						SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+		    					}
+		    				}).start();
+		    	
+		    	MusicManager.MUTE = !MusicManager.MUTE;
+		    	if(!MusicManager.MUTE) {
+		    		soButton.setImageResource(R.drawable.soundon);
+		    		MusicManager.start(MainMenuActivity.this, MusicManager.CURRENT_MUSIC);
+		    	}
+		    	else
+		    	{
+		    		soButton.setImageResource(R.drawable.soundoff);
+		    		MusicManager.PAUSED = true;
+		    		MusicManager.pause();
+		    	}
+				
 			}
 		});
 	}

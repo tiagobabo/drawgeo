@@ -176,22 +176,27 @@
 		    android:layout_alignLeft="@+id/btnStore"
 		    android:layout_below="@+id/btnStore"
 		    android:layout_marginTop="15dp"
-		    android:src="@drawable/options" />
+		    android:src="@drawable/help" />
 
 
 		<ImageView
 		    android:id="@+id/btnAbout"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_alignLeft="@+id/btnOptions"
-		    android:layout_below="@+id/btnOptions"
+		    android:layout_alignLeft="@+id/btnSound"
+		    android:layout_below="@+id/btnSound"
 		    android:layout_marginTop="15dp"
 		    android:src="@drawable/about" />
 
+		<ImageView
+		    android:id="@+id/btnSound"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignLeft="@+id/btnOptions"
+		    android:layout_below="@+id/btnOptions"
+		    android:layout_marginTop="15dp"
+		    android:src="@drawable/soundon" />
+
 	</RelativeLayout>
-	
-	
-	
-	    
 
 </LinearLayout>

@@ -7,7 +7,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.Word;
@@ -17,7 +16,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -27,7 +25,6 @@ import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Toast;
 
 public class DrawingPanel extends View implements OnTouchListener  {
 
