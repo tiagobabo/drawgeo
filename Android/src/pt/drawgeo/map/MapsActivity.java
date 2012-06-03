@@ -51,6 +51,7 @@ public class MapsActivity extends MapActivity
 	private MapCircleOverlay me;
 	private Boolean firstTime = true;
 	private Boolean noGPS = true;
+	private GeoPoint point;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -88,7 +89,7 @@ public class MapsActivity extends MapActivity
             		if(location.getProvider().equals(LocationManager.GPS_PROVIDER))
             			noGPS = false;
 	            	// a minha posi�‹o
-	            	GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
+	            	point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
 	            	
 	            	if(isCurrentLocationVisible(point) || firstTime) {
 	            		mapView.getController().setCenter(point);
@@ -379,8 +380,6 @@ public class MapsActivity extends MapActivity
 			tr1.setClickable(true);
 			tr1.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
-					
-					
 					Configurations.current_word = result[1];
 					wDialog.dismiss();
 					Intent intent = new Intent(v.getContext(),
@@ -409,6 +408,14 @@ public class MapsActivity extends MapActivity
 			
 			wDialog.show();
 		}
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		if(point != null)
+			new GetDrawsNear().execute(point);
 	}
 
 
