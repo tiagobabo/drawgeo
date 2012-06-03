@@ -18,12 +18,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 import com.main.R;
@@ -32,6 +34,7 @@ import com.main.R;
 public class MapChallenge extends ItemizedOverlay {
 
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+	private ArrayList<GeoPoint> mLocations = new ArrayList<GeoPoint>();
 	public ArrayList<String> allPiggies = new ArrayList<String>();
 	public ArrayList<String> allNumguess = new ArrayList<String>();
 	private ArrayList<String> ids = new ArrayList<String>();
@@ -39,10 +42,14 @@ public class MapChallenge extends ItemizedOverlay {
 	private Dialog dialog;
 	private Bitmap bmp;
 	private ProgressDialog pd;
+	private Location location;
+	private int currentIndex;
 
-	public MapChallenge(Drawable defaultMarker, Context context) {
+	public MapChallenge(Drawable defaultMarker, Context context, Location l) {
 		super(boundCenterBottom(defaultMarker));
 		this.mContext = context;
+		this.location = l;
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -56,7 +63,8 @@ public class MapChallenge extends ItemizedOverlay {
 		return mOverlays.size();
 	}
 
-	public void addOverlay(OverlayItem overlay) {
+	public void addOverlay(OverlayItem overlay, GeoPoint l) {
+		mLocations.add(l);
 		mOverlays.add(overlay);
 		populate();
 	}
@@ -96,7 +104,8 @@ public class MapChallenge extends ItemizedOverlay {
 		
 		
 		new DownloadAvatar().execute(item.getSnippet());
-
+		
+		currentIndex = index;
 		//dialog.show();
 		return true;
 	}
@@ -141,6 +150,20 @@ public class MapChallenge extends ItemizedOverlay {
 	  		final ImageView avatar = (ImageView) dialog
 					.findViewById(R.id.avatar);
 			avatar.setImageBitmap(bmp);
+			
+			Location click = new Location("");
+			GeoPoint clickPoint = mLocations.get(currentIndex);
+			
+			click.setLatitude(clickPoint.getLatitudeE6()/1e6);
+			click.setLongitude(clickPoint.getLongitudeE6()/1e6);
+			
+			if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS) {
+				final ImageView playnow = (ImageView) dialog
+						.findViewById(R.id.playnow);
+				playnow.setImageResource(R.drawable.playnowbw);
+				playnow.setClickable(false);
+			}
+			
 			dialog.show();
 			pd.dismiss();
 		}

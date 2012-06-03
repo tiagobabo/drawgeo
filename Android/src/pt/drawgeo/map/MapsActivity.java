@@ -99,8 +99,8 @@ public class MapsActivity extends MapActivity
 					JSONArray info = new JSONArray(response);
 					Drawable drawableDraw = MapsActivity.this.getResources().getDrawable(R.drawable.pencil);
 					Drawable drawableChallenge = MapsActivity.this.getResources().getDrawable(R.drawable.pencilchallenge);
-	            	MapChallenge itemizedoverlayDraw = new MapChallenge(drawableDraw, MapsActivity.this);
-	            	MapChallenge itemizedoverlayChallenge = new MapChallenge(drawableChallenge, MapsActivity.this);
+	            	MapChallenge itemizedoverlayDraw = new MapChallenge(drawableDraw, MapsActivity.this, location);
+	            	MapChallenge itemizedoverlayChallenge = new MapChallenge(drawableChallenge, MapsActivity.this, location);
 					
 					for(int i = 0; i < info.length(); i++) {
 						JSONObject o = info.getJSONObject(i);
@@ -109,7 +109,7 @@ public class MapsActivity extends MapActivity
 		            	
 		            	if (!o.getBoolean("challenge"))
 		            	{
-		            		itemizedoverlayDraw.addOverlay(overlay);
+		            		itemizedoverlayDraw.addOverlay(overlay, point2);
 		            		itemizedoverlayDraw.addItem(o.getString("id"));
 		            		itemizedoverlayDraw.allPiggies.add(o.getString("piggies"));
 		            		itemizedoverlayDraw.allNumguess.add(o.getString("times_guessed"));
@@ -117,7 +117,7 @@ public class MapsActivity extends MapActivity
 		            	}
 		            	else
 		            	{
-		            		itemizedoverlayChallenge.addOverlay(overlay);
+		            		itemizedoverlayChallenge.addOverlay(overlay, point2);
 		            		itemizedoverlayChallenge.addItem(o.getString("id"));
 		            		itemizedoverlayChallenge.allPiggies.add(o.getString("piggies"));
 		            		itemizedoverlayChallenge.allNumguess.add(o.getString("times_guessed"));
