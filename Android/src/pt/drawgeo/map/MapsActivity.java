@@ -297,7 +297,7 @@ public class MapsActivity extends MapActivity
 		return true;
 	}
 
-	private class getNewWordsTask extends AsyncTask<Void, Integer, String[]> {
+	public class getNewWordsTask extends AsyncTask<Void, Integer, String[]> {
 
 		@Override
 		protected String[] doInBackground(Void... nothing) {
