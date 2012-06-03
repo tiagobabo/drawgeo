@@ -94,6 +94,7 @@ public class MapsActivity extends MapActivity
 	            	if(isCurrentLocationVisible(point) || firstTime) {
 	            		mapView.getController().setCenter(point);
 	            		firstTime = false;
+	            		new GetDrawsNear().execute(point);
 	            	}
 	            	
 	            	Configurations.latitudenow = location.getLatitude(); 
@@ -108,7 +109,7 @@ public class MapsActivity extends MapActivity
 	            	me = new MapCircleOverlay(point, 3,255,0,0, 255);
 	            	mapOverlays.add(me);
 	            	
-	            	new GetDrawsNear().execute(point);
+	            	
             	
             	}
             	
@@ -170,7 +171,15 @@ public class MapsActivity extends MapActivity
 				l.setLongitude(locations[0].getLongitudeE6()/1e6);
             	MapChallenge itemizedoverlayDraw = new MapChallenge(drawableDraw, MapsActivity.this, l);
             	MapChallenge itemizedoverlayChallenge = new MapChallenge(drawableChallenge, MapsActivity.this, l);
-				
+            	
+            	mapOverlays.clear();
+            	
+            	avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255, 32);
+            	mapOverlays.add(avaliable);
+            	
+            	me = new MapCircleOverlay(point, 3,255,0,0, 255);
+            	mapOverlays.add(me);
+            	
 				for(int i = 0; i < info.length(); i++) {
 					JSONObject o = info.getJSONObject(i);
 	            	GeoPoint point2 = new GeoPoint((int)(o.getDouble("latitude") * 1E6),((int)(o.getDouble("longitude") * 1E6)));
