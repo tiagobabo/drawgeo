@@ -230,7 +230,7 @@ public class ReplayCanvasActivity extends Activity {
 		for(int i = 0; i < usedLetters.length; i++)
 			guess+=usedLetters[i].getText().toString();
 		
-		return guess.equals(word);
+		return guess.equalsIgnoreCase(word);
 		
 	}
 
