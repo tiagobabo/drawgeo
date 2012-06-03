@@ -292,7 +292,7 @@ public class MapsActivity extends MapActivity
 			here.setLongitude(Configurations.longitudenow);
 			
 			for(Location l : locations) {
-				if(l.distanceTo(here) < 30.0) {
+				if(l.distanceTo(here) < Configurations.MINIMUM_RADIUS) {
 					Toast.makeText(MapsActivity.this.getApplicationContext(), "You can't add it here, because there is another challenge in this area...", Toast.LENGTH_LONG).show();
 					return false;
 				}
