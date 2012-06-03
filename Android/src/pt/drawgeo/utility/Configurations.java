@@ -29,12 +29,13 @@ public class Configurations {
 	public static String avatarURL;
 	public static String name;
 	public static Bitmap avatarImage;
-	public static double latitude = 41.3;
-	public static double longitude = -8.6366445;
 	public static String drawidreplay;
 	public static int num_created;
+
 	public static int wordID = -1;
 	public static Word current_word;
+	public static double latitudenow = -1.0;
+	public static double longitudenow = -1.0;
 	
 	// MUSICA
 	public static final int MENU_MUSIC = 0;
@@ -44,4 +45,5 @@ public class Configurations {
 	public static boolean PAUSED = false;
 	
 	
+
 }

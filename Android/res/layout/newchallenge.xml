@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/mainmenu"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Description"
+        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="textMultiLine" android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Password"
+        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ems="10"
+        android:gravity="center_horizontal"
+        android:inputType="textPersonName" android:layout_gravity="center_horizontal"/>
+
+		<RelativeLayout
+        	android:layout_width="match_parent"
+        	android:layout_height="match_parent">
+
+        	<ImageView
+        	    android:id="@+id/okButton"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:layout_alignParentBottom="true"
+        	    android:layout_centerHorizontal="true"
+        	    android:src="@drawable/noun_project_835" android:layout_marginBottom="5dp"/>
+    		
+    	</RelativeLayout>
+    
+    
+
+</LinearLayout>

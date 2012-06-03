@@ -1,5 +1,6 @@
 package pt.drawgeo.main;
 
+import pt.drawgeo.sound.MusicManager;
 import pt.drawgeo.utility.Configurations;
 
 import com.main.R;
@@ -11,8 +12,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 public class Store extends Activity{
+
+	public boolean music = true;
 	
-	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,5 +29,19 @@ public class Store extends Activity{
         final TextView piggies = (TextView) findViewById(R.id.piggiestext);
 		piggies.setText(Configurations.piggies+"");
     }
+    
+    @Override
+	protected void onPause() {
+		super.onPause();
+		MusicManager.PAUSED = true;
+		MusicManager.pause();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (music)
+			MusicManager.start(this, MusicManager.CURRENT_MUSIC);
+	}
 
 }

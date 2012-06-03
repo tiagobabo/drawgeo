@@ -1,7 +1,6 @@
 package pt.drawgeo.main;
 
-import pt.drawgeo.utility.Configurations;
-import pt.drawgeo.utility.MusicManager;
+import pt.drawgeo.sound.MusicManager;
 
 import com.main.R;
 
@@ -54,10 +53,13 @@ public class OptionsActivity extends PreferenceActivity {
 		    	SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
 		    	 
 		    	if(myPreference.getBoolean("soundOption", false)) 
-		    		MusicManager.start(OptionsActivity.this, Configurations.CURRENT_MUSIC);
+		    		MusicManager.start(OptionsActivity.this, MusicManager.CURRENT_MUSIC);
 		    	else
+		    	{
+		    		MusicManager.PAUSED = true;
 		    		MusicManager.pause();
-		    		
+		    	}
+		    	
 		    	return true; 
 		    }
 		});
@@ -68,7 +70,7 @@ public class OptionsActivity extends PreferenceActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Configurations.PAUSED = true;
+		MusicManager.PAUSED = true;
 		MusicManager.pause();
 	}
 
@@ -76,7 +78,7 @@ public class OptionsActivity extends PreferenceActivity {
 	protected void onResume() {
 		super.onResume();
 		if (music)
-			MusicManager.start(this, Configurations.CURRENT_MUSIC);
+			MusicManager.start(this, MusicManager.CURRENT_MUSIC);
 	}
 
 }
