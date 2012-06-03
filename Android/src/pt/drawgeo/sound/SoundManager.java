@@ -1,4 +1,4 @@
-package pt.drawgeo.utility;
+package pt.drawgeo.sound;
 
 import android.media.SoundPool;
 

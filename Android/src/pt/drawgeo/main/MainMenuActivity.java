@@ -1,15 +1,17 @@
 package pt.drawgeo.main;
 
 import pt.drawgeo.map.MapsActivity;
+import pt.drawgeo.sound.MusicManager;
+import pt.drawgeo.sound.SoundManager;
 import pt.drawgeo.utility.Configurations;
-import pt.drawgeo.utility.MusicManager;
-import pt.drawgeo.utility.SoundManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -55,14 +57,17 @@ public class MainMenuActivity extends Activity {
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				new Thread(
-			            new Runnable() {
-			                public void run() {
-			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
-			            }
-			    }).start();
+				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
+				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+		    	if(myPreference.getBoolean("soundOption", false))		    
+		    		new Thread(
+		    				new Runnable() {
+		    					public void run() {
+		    						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		    						float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		    						SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+		    					}
+		    				}).start();
 				
 				Intent intent = new Intent(v.getContext(),
 				MapsActivity.class);
@@ -73,14 +78,17 @@ public class MainMenuActivity extends Activity {
 		sButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				new Thread(
-			            new Runnable() {
-			                public void run() {
-			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
-			            }
-			    }).start();
+				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
+				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+		    	if(myPreference.getBoolean("soundOption", false))		    
+		    		new Thread(
+		    				new Runnable() {
+		    					public void run() {
+		    						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		    						float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		    						SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+		    					}
+		    				}).start();
               
 				Intent intent = new Intent(v.getContext(),
 						Store.class);
@@ -96,14 +104,17 @@ public class MainMenuActivity extends Activity {
 		aButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				new Thread(
-			            new Runnable() {
-			                public void run() {
-			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
-			            }
-			    }).start();
+				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
+				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+		    	if(myPreference.getBoolean("soundOption", false))		    
+		    		new Thread(
+		    				new Runnable() {
+		    					public void run() {
+		    						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		    						float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		    						SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+		    					}
+		    				}).start();
                
 				showAbout();
 			}
@@ -112,14 +123,17 @@ public class MainMenuActivity extends Activity {
 		oButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-				new Thread(
-			            new Runnable() {
-			                public void run() {
-			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
-			            }
-			    }).start();
+				PreferenceManager.setDefaultValues(v.getContext(), R.layout.options, true);
+				SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(v.getContext());
+		    	if(myPreference.getBoolean("soundOption", false))		    
+		    		new Thread(
+		    				new Runnable() {
+		    					public void run() {
+		    						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		    						float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+		    						SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+		    					}
+		    				}).start();
 
 				Intent intent = new Intent(v.getContext(),
 						OptionsActivity.class);
@@ -154,7 +168,7 @@ public class MainMenuActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Configurations.PAUSED = true;
+		MusicManager.PAUSED = true;
 		MusicManager.pause();
 	
 	}
@@ -162,8 +176,8 @@ public class MainMenuActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Configurations.CURRENT_MUSIC = Configurations.MENU_MUSIC;
-		MusicManager.start(this, Configurations.CURRENT_MUSIC);
+		MusicManager.CURRENT_MUSIC = MusicManager.MENU_MUSIC;
+		MusicManager.start(this, MusicManager.CURRENT_MUSIC);
 	}
 
 

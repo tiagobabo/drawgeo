@@ -11,11 +11,11 @@ import java.net.URL;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pt.drawgeo.sound.MusicManager;
+import pt.drawgeo.sound.SoundManager;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.MD5Util;
-import pt.drawgeo.utility.MusicManager;
-import pt.drawgeo.utility.SoundManager;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -271,7 +271,7 @@ public class HomeActivity extends Activity{
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Configurations.PAUSED = true;
+		MusicManager.PAUSED = true;
 		MusicManager.pause();
 	
 	}
@@ -279,8 +279,8 @@ public class HomeActivity extends Activity{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Configurations.CURRENT_MUSIC = Configurations.MENU_MUSIC;
-		MusicManager.start(this, Configurations.CURRENT_MUSIC);
+		MusicManager.CURRENT_MUSIC = MusicManager.MENU_MUSIC;
+		MusicManager.start(this, MusicManager.CURRENT_MUSIC);
 		
 	}
 

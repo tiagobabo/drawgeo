@@ -1,7 +1,7 @@
 package pt.drawgeo.main;
 
+import pt.drawgeo.sound.MusicManager;
 import pt.drawgeo.utility.Configurations;
-import pt.drawgeo.utility.MusicManager;
 
 import com.main.R;
 
@@ -33,7 +33,7 @@ public class Store extends Activity{
     @Override
 	protected void onPause() {
 		super.onPause();
-		Configurations.PAUSED = true;
+		MusicManager.PAUSED = true;
 		MusicManager.pause();
 	}
 
@@ -41,7 +41,7 @@ public class Store extends Activity{
 	protected void onResume() {
 		super.onResume();
 		if (music)
-			MusicManager.start(this, Configurations.CURRENT_MUSIC);
+			MusicManager.start(this, MusicManager.CURRENT_MUSIC);
 	}
 
 }
