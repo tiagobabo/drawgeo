@@ -7,11 +7,17 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
+import pt.drawgeo.utility.Word;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -21,6 +27,7 @@ import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.Toast;
 
 public class DrawingPanel extends View implements OnTouchListener  {
 
@@ -42,15 +49,19 @@ public class DrawingPanel extends View implements OnTouchListener  {
 	private int erasestrokewidth = 20;
 	private static final float TOUCH_TOLERANCE = 4;
 	private Dialog dialog;
-	private Context mContext;
+	public Activity mContext;
 
 	private float xden;
 	private float yden;
 	
 	private float xdenDraw;
 	private float ydenDraw;
+	
+	private int replaceID = -1;
+	private Word word = null;
+	private boolean done = false;
 
-	public DrawingPanel(Context context, float xden, float yden) {
+	public DrawingPanel(Activity context, float xden, float yden, int replaceId, Word word) {
 		super(context);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -68,10 +79,12 @@ public class DrawingPanel extends View implements OnTouchListener  {
 		mCanvas = new Canvas();
 		mCanvas.drawColor(Color.WHITE);
 		mContext = context;
+		this.word = word;
+		replaceID = replaceId;
 		createPaint();
 	}
 
-	public DrawingPanel(Context context,
+	public DrawingPanel(Activity context,
 			String colorsString, String xsString, String ysString, float xdenDraw, float ydenDraw, float xden, float yden) {
 		super(context);
 		xs = stringToFloatList(xsString);
@@ -337,19 +350,84 @@ public class DrawingPanel extends View implements OnTouchListener  {
 		dialog = ProgressDialog.show(mContext, "", 
                 "Sending Draw...", true);
     
-    	new SendDraw().execute();
+    	new SendDraw().execute(mContext);
 		
 	}
 	
-	private class SendDraw extends AsyncTask<String, Integer, Long> {
+	private class SendDraw extends AsyncTask<Context, Integer, Long> {
 
+		Context context = null;
+				
 		@Override
-		protected Long doInBackground(String... string) {
+		protected Long doInBackground(Context... ctx) {
+			context = ctx[0];
+			if(replaceID == -1)
+				addNewDraw();
+			else
+				replaceDraw();
+			
+			return null;
+	        
+		}
+
+		private void replaceDraw() {
+			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
+		 	nameValuePairs.add(new BasicNameValuePair("id", Configurations.id+""));           
+	        nameValuePairs.add(new BasicNameValuePair("draw_id", replaceID+""));
+	        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId() +""));
+	        nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
+	        nameValuePairs.add(new BasicNameValuePair("description", "Bla"));
+	        nameValuePairs.add(new BasicNameValuePair("format", Configurations.FORMAT));
+	        nameValuePairs.add(new BasicNameValuePair("draw", colors.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("drawx", xs.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("drawy", ys.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("xdensity", xden+""));
+	        nameValuePairs.add(new BasicNameValuePair("ydensity", yden+""));
+	        
+	        String response = Connection.postData("http://" + Configurations.AUTHORITY + Configurations.REPLACEDRAW, nameValuePairs);
+	        JSONObject info;
+			try {
+				info = new JSONObject(response);
+				String status = info.getString("status"); 
+				if(status.equals("Draw has been updated.")) {
+					mContext.runOnUiThread(new Runnable() {
+						public void run() {
+							AlertDialog.Builder builder = new AlertDialog.Builder(context);
+							builder.setMessage("Draw was successfuly created")
+							       .setCancelable(false)
+							       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+							           public void onClick(DialogInterface dialog, int id) {
+							        	   mContext.finish();
+
+							           }
+							       });
+						builder.create().show();
+						
+						
+						}
+					});
+					
+				
+				} //TODO ELSE
+			} catch (JSONException e) {}
+			
+		}
+
+		/**
+		 * @return
+		 */
+		public void addNewDraw() {
 			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
 		 	nameValuePairs.add(new BasicNameValuePair("id_creator", Configurations.id+""));           
+<<<<<<< HEAD
+	        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId()+""));
+	        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitude+""));
+	        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitude+""));
+=======
 	        nameValuePairs.add(new BasicNameValuePair("word_id", "1"));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitudenow+""));
 	        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitudenow+""));
+>>>>>>> 6f5aee2f62d21c7bc91a69d31d1c6b40bfc92c93
 	        nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
 	        nameValuePairs.add(new BasicNameValuePair("description", "Bla"));
 	        nameValuePairs.add(new BasicNameValuePair("format", "json"));
@@ -365,17 +443,35 @@ public class DrawingPanel extends View implements OnTouchListener  {
 				info = new JSONObject(response);
 				String status = info.getString("status"); 
 				if(status.equals("Draw added.")) {
-					//TODO SUCCESS
+					mContext.runOnUiThread(new Runnable() {
+						public void run() {
+							AlertDialog.Builder builder = new AlertDialog.Builder(context);
+							builder.setMessage("Draw was successfuly created")
+							       .setCancelable(false)
+							       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
+							           public void onClick(DialogInterface dialog, int id) {
+							        	   mContext.finish();
+							           }
+							       });
+						builder.create().show();
+						
+
+						}
+					});
 				} //TODO ELSE
 			} catch (JSONException e) {}
 			
-			return null;
-	        
+			
 		}
 		
 		protected void onPostExecute(Long result) {
 			dialog.dismiss();
 	     }
+	}
+
+	public boolean isDone() {
+		
+		return done;
 	}
 	
 }

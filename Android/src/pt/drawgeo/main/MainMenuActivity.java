@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.main.R;
 
@@ -178,6 +179,26 @@ public class MainMenuActivity extends Activity {
 		super.onResume();
 		MusicManager.CURRENT_MUSIC = MusicManager.MENU_MUSIC;
 		MusicManager.start(this, MusicManager.CURRENT_MUSIC);
+	}
+	
+	private Toast toast;
+	private long lastBackPressTime = 0;
+
+	@Override
+	public void onBackPressed() {
+		
+	  if (this.lastBackPressTime < System.currentTimeMillis() - 4000) {
+	    toast = Toast.makeText(this, "Press back once more to exit", 4000);
+	    toast.show();
+	    this.lastBackPressTime = System.currentTimeMillis();
+	  } else {
+	    if (toast != null) {
+	    toast.cancel();
+	   
+	  }
+	    super.onBackPressed();
+	  
+	 }
 	}
 
 

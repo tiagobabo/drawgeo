@@ -155,6 +155,7 @@ public class HomeActivity extends Activity{
 		
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);
+		finish();
 	}
 	
 	
@@ -263,8 +264,10 @@ public class HomeActivity extends Activity{
 		
 		protected void onPostExecute(Long result) {
           		dialog.dismiss();
-          		if(result == null)
+          		if(result == null){
           			goToMainMenu();
+          			
+          		}
 	     }
 	}
 	
@@ -283,6 +286,8 @@ public class HomeActivity extends Activity{
 		MusicManager.start(this, MusicManager.CURRENT_MUSIC);
 		
 	}
+	
+	
 
 
 }
