@@ -144,7 +144,7 @@ class PlayController < ApplicationController
 		@creator = User.find(params[:id_creator])
 		@word = Word.find(params[:word_id])
 		if(!@creator.nil? && !@word.nil?)
-			@new_draw = Draw.new(:id_creator => @creator.id, :word_id => @word.id, :latitude => params[:latitude], :longitude => params[:longitude], :draw => params[:draw], :drawx => params[:drawx], :drawy => params[:drawy], :challenge => params[:challenge], :description => params[:description], :password => params[:password]  )
+			@new_draw = Draw.new(:id_creator => @creator.id, :word_id => @word.id, :latitude => params[:latitude], :longitude => params[:longitude], :draw => params[:draw], :drawx => params[:drawx], :drawy => params[:drawy], :challenge => params[:challenge], :description => params[:description], :password => params[:password], :xdensity => params[:xdensity], :ydensity => params[:ydensity]  )
 			if @new_draw.save
 				@creator.update_attribute(:num_created, @creator.num_created + 1)
 				respond_to do |format|
@@ -170,7 +170,8 @@ class PlayController < ApplicationController
 			@draw.update_attribute(:challenge, params[:challenge])
 			@draw.update_attribute(:password, params[:password])
 			@draw.update_attribute(:description, params[:description])
-			@draw.update_attribute(:resolution, params[:resolution])
+			@draw.update_attribute(:xdensity, params[:xdensity])
+			@draw.update_attribute(:ydensity, params[:ydensity])
 			@draw.update_attribute(:id_creator, @user.id)
 			@draw_users = DrawUser.where("id_draw = ?", params[:draw_id])
 			@draw_users.each.each do|n|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602184537) do
+ActiveRecord::Schema.define(:version => 20120602222052) do
 
   create_table "avatars", :force => true do |t|
     t.string   "url"
@@ -32,13 +32,14 @@ ActiveRecord::Schema.define(:version => 20120602184537) do
     t.boolean  "challenge"
     t.text     "description"
     t.string   "password"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "word_id"
     t.integer  "id_creator"
     t.text     "drawx"
     t.text     "drawy"
-    t.integer  "resolution",  :default => 0
+    t.float    "xdensity",    :default => 0.0
+    t.float    "ydensity",    :default => 0.0
   end
 
   create_table "palette_users", :force => true do |t|
