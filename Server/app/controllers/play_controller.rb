@@ -140,6 +140,12 @@ class PlayController < ApplicationController
 		end
 	end
 
+	def getPalettes
+		respond_to do |format|
+	      	format.json { render :json => Palette.all }
+	    end
+	end
+
 	def addNewDraw
 		@creator = User.find(params[:id_creator])
 		@word = Word.find(params[:word_id])
