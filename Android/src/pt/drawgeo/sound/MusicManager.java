@@ -3,6 +3,8 @@ package pt.drawgeo.sound;
 import java.util.Collection;
 import java.util.HashMap;
 
+import pt.drawgeo.utility.Configurations;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -22,12 +24,12 @@ public class MusicManager {
 	public static final int END_MUSIC = 2;
 	public static int CURRENT_MUSIC = -1;
 	public static boolean PAUSED = false;
+	public static boolean MUTE = false;
 	
 	public static void start(Context context, int music) {
 		
-		PreferenceManager.setDefaultValues(context, R.layout.options, true);
-		SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(context);
-    	if(!myPreference.getBoolean("soundOption", false))
+		
+    	if(MusicManager.MUTE)
     		return;
 		
 		if (MusicManager.PAUSED)
@@ -82,6 +84,8 @@ public class MusicManager {
 			}
 		}
 	}
+
+	
 
 	
 }

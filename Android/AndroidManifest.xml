@@ -47,6 +47,10 @@
             android:name="pt.drawgeo.main.OptionsActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="pt.drawgeo.main.HowTo"
+            android:label="@string/app_name" >
+        </activity>
          <activity
             android:name="pt.drawgeo.map.MapsActivity"
             android:label="@string/app_name"
