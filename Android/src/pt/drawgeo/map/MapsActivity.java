@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import pt.drawgeo.canvas.CanvasActivity;
+import pt.drawgeo.main.MainMenuActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import android.app.Dialog;
@@ -223,7 +224,9 @@ public class MapsActivity extends MapActivity
 		}
 		break;
 		case R.id.newchallenge:
-			//TODO
+			Intent intent = new Intent(this,
+					NewChallenge.class);
+			startActivity(intent);
 			break;
 		}
 		return true;
