@@ -52,6 +52,7 @@ public class MapsActivity extends MapActivity
 	private MapCircleOverlay avaliable;
 	private MapCircleOverlay me;
 	private Boolean firstTime = true;
+	private Boolean noGPS = true;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -84,24 +85,31 @@ public class MapsActivity extends MapActivity
             public void onLocationChanged(Location location) {
               // Called when a new location is found by the network location provider.
             	
-            	// a minha posição
-            	GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
+            	if(location.getProvider().equals(LocationManager.GPS_PROVIDER) || noGPS)
+            	{
+            		if(location.getProvider().equals(LocationManager.GPS_PROVIDER))
+            			noGPS = false;
+	            	// a minha posição
+	            	GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
+	            	
+	            	if(isCurrentLocationVisible(point) || firstTime) {
+	            		mapView.getController().setCenter(point);
+	            		firstTime = false;
+	            	}
+	            	
+	            	mapOverlays.remove(avaliable);
+	            	mapOverlays.remove(me);
+	            	
+	            	avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255, 32);
+	            	mapOverlays.add(avaliable);
+	            	
+	            	me = new MapCircleOverlay(point, 3,255,0,0, 255);
+	            	mapOverlays.add(me);
+	            	
+	            	new GetDrawsNear().execute(point);
             	
-            	if(isCurrentLocationVisible(point) || firstTime) {
-            		mapView.getController().setCenter(point);
-            		firstTime = false;
             	}
             	
-            	mapOverlays.remove(avaliable);
-            	mapOverlays.remove(me);
-            	
-            	avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255, 32);
-            	mapOverlays.add(avaliable);
-            	
-            	me = new MapCircleOverlay(point, 3,255,0,0, 255);
-            	mapOverlays.add(me);
-            	
-            	new GetDrawsNear().execute(point);
 			}
 
 			public void onStatusChanged(String provider, int status, Bundle extras) {}
