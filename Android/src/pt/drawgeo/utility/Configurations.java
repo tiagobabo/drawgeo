@@ -6,6 +6,7 @@ public class Configurations {
 
 	final public static float AVALIABLE_RADIUS = 100;
 	final public static int SEARCH_RADIUS = 1000;
+	final public static double MINIMUM_RADIUS = 30.0;
 	final public static String AUTHORITY = "drawgeo.herokuapp.com";
 	final public static String SCHEME = "http";
 	final public static String FORMAT = "json";
@@ -32,8 +33,8 @@ public class Configurations {
 	public static String drawidreplay;
 	public static int num_created;
 
-	public static String current_password;
-	public static String current_description;
+	public static String current_password = null;
+	public static String current_description = null;
 	public static int wordID = -1;
 	public static Word current_word;
 	public static double latitudenow = -1.0;

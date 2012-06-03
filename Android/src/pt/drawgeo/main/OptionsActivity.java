@@ -51,9 +51,6 @@ public class OptionsActivity extends PreferenceActivity {
 		    public boolean onPreferenceClick(Preference preference) {
 		    	
 		    	SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
-		    	 
-		    	
-		    	
 		    	return true; 
 		    }
 		});

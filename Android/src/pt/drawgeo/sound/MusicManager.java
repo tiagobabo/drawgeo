@@ -3,12 +3,8 @@ package pt.drawgeo.sound;
 import java.util.Collection;
 import java.util.HashMap;
 
-import pt.drawgeo.utility.Configurations;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.main.R;
