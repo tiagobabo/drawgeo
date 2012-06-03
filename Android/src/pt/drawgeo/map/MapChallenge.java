@@ -44,6 +44,7 @@ public class MapChallenge extends ItemizedOverlay {
 	private ProgressDialog pd;
 	private Location location;
 	private int currentIndex;
+	private ArrayList<String> creatorEmails = new ArrayList<String>();
 
 	public MapChallenge(Drawable defaultMarker, Context context, Location l) {
 		super(boundCenterBottom(defaultMarker));
@@ -63,8 +64,9 @@ public class MapChallenge extends ItemizedOverlay {
 		return mOverlays.size();
 	}
 
-	public void addOverlay(OverlayItem overlay, GeoPoint l) {
+	public void addOverlay(OverlayItem overlay, GeoPoint l, String email) {
 		mLocations.add(l);
+		creatorEmails.add(email);
 		mOverlays.add(overlay);
 		populate();
 	}
@@ -157,7 +159,7 @@ public class MapChallenge extends ItemizedOverlay {
 			click.setLatitude(clickPoint.getLatitudeE6()/1e6);
 			click.setLongitude(clickPoint.getLongitudeE6()/1e6);
 			
-			if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS) {
+			if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email)) {
 				final ImageView playnow = (ImageView) dialog
 						.findViewById(R.id.playnow);
 				playnow.setImageResource(R.drawable.playnowbw);
