@@ -9,9 +9,11 @@ import org.json.JSONObject;
 
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
+import pt.drawgeo.utility.Word;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -49,8 +51,11 @@ public class DrawingPanel extends View implements OnTouchListener  {
 	
 	private float xdenDraw;
 	private float ydenDraw;
+	
+	private int replaceID = -1;
+	private Word word = null;
 
-	public DrawingPanel(Context context, float xden, float yden) {
+	public DrawingPanel(Context context, float xden, float yden, int replaceId, Word word) {
 		super(context);
 		setFocusable(true);
 		setFocusableInTouchMode(true);
@@ -68,6 +73,8 @@ public class DrawingPanel extends View implements OnTouchListener  {
 		mCanvas = new Canvas();
 		mCanvas.drawColor(Color.WHITE);
 		mContext = context;
+		this.word = word;
+		replaceID = replaceId;
 		createPaint();
 	}
 
@@ -345,9 +352,48 @@ public class DrawingPanel extends View implements OnTouchListener  {
 
 		@Override
 		protected Long doInBackground(String... string) {
+			if(replaceID == -1)
+				addNewDraw();
+			else
+				replaceDraw();
+			
+			return null;
+	        
+		}
+
+		private void replaceDraw() {
+			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
+		 	nameValuePairs.add(new BasicNameValuePair("id", Configurations.id+""));           
+	        nameValuePairs.add(new BasicNameValuePair("draw_id", replaceID+""));
+	        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId() +""));
+	        nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
+	        nameValuePairs.add(new BasicNameValuePair("description", "Bla"));
+	        nameValuePairs.add(new BasicNameValuePair("format", Configurations.FORMAT));
+	        nameValuePairs.add(new BasicNameValuePair("draw", colors.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("drawx", xs.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("drawy", ys.toString()));
+	        nameValuePairs.add(new BasicNameValuePair("xdensity", xden+""));
+	        nameValuePairs.add(new BasicNameValuePair("ydensity", yden+""));
+	        
+	        String response = Connection.postData("http://" + Configurations.AUTHORITY + Configurations.REPLACEDRAW, nameValuePairs);
+	        JSONObject info;
+			try {
+				info = new JSONObject(response);
+				String status = info.getString("status"); 
+				if(status.equals("Draw has been updated")) {
+					//TODO SUCCESS
+				} //TODO ELSE
+			} catch (JSONException e) {}
+			
+		}
+
+		/**
+		 * @return
+		 */
+		public void addNewDraw() {
 			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
 		 	nameValuePairs.add(new BasicNameValuePair("id_creator", Configurations.id+""));           
-	        nameValuePairs.add(new BasicNameValuePair("word_id", "1"));
+	        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId()+""));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitude+""));
 	        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitude+""));
 	        nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
@@ -369,8 +415,7 @@ public class DrawingPanel extends View implements OnTouchListener  {
 				} //TODO ELSE
 			} catch (JSONException e) {}
 			
-			return null;
-	        
+			
 		}
 		
 		protected void onPostExecute(Long result) {

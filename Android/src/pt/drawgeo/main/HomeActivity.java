@@ -281,26 +281,7 @@ public class HomeActivity extends Activity{
 		
 	}
 	
-	private Toast toast;
-	private long lastBackPressTime = 0;
-
-	@Override
-	public void onBackPressed() {
-		toast = Toast.makeText(this, "PressedBack", 4000);
-	    toast.show();
-	  if (this.lastBackPressTime < System.currentTimeMillis() - 4000) {
-	    toast = Toast.makeText(this, "Press back again to close this app", 4000);
-	    toast.show();
-	    this.lastBackPressTime = System.currentTimeMillis();
-	  } else {
-	    if (toast != null) {
-	    toast.cancel();
-	   
-	  }
-	    super.onBackPressed();
-	  
-	 }
-	}
+	
 
 
 }
