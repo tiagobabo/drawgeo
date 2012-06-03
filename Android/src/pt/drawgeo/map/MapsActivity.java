@@ -1,13 +1,12 @@
 package pt.drawgeo.map;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import pt.drawgeo.canvas.CanvasActivity;
-import pt.drawgeo.utility.Configurations;
-import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.*;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -53,6 +52,7 @@ public class MapsActivity extends MapActivity
 	private Boolean firstTime = true;
 	private Boolean noGPS = true;
 	private GeoPoint point;
+	private ArrayList<Location> locations = new ArrayList<Location>();
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -147,7 +147,7 @@ public class MapsActivity extends MapActivity
     }
     
     private class GetDrawsNear extends AsyncTask<GeoPoint, Integer, Long> {
-        protected Long doInBackground(GeoPoint... locations) {
+		protected Long doInBackground(GeoPoint... locations) {
         	
         	// desenhos perto de mim
         	Uri uri = new Uri.Builder()
@@ -185,6 +185,12 @@ public class MapsActivity extends MapActivity
 					JSONObject o = info.getJSONObject(i);
 	            	GeoPoint point2 = new GeoPoint((int)(o.getDouble("latitude") * 1E6),((int)(o.getDouble("longitude") * 1E6)));
 	            	OverlayItem overlay = new OverlayItem(point2, "Draw", o.getString("creator_email"));
+	            	
+	            	Location loc = new Location("");
+	            	loc.setLatitude(point2.getLatitudeE6()/1e6);
+	            	loc.setLongitude(point2.getLongitudeE6()/1e6);
+	            	
+	            	MapsActivity.this.locations.add(loc);
 	            	
 	            	if (!o.getBoolean("challenge"))
 	            	{
@@ -283,6 +289,18 @@ public class MapsActivity extends MapActivity
 		
 		if(Configurations.latitudenow != -1.0)
 		{
+			
+			Location here = new Location("");
+			here.setLatitude(Configurations.latitudenow);
+			here.setLongitude(Configurations.longitudenow);
+			
+			for(Location l : locations) {
+				if(l.distanceTo(here) < 30.0) {
+					Toast.makeText(MapsActivity.this.getApplicationContext(), "You can't add it here, because there is another challenge in this area...", Toast.LENGTH_LONG).show();
+					return false;
+				}
+			}
+			
 			switch (item.getItemId()) {
 			case R.id.newdraw:
 			{
@@ -301,8 +319,7 @@ public class MapsActivity extends MapActivity
 				break;
 			}
 		}
-		else
-		{
+		else {
 			Toast.makeText(MapsActivity.this.getApplicationContext(), "Waiting for location...", Toast.LENGTH_SHORT).show();
 		}
 		return true;
