@@ -6,7 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import pt.drawgeo.canvas.CanvasActivity;
-import pt.drawgeo.main.HomeActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import android.app.Dialog;
@@ -27,7 +26,6 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
