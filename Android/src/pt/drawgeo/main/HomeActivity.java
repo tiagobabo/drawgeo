@@ -15,6 +15,7 @@ import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.MD5Util;
 import pt.drawgeo.utility.MusicManager;
+import pt.drawgeo.utility.SoundManager;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -25,6 +26,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -62,6 +65,9 @@ public class HomeActivity extends Activity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.home);
+		
+		SoundManager.spool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        SoundManager.click = SoundManager.spool.load(this, R.raw.click, 1);
 
 		final ImageView fButton = (ImageView) findViewById(R.id.loginFacebook);
 		fButton.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +168,7 @@ public class HomeActivity extends Activity{
 	        public void onClick(DialogInterface d, int email) {
 	        	
 	        	dialog = ProgressDialog.show(HomeActivity.this, "", 
-                        "Retreiving information...", true);
+                        "Retrieving information...", true);
 	        
 	        	new DownloadFilesTask().execute(possibleEmails[email].toString());
 	        }

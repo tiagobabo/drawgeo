@@ -9,6 +9,7 @@ import com.main.R;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -17,7 +18,7 @@ public class MusicManager {
 	private static HashMap<Integer, MediaPlayer> players = new HashMap<Integer, MediaPlayer>();
 	private static int currentMusic = -1;
 	private static String TAG = "MusicManager";
-
+	
 	public static void start(Context context, int music) {
 		
 		PreferenceManager.setDefaultValues(context, R.layout.options, true);

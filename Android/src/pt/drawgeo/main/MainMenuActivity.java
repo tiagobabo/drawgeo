@@ -3,10 +3,12 @@ package pt.drawgeo.main;
 import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.MusicManager;
+import pt.drawgeo.utility.SoundManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +20,9 @@ import com.main.R;
 
 public class MainMenuActivity extends Activity {
 	
+    
+
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -27,7 +32,6 @@ public class MainMenuActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		 
 		setContentView(R.layout.mainmenu);
-		
 		
 		final TextView challengesdone = (TextView) findViewById(R.id.challengesdonetext);
 		challengesdone.setText(Configurations.num_done+"");
@@ -51,6 +55,15 @@ public class MainMenuActivity extends Activity {
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
+				new Thread(
+			            new Runnable() {
+			                public void run() {
+			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+			            }
+			    }).start();
+				
 				Intent intent = new Intent(v.getContext(),
 				MapsActivity.class);
 				startActivity(intent);
@@ -60,6 +73,14 @@ public class MainMenuActivity extends Activity {
 		sButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
+				new Thread(
+			            new Runnable() {
+			                public void run() {
+			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+			            }
+			    }).start();
               
 				Intent intent = new Intent(v.getContext(),
 						Store.class);
@@ -75,6 +96,14 @@ public class MainMenuActivity extends Activity {
 		aButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
+				new Thread(
+			            new Runnable() {
+			                public void run() {
+			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+			            }
+			    }).start();
                
 				showAbout();
 			}
@@ -83,8 +112,14 @@ public class MainMenuActivity extends Activity {
 		oButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
-               
-              
+				new Thread(
+			            new Runnable() {
+			                public void run() {
+			                	AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+			    		        float volume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+			    		        SoundManager.spool.play(SoundManager.click, volume, volume, 1, 0, 1f);
+			            }
+			    }).start();
 
 				Intent intent = new Intent(v.getContext(),
 						OptionsActivity.class);
