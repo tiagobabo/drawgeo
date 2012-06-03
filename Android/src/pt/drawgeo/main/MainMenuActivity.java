@@ -1,9 +1,9 @@
 package pt.drawgeo.main;
 
 import pt.drawgeo.map.MapsActivity;
+import pt.drawgeo.sound.MusicManager;
+import pt.drawgeo.sound.SoundManager;
 import pt.drawgeo.utility.Configurations;
-import pt.drawgeo.utility.MusicManager;
-import pt.drawgeo.utility.SoundManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -154,7 +154,7 @@ public class MainMenuActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Configurations.PAUSED = true;
+		MusicManager.PAUSED = true;
 		MusicManager.pause();
 	
 	}
@@ -162,8 +162,8 @@ public class MainMenuActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Configurations.CURRENT_MUSIC = Configurations.MENU_MUSIC;
-		MusicManager.start(this, Configurations.CURRENT_MUSIC);
+		MusicManager.CURRENT_MUSIC = MusicManager.MENU_MUSIC;
+		MusicManager.start(this, MusicManager.CURRENT_MUSIC);
 	}
 
 
