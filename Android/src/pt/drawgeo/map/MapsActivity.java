@@ -6,8 +6,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import pt.drawgeo.canvas.CanvasActivity;
-import pt.drawgeo.utility.*;
+import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.Connection;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -26,11 +26,8 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -307,7 +304,11 @@ public class MapsActivity extends MapActivity
 	
 				dialog = ProgressDialog.show(MapsActivity.this, "", 
 						"Retreiving information...", true);
-				new getNewWordsTask().execute();
+				
+				GetNewWords gnw = new GetNewWords();
+				gnw.activity = this;
+				gnw.dialog = this.dialog;
+				gnw.execute();
 	
 			
 			}
@@ -325,106 +326,6 @@ public class MapsActivity extends MapActivity
 		return true;
 	}
 
-
-	private class getNewWordsTask extends AsyncTask<Void, Integer, Word[]> {
-
-		@Override
-		protected Word[] doInBackground(Void... nothing) {
-			Uri uri = new Uri.Builder()
-			.scheme(Configurations.SCHEME)
-			.authority(Configurations.AUTHORITY)
-			.path(Configurations.GETNEWWORDS)
-			.appendQueryParameter("format", Configurations.FORMAT)
-			.build();
-			Word[] words = new Word[3];
-			String response = null;
-			try {
-				response = Connection.getJSONLine(uri);
-				JSONObject info = new JSONObject(response);
-				String status = info.getString("status");
-				if(status.equals("Ok")) {
-					JSONObject easy = info.optJSONObject("easy");
-					Word easyW = easy == null ? null : new Word(easy);
-					JSONObject medium = info.optJSONObject("medium");
-					Word mediumW = medium == null ? null : new Word(medium);
-					JSONObject hard = info.optJSONObject("hard");
-					Word hardW = hard == null ? null : new Word(hard);
-					words[0] = easyW;
-					words[1] = mediumW;
-					words[2] = hardW;
-					}
-			}
-			catch (Exception e) {
-				MapsActivity.this.runOnUiThread(new Runnable() {
-					public void run() {
-						Toast.makeText(MapsActivity.this.getApplicationContext(), "Something went wrong. Try again...", Toast.LENGTH_SHORT).show();
-
-					}
-				});
-				return null;
-			}
-			return words;
-		}
-
-		protected void onPostExecute(final Word[] result) {
-			dialog.dismiss();
-			final Dialog wDialog = new Dialog(MapsActivity.this);
-			wDialog.setTitle("Word chooser");
-			wDialog.setContentView(R.layout.newworddialog);
-			TextView text = (TextView) wDialog.findViewById(R.id.easyWord);
-			text.setText(result[0].getWord());
-		
-			TableRow tr = (TableRow) wDialog.findViewById(R.id.tableRow1);
-			tr.setClickable(true);
-			tr.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					
-					
-					Configurations.current_word = result[0];
-					wDialog.dismiss();
-					Intent intent = new Intent(v.getContext(),
-    				CanvasActivity.class);
-    				startActivity(intent);
-				}
-			});
-			
-			TextView text1 = (TextView) wDialog.findViewById(R.id.mediumWord);
-			text1.setText(result[1].getWord());
-			
-			TableRow tr1= (TableRow) wDialog.findViewById(R.id.tableRow2);
-			
-			tr1.setClickable(true);
-			tr1.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					Configurations.current_word = result[1];
-					wDialog.dismiss();
-					Intent intent = new Intent(v.getContext(),
-    				CanvasActivity.class);
-    				startActivity(intent);
-				}
-			});
-			
-			
-			TextView text2 = (TextView) wDialog.findViewById(R.id.hardWord);
-			text2.setText(result[2].getWord());
-			
-			TableRow tr2= (TableRow) wDialog.findViewById(R.id.tableRow3);
-			tr2.setClickable(true);
-			tr2.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					
-					
-					Configurations.current_word = result[2];
-					wDialog.dismiss();
-					Intent intent = new Intent(v.getContext(),
-    				CanvasActivity.class);
-    				startActivity(intent);
-				}
-			});
-			
-			wDialog.show();
-		}
-	}
 	
 	@Override
 	protected void onResume()
@@ -433,6 +334,4 @@ public class MapsActivity extends MapActivity
 		if(point != null)
 			new GetDrawsNear().execute(point);
 	}
-
-
 }

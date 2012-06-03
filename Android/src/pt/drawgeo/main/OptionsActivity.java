@@ -52,13 +52,7 @@ public class OptionsActivity extends PreferenceActivity {
 		    	
 		    	SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
 		    	 
-		    	if(myPreference.getBoolean("soundOption", false)) 
-		    		MusicManager.start(OptionsActivity.this, MusicManager.CURRENT_MUSIC);
-		    	else
-		    	{
-		    		MusicManager.PAUSED = true;
-		    		MusicManager.pause();
-		    	}
+		    	
 		    	
 		    	return true; 
 		    }

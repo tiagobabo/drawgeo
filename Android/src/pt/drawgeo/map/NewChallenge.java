@@ -2,6 +2,8 @@ package pt.drawgeo.map;
 
 import pt.drawgeo.utility.Configurations;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +16,8 @@ import com.main.R;
 
 public class NewChallenge extends Activity{
 
+	public static Dialog dialog;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,17 @@ public class NewChallenge extends Activity{
 				{
 					Configurations.current_description = description.getText().toString();
 					Configurations.current_password = password.getText().toString();
+					
+					dialog = ProgressDialog.show(NewChallenge.this, "", 
+							"Retrieving information...", true);
+					
+					GetNewWords gnw = new GetNewWords();
+					gnw.activity = NewChallenge.this;
+					gnw.dialog = NewChallenge.dialog;
+					gnw.execute();
+					
 				}
+				
 				
 			}
 		});
