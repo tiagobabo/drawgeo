@@ -162,8 +162,9 @@ class PlayController < ApplicationController
 	def replace
 		@user = User.find(params[:id])
 		@draw = Draw.find(params[:draw_id])
-		if(!@user.nil? && !@draw.nil?)
-			@draw.update_attribute(:word_id, params[:word_id])
+		@word = Word.find(params[:word_id])
+		if(!@user.nil? && !@draw.nil? && !@word.nil?)
+			@draw.update_attribute(:word_id, @word.id)
 			@draw.update_attribute(:draw, params[:draw])
 			@draw.update_attribute(:drawx, params[:drawx])
 			@draw.update_attribute(:drawy, params[:drawy])
