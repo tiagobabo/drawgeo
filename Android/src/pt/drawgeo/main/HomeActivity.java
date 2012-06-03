@@ -67,8 +67,7 @@ public class HomeActivity extends Activity{
 		setContentView(R.layout.home);
 		
 		SoundManager.spool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-        SoundManager.click = SoundManager.spool.load(this, R.raw.click3
-        		, 1);
+        SoundManager.click = SoundManager.spool.load(this, R.raw.click, 1);
 
 		final ImageView fButton = (ImageView) findViewById(R.id.loginFacebook);
 		fButton.setOnClickListener(new View.OnClickListener() {
