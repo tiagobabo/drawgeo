@@ -419,15 +419,9 @@ public class DrawingPanel extends View implements OnTouchListener  {
 		public void addNewDraw() {
 			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
 		 	nameValuePairs.add(new BasicNameValuePair("id_creator", Configurations.id+""));           
-<<<<<<< HEAD
 	        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId()+""));
-	        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitude+""));
-	        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitude+""));
-=======
-	        nameValuePairs.add(new BasicNameValuePair("word_id", "1"));
 	        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitudenow+""));
 	        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitudenow+""));
->>>>>>> 6f5aee2f62d21c7bc91a69d31d1c6b40bfc92c93
 	        nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
 	        nameValuePairs.add(new BasicNameValuePair("description", "Bla"));
 	        nameValuePairs.add(new BasicNameValuePair("format", "json"));

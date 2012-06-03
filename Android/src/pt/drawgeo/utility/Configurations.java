@@ -32,8 +32,8 @@ public class Configurations {
 	public static String drawidreplay;
 	public static int num_created;
 
-	public static String current_password;
-	public static String current_description;
+	public static String current_password = null;
+	public static String current_description = null;
 	public static int wordID = -1;
 	public static Word current_word;
 	public static double latitudenow = -1.0;
