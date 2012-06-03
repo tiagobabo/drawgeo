@@ -53,9 +53,6 @@ public class MusicManager {
 			if (music == Configurations.MENU_MUSIC) {
 				mp = MediaPlayer.create(context, R.raw.menu_music);
 			}
-			else if (music == Configurations.GAME_MUSIC) {
-				mp = MediaPlayer.create(context, R.raw.game_music);
-			}
 			players.put(music, mp);
 			
 			if (mp == null) {

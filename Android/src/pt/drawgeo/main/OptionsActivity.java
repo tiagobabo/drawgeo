@@ -56,8 +56,11 @@ public class OptionsActivity extends PreferenceActivity {
 		    	if(myPreference.getBoolean("soundOption", false)) 
 		    		MusicManager.start(OptionsActivity.this, Configurations.CURRENT_MUSIC);
 		    	else
+		    	{
+		    		Configurations.PAUSED = true;
 		    		MusicManager.pause();
-		    		
+		    	}
+		    	
 		    	return true; 
 		    }
 		});
