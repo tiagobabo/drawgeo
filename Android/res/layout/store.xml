@@ -30,11 +30,12 @@
             android:width="65dp" />
 
     </RelativeLayout>
-
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -85,32 +86,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color1" />
+                android:src="@drawable/color5" />
 
             <ImageView
                 android:id="@+id/ImageView04"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color2" />
+                android:src="@drawable/color6" />
 
             <ImageView
                 android:id="@+id/ImageView01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color3" />
+                android:src="@drawable/color7" />
 
             <ImageView
                 android:id="@+id/ImageView02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color4" />
+                android:src="@drawable/color8" />
         </TableRow>
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/lock1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -119,13 +120,13 @@
             android:src="@drawable/path3" />
 
         <ImageView
-            android:id="@+id/ImageView05"
+            android:id="@+id/lock2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/TableRow01"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:src="@drawable/path3" />
+            android:src="@drawable/locked" />
 
         <TableRow
             android:id="@+id/TableRow02"
@@ -140,38 +141,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color1" />
+                android:src="@drawable/color9" />
 
             <ImageView
                 android:id="@+id/ImageView09"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color2" />
+                android:src="@drawable/color10" />
 
             <ImageView
                 android:id="@+id/ImageView06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color3" />
+                android:src="@drawable/color11" />
 
             <ImageView
                 android:id="@+id/ImageView07"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/color4" />
+                android:src="@drawable/color12" />
         </TableRow>
 
         <ImageView
-            android:id="@+id/ImageView10"
+            android:id="@+id/lock3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/TableRow02"
             android:layout_marginRight="10dp"
-            android:src="@drawable/path3" />
+            android:src="@drawable/locked" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/TableRow02"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@+id/lock3"
+            android:text="40" android:textColor="#ffffff" android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/lock2"
+            android:layout_alignLeft="@+id/textView1"
+            android:text="30" android:textColor="#ffffff" android:textSize="18sp"/>
+
     </RelativeLayout>
 
 </LinearLayout>
