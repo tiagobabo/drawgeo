@@ -38,27 +38,7 @@ public class Store extends Activity {
 		final TextView piggies = (TextView) findViewById(R.id.piggiestext);
 		piggies.setText(Configurations.piggies + "");
 
-		Uri uri = new Uri.Builder().scheme(Configurations.SCHEME)
-				.authority(Configurations.AUTHORITY)
-				.path(Configurations.GETPALETTEBYUSER)
-				.appendQueryParameter("id", Configurations.id + "")
-				.appendQueryParameter("format", Configurations.FORMAT).build();
-
-		String response = null;
 		int[] locks = { R.id.lock2, R.id.lock3 };
-		try {
-			response = Connection.getJSONLine(uri);
-			JSONArray info = new JSONArray(response);
-
-			for (int i = 0; i < info.length(); i++) {
-				JSONObject obj = info.getJSONObject(i);
-				int id = Integer.parseInt(obj.getString("id"));
-				final ImageView lock = (ImageView) findViewById(locks[id-2]);
-				lock.setImageResource(R.drawable.path3);
-				lock.setClickable(false);
-			}
-		}
-		catch (Exception e) {} 
 		
 		for (int i = 0; i < locks.length; i++) {
 			final int serverID = i+2;
@@ -140,6 +120,28 @@ public class Store extends Activity {
 				}
 			});
 		}
+		
+		Uri uri = new Uri.Builder().scheme(Configurations.SCHEME)
+				.authority(Configurations.AUTHORITY)
+				.path(Configurations.GETPALETTEBYUSER)
+				.appendQueryParameter("id", Configurations.id + "")
+				.appendQueryParameter("format", Configurations.FORMAT).build();
+
+		String response = null;
+		
+		try {
+			response = Connection.getJSONLine(uri);
+			JSONArray info = new JSONArray(response);
+
+			for (int i = 0; i < info.length(); i++) {
+				JSONObject obj = info.getJSONObject(i);
+				int id = Integer.parseInt(obj.getString("id"));
+				final ImageView lock = (ImageView) findViewById(locks[id-2]);
+				lock.setImageResource(R.drawable.path3);
+				lock.setClickable(false);
+			}
+		}
+		catch (Exception e) {} 
 
 	}
 

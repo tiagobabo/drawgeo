@@ -146,7 +146,7 @@ public class CanvasActivity extends Activity {
 			for (int i = 0; i < info.length(); i++) {
 				JSONObject obj = info.getJSONObject(i);
 				int id = Integer.parseInt(obj.getString("id"));
-				for(int z = 0+3*(id-2); z < 5+3*(id-2); z++) {
+				for(int z = 0+3*(id-2); z < 4+3*(id-2); z++) {
 					ImageView view = new ImageView(this);
 					view.setImageResource(colors[z]);
 					int px = (int) TypedValue.applyDimension(

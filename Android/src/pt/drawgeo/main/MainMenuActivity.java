@@ -229,7 +229,7 @@ public class MainMenuActivity extends Activity {
 	public void onBackPressed() {
 		
 	  if (this.lastBackPressTime < System.currentTimeMillis() - 4000) {
-	    toast = Toast.makeText(this, "Press back once more to exit", 4000);
+	    toast = Toast.makeText(this, "Press back once more to exit.", 4000);
 	    toast.show();
 	    this.lastBackPressTime = System.currentTimeMillis();
 	  } else {

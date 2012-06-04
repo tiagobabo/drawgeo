@@ -68,5 +68,11 @@
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         
+          <activity
+            android:name="pt.drawgeo.canvas.WinActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        
     </application>
 </manifest>
