@@ -124,7 +124,7 @@ public class ReplayCanvasActivity extends Activity {
 	    	et.setId(i);
 	    	
 	    	
-	    	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( LayoutParams.WRAP_CONTENT, (int)px );
+	    	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( (int)px,  (int)px);
 	        if( i != 1 ){
 	            params.addRule(RelativeLayout.RIGHT_OF, i-1 );
 	            params.addRule(RelativeLayout.ALIGN_PARENT_TOP,1);
