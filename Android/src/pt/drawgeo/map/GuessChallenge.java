@@ -1,9 +1,11 @@
 package pt.drawgeo.map;
 
+import pt.drawgeo.canvas.ReplayCanvasActivity;
 import pt.drawgeo.utility.Configurations;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -15,7 +17,7 @@ import android.widget.Toast;
 
 import com.main.R;
 
-public class NewChallenge extends Activity{
+public class GuessChallenge extends Activity{
 
 	public static Dialog dialog;
 	
@@ -31,26 +33,28 @@ public class NewChallenge extends Activity{
         setContentView(R.layout.newchallenge);
         
         final ImageView eButton = (ImageView) findViewById(R.id.okButton);
+        EditText description = (EditText) findViewById(R.id.description);
+        description.setClickable(false);
+        description.setEnabled(false);
+        description.setText(Configurations.current_description);
+		
 		eButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				EditText description = (EditText) findViewById(R.id.description);
 				EditText password = (EditText) findViewById(R.id.password);
 	
 				if (description.getText().toString().length() == 0 || password.getText().toString().length() == 0)
-					Toast.makeText(NewChallenge.this.getApplicationContext(), "Fields cannot be empty...", Toast.LENGTH_SHORT).show();
+					Toast.makeText(GuessChallenge.this.getApplicationContext(), "Fields cannot be empty...", Toast.LENGTH_SHORT).show();
 				else
 				{
-					Configurations.current_description = description.getText().toString();
-					Configurations.current_password = password.getText().toString();
 					
-					dialog = ProgressDialog.show(NewChallenge.this, "", 
-							"Retrieving information...", true);
-					
-					GetNewWords gnw = new GetNewWords();
-					gnw.activity = NewChallenge.this;
-					gnw.dialog = NewChallenge.dialog;
-					gnw.finish = true;
-					gnw.execute();
+					if(password.getText().toString().trim().equalsIgnoreCase(Configurations.current_password)){
+						Intent intent = new Intent(v.getContext(),
+								ReplayCanvasActivity.class);
+						startActivity(intent);
+						finish();
+					}else
+						Toast.makeText(GuessChallenge.this.getApplicationContext(), "Wrong password!", Toast.LENGTH_SHORT).show();
 					
 				}
 				

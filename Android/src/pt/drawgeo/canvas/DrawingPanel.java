@@ -1,5 +1,6 @@
 package pt.drawgeo.canvas;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -414,23 +415,41 @@ public class DrawingPanel extends View implements OnTouchListener  {
 		 * @return
 		 */
 		public void addNewDraw() {
-			List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
-		 	nameValuePairs.add(new BasicNameValuePair("id_creator", Configurations.id+""));           
-	        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId()+""));
-	        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitudenow+""));
-	        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitudenow+""));
-	        nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
-	        nameValuePairs.add(new BasicNameValuePair("description", "Bla"));
-	        nameValuePairs.add(new BasicNameValuePair("format", "json"));
-	        nameValuePairs.add(new BasicNameValuePair("draw", colors.toString()));
-	        nameValuePairs.add(new BasicNameValuePair("drawx", xs.toString()));
-	        nameValuePairs.add(new BasicNameValuePair("drawy", ys.toString()));
-	        nameValuePairs.add(new BasicNameValuePair("xdensity", xden+""));
-	        nameValuePairs.add(new BasicNameValuePair("ydensity", yden+""));
+			 try {
+				 String desc = Configurations.current_description; 
+				 String password = Configurations.current_password;
+				 if(desc!=null){
+					byte[] utf8Bytes = desc.getBytes("UTF8");
+					desc = new String(utf8Bytes,"UTF8");
+					
+					utf8Bytes = password.getBytes("UTF8");
+					password = new String(utf8Bytes,"UTF8");
+					
+				 }
+				List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
+			 	nameValuePairs.add(new BasicNameValuePair("id_creator", Configurations.id+""));           
+		        nameValuePairs.add(new BasicNameValuePair("word_id", word.getId()+""));
+		        nameValuePairs.add(new BasicNameValuePair("latitude", Configurations.latitudenow+""));
+		        nameValuePairs.add(new BasicNameValuePair("longitude", Configurations.longitudenow+""));
+		        nameValuePairs.add(new BasicNameValuePair("format", "json"));
+		        nameValuePairs.add(new BasicNameValuePair("draw", colors.toString()));
+		        nameValuePairs.add(new BasicNameValuePair("drawx", xs.toString()));
+		        nameValuePairs.add(new BasicNameValuePair("drawy", ys.toString()));
+		        nameValuePairs.add(new BasicNameValuePair("xdensity", xden+""));
+		        nameValuePairs.add(new BasicNameValuePair("ydensity", yden+""));
+		        if(desc!=null){
+		        	nameValuePairs.add(new BasicNameValuePair("challenge", "true"));
+			        nameValuePairs.add(new BasicNameValuePair("description", desc));
+			        nameValuePairs.add(new BasicNameValuePair("password", password));
+			       
+		        }else {
+		        	nameValuePairs.add(new BasicNameValuePair("challenge", "false"));
+		        }
+	        
 	        
 	        String response = Connection.postData("http://" + Configurations.AUTHORITY + Configurations.ADDCHALLENGE, nameValuePairs);
 	        JSONObject info;
-			try {
+			
 				info = new JSONObject(response);
 				String status = info.getString("status"); 
 				if(status.equals("Draw added.")) {
@@ -442,6 +461,9 @@ public class DrawingPanel extends View implements OnTouchListener  {
 							       .setNeutralButton("Ok", new DialogInterface.OnClickListener() {
 							           public void onClick(DialogInterface dialog, int id) {
 							        	   mContext.finish();
+							        	   Configurations.current_description = null;
+							        	   Configurations.current_password = null;
+							   	        
 							           }
 							       });
 						builder.create().show();
@@ -450,7 +472,7 @@ public class DrawingPanel extends View implements OnTouchListener  {
 						}
 					});
 				} //TODO ELSE
-			} catch (JSONException e) {}
+			} catch (Exception e) {}
 			
 			
 		}

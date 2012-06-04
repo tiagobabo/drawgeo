@@ -34,10 +34,9 @@ import com.main.R;
 @SuppressWarnings("rawtypes")
 public class MapChallenge extends ItemizedOverlay {
 
+	public ArrayList<Challenge> allChallenges = new ArrayList<Challenge>();
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	private ArrayList<GeoPoint> mLocations = new ArrayList<GeoPoint>();
-	public ArrayList<String> allPiggies = new ArrayList<String>();
-	public ArrayList<String> allNumguess = new ArrayList<String>();
 	private ArrayList<String> ids = new ArrayList<String>();
 	private Context mContext;
 	private Dialog dialog;
@@ -46,12 +45,13 @@ public class MapChallenge extends ItemizedOverlay {
 	private Location location;
 	private int currentIndex;
 	private ArrayList<String> creatorEmails = new ArrayList<String>();
+	private boolean isChallenge;
 
-	public MapChallenge(Drawable defaultMarker, Context context, Location l) {
+	public MapChallenge(Drawable defaultMarker, Context context, Location l,boolean isChallenge) {
 		super(boundCenterBottom(defaultMarker));
 		this.mContext = context;
 		this.location = l;
-		
+		this.isChallenge = isChallenge;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -75,6 +75,7 @@ public class MapChallenge extends ItemizedOverlay {
 	@Override
 	protected boolean onTap(final int index) {
 		OverlayItem item = mOverlays.get(index);
+		final Challenge ch = allChallenges.get(index);
 		dialog = new Dialog(mContext);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -84,20 +85,31 @@ public class MapChallenge extends ItemizedOverlay {
 		title.setText(item.getTitle());
 		
 		TextView piggies = (TextView) dialog.findViewById(R.id.piggies);
-		piggies.setText(allPiggies.get(index));
+		piggies.setText(ch.getPiggies());
 		
 		TextView numguess = (TextView) dialog.findViewById(R.id.numguess);
-		numguess.setText(allNumguess.get(index));
+		numguess.setText(ch.getNumGuesses());
 
 		final ImageView pButton = (ImageView) dialog.findViewById(R.id.playnow);
 		pButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(),
-						ReplayCanvasActivity.class);
-
-				Configurations.drawidreplay = ids.get(index);
+				
 				dialog.dismiss();
-				mContext.startActivity(intent);
+				if(!isChallenge){
+					Intent intent = new Intent(v.getContext(),
+							ReplayCanvasActivity.class);
+
+					Configurations.drawidreplay = ids.get(index);
+					mContext.startActivity(intent);
+				}
+				else{
+					Intent intent = new Intent(v.getContext(),
+							GuessChallenge.class);
+					Configurations.drawidreplay = ids.get(index);
+					Configurations.current_description = ch.getDescription();
+					Configurations.current_password = ch.getPassword();
+					mContext.startActivity(intent);
+				}
 			}
 		});
 		
@@ -105,16 +117,30 @@ public class MapChallenge extends ItemizedOverlay {
 		pd.setMessage("Retrieving information...");
 		pd.show();
 		
-		
+		currentIndex = index;
 		new DownloadAvatar().execute(item.getSnippet());
 		
-		currentIndex = index;
+		
 		//dialog.show();
 		return true;
 	}
 
 	public void addItem(String string) {
 		ids.add(string);
+	}
+
+	/**
+	 * @return the isChallenge
+	 */
+	public boolean isChallenge() {
+		return isChallenge;
+	}
+
+	/**
+	 * @param isChallenge the isChallenge to set
+	 */
+	public void setChallenge(boolean isChallenge) {
+		this.isChallenge = isChallenge;
 	}
 
 	private class DownloadAvatar extends AsyncTask<String, Integer, Long> {
@@ -153,6 +179,7 @@ public class MapChallenge extends ItemizedOverlay {
 			
 			if(bmp != null)
 			{
+				Challenge ch = allChallenges.get(currentIndex);
 		  		final ImageView avatar = (ImageView) dialog
 						.findViewById(R.id.avatar);
 				avatar.setImageBitmap(bmp);
@@ -163,11 +190,11 @@ public class MapChallenge extends ItemizedOverlay {
 				click.setLatitude(clickPoint.getLatitudeE6()/1e6);
 				click.setLongitude(clickPoint.getLongitudeE6()/1e6);
 				
-				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email)) {
+				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) || !ch.isCheck()) {
 					final ImageView playnow = (ImageView) dialog
 							.findViewById(R.id.playnow);
 					playnow.setImageResource(R.drawable.playnowbw);
-					playnow.setClickable(false);
+					//playnow.setClickable(false);
 				}
 				
 				dialog.show();

@@ -154,6 +154,7 @@ public class MapsActivity extends MapActivity
             .appendQueryParameter("lat", locations[0].getLatitudeE6()/1e6+"")
             .appendQueryParameter("long", locations[0].getLongitudeE6()/1e6+"")
             .appendQueryParameter("radius", Configurations.SEARCH_RADIUS + "")
+            .appendQueryParameter("id", Configurations.id + "")
             .appendQueryParameter("format", Configurations.FORMAT)
             .build();
         	
@@ -167,8 +168,8 @@ public class MapsActivity extends MapActivity
 				Location l = new Location("");
 				l.setLatitude(locations[0].getLatitudeE6()/1e6);
 				l.setLongitude(locations[0].getLongitudeE6()/1e6);
-            	MapChallenge itemizedoverlayDraw = new MapChallenge(drawableDraw, MapsActivity.this, l);
-            	MapChallenge itemizedoverlayChallenge = new MapChallenge(drawableChallenge, MapsActivity.this, l);
+            	MapChallenge itemizedoverlayDraw = new MapChallenge(drawableDraw, MapsActivity.this, l,false);
+            	MapChallenge itemizedoverlayChallenge = new MapChallenge(drawableChallenge, MapsActivity.this, l,true);
             	
             	mapOverlays.clear();
             	
@@ -180,8 +181,11 @@ public class MapsActivity extends MapActivity
             	
 				for(int i = 0; i < info.length(); i++) {
 					JSONObject o = info.getJSONObject(i);
+					boolean c = o.getBoolean("challenge");
+					String title = c? "Challenge" : "Draw";
+					
 	            	GeoPoint point2 = new GeoPoint((int)(o.getDouble("latitude") * 1E6),((int)(o.getDouble("longitude") * 1E6)));
-	            	OverlayItem overlay = new OverlayItem(point2, "Draw", o.getString("creator_email"));
+	            	OverlayItem overlay = new OverlayItem(point2, title , o.getString("creator_email"));
 	            	
 	            	Location loc = new Location("");
 	            	loc.setLatitude(point2.getLatitudeE6()/1e6);
@@ -189,20 +193,30 @@ public class MapsActivity extends MapActivity
 	            	
 	            	MapsActivity.this.locations.add(loc);
 	            	
-	            	if (!o.getBoolean("challenge"))
+	            	if (!c)
 	            	{
 	            		itemizedoverlayDraw.addOverlay(overlay, point2, o.getString("creator_email"));
 	            		itemizedoverlayDraw.addItem(o.getString("id"));
-	            		itemizedoverlayDraw.allPiggies.add(o.getString("piggies"));
-	            		itemizedoverlayDraw.allNumguess.add(o.getString("times_guessed"));
+	            		Challenge ch = new Challenge();
+	            		ch.setPiggies(o.getString("piggies"));
+	            		ch.setNumGuesses(o.getString("times_guessed"));
+	            		ch.setCheck(o.getBoolean("check"));
+	            		itemizedoverlayDraw.allChallenges.add(ch);
+	            		
+	   
 	            		mapOverlays.add(itemizedoverlayDraw);
 	            	}
 	            	else
 	            	{
 	            		itemizedoverlayChallenge.addOverlay(overlay, point2, o.getString("creator_email"));
 	            		itemizedoverlayChallenge.addItem(o.getString("id"));
-	            		itemizedoverlayChallenge.allPiggies.add(o.getString("piggies"));
-	            		itemizedoverlayChallenge.allNumguess.add(o.getString("times_guessed"));
+	            		Challenge ch = new Challenge();
+	            		ch.setPiggies(o.getString("piggies"));
+	            		ch.setNumGuesses(o.getString("times_guessed"));
+	            		ch.setCheck(o.getBoolean("check"));
+	            		ch.setDescription(o.getString("description"));
+	            		ch.setPassword(o.getString("password"));
+	            		itemizedoverlayChallenge.allChallenges.add(ch);
 	            		mapOverlays.add(itemizedoverlayChallenge);
 	            	}  	
 
@@ -291,12 +305,12 @@ public class MapsActivity extends MapActivity
 			here.setLatitude(Configurations.latitudenow);
 			here.setLongitude(Configurations.longitudenow);
 			
-			for(Location l : locations) {
+			/*for(Location l : locations) {
 				if(l.distanceTo(here) < Configurations.MINIMUM_RADIUS) {
 					Toast.makeText(MapsActivity.this.getApplicationContext(), "You can't add it here, because there is another challenge in this area...", Toast.LENGTH_LONG).show();
 					return false;
 				}
-			}
+			}*/
 			
 			switch (item.getItemId()) {
 			case R.id.newdraw:
