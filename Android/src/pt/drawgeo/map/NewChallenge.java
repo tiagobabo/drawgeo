@@ -17,11 +17,15 @@ import com.main.R;
 public class NewChallenge extends Activity{
 
 	public static Dialog dialog;
+	private int replaceId =-1;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        Bundle b = this.getIntent().getExtras();
+        if(!(b==null) && !b.isEmpty())
+        	replaceId  =  b.getInt("replaceID", -1);
         // Modo fullscreen
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                          WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -49,6 +53,7 @@ public class NewChallenge extends Activity{
 					gnw.activity = NewChallenge.this;
 					gnw.dialog = NewChallenge.dialog;
 					gnw.finish = true;
+					gnw.replaceID = replaceId;
 					gnw.execute();
 					
 				}

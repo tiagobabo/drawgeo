@@ -190,7 +190,7 @@ public class MapChallenge extends ItemizedOverlay {
 				click.setLatitude(clickPoint.getLatitudeE6()/1e6);
 				click.setLongitude(clickPoint.getLongitudeE6()/1e6);
 				
-				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) || !ch.isCheck()) {
+				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) ) {
 					final ImageView playnow = (ImageView) dialog
 							.findViewById(R.id.playnow);
 					playnow.setImageResource(R.drawable.playnowbw);

@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 	public Activity activity = null;
 	public Dialog dialog = null;
 	protected boolean finish = false;
+	protected int replaceID = -1;
 	
 	@Override
 	protected Word[] doInBackground(Void... nothing) {
@@ -76,7 +78,10 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 
 				Configurations.current_word = result[0];
 				wDialog.dismiss();
+				Bundle b = new Bundle();
+				b.putInt("replaceID",replaceID);
 				Intent intent = new Intent(v.getContext(), CanvasActivity.class);
+				intent.putExtras(b);
 				activity.startActivity(intent);
 				if(finish)
 					activity.finish();
@@ -94,7 +99,10 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 
 				Configurations.current_word = result[1];
 				wDialog.dismiss();
+				Bundle b = new Bundle();
+				b.putInt("replaceID",replaceID);
 				Intent intent = new Intent(v.getContext(), CanvasActivity.class);
+				intent.putExtras(b);
 				activity.startActivity(intent);
 				if(finish)
 					activity.finish();
@@ -111,7 +119,10 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 
 				Configurations.current_word = result[2];
 				wDialog.dismiss();
+				Bundle b = new Bundle();
+				b.putInt("replaceID",replaceID);
 				Intent intent = new Intent(v.getContext(), CanvasActivity.class);
+				intent.putExtras(b);
 				activity.startActivity(intent);
 				if(finish)
 					activity.finish();
