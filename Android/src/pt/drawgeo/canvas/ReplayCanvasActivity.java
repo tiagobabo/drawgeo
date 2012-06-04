@@ -242,7 +242,8 @@ public class ReplayCanvasActivity extends Activity {
 		
 		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
 		startActivityForResult(i, 100);
-		finish();
+		new sendSuccessTask().execute();
+		
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);
 	
@@ -345,9 +346,9 @@ public class ReplayCanvasActivity extends Activity {
 			return true;
 		}
 
-		/*protected void onPostExecute(final boolean succeess) {
-			
-		}*/
+		protected void onPostExecute(Boolean succeess) {
+			finish();
+		}
 	}
 	private class getNewWordsTask extends AsyncTask<Void, Integer, Word[]> {
 
