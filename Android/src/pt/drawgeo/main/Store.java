@@ -132,13 +132,14 @@ public class Store extends Activity {
 		try {
 			response = Connection.getJSONLine(uri);
 			JSONArray info = new JSONArray(response);
-
+			
 			for (int i = 0; i < info.length(); i++) {
 				JSONObject obj = info.getJSONObject(i);
 				int id = Integer.parseInt(obj.getString("id"));
-				final ImageView lock = (ImageView) findViewById(locks[id-2]);
+				final ImageView lock = (ImageView) findViewById(locks[2-id]);
 				lock.setImageResource(R.drawable.path3);
 				lock.setClickable(false);
+				lock.postInvalidate();
 			}
 		}
 		catch (Exception e) {} 
