@@ -1,4 +1,18 @@
 class PlayController < ApplicationController
+
+	def check
+		@draw_user = DrawUser.where("id_draw = ? AND id_user= ?", params[:draw_id], params[:id])
+		if(@draw_user.empty?)
+			respond_to do |format|
+		      format.json { render :json => {:status => "Ok"}.to_json }
+		    end
+		else
+			respond_to do |format|
+		      format.json { render :json => {:status => "No"}.to_json }
+		    end
+		end
+	end
+
 	def guess
 		@player = User.find(params[:id])
 		@draw = Draw.find(params[:draw_id])

@@ -87,7 +87,7 @@ class DrawsController < ApplicationController
     @word = Word.find(draw.word_id)
     @guess = @word.word.split(//)
     @num_words = num-@guess.length
-    @abc = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    @abc = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
     @num_words.times{ @guess.push(@abc.sample) }
     @guess = @guess.shuffle
   end

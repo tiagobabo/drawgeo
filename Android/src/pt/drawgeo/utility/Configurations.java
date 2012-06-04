@@ -32,6 +32,7 @@ public class Configurations {
 	public static Bitmap avatarImage;
 	public static String drawidreplay;
 	public static int num_created;
+	public static int ranking;
 
 	public static String current_password = null;
 	public static String current_description = null;
@@ -47,6 +48,32 @@ public class Configurations {
 	public static int CURRENT_MUSIC = -1;
 	public static boolean PAUSED = false;
 	
+	
+	public static String getRanking(int ranking){
+		if(ranking < 2){
+			return "Wannabe";
+		}else if(ranking < 20){
+			return "Baby";
+		}else if(ranking < 40){
+			return "Toddler";
+		}else if(ranking < 70){
+			return "Young";
+		}else if(ranking < 100){
+			return "Teen";
+		}else if(ranking < 150){
+			return "Grown Up";
+		}else if(ranking < 200){
+			return "Veteran";
+		}else if(ranking < 300){
+			return "Master";
+		}else if(ranking < 500){
+			return "Galactic";
+		}else if(ranking < 1000){
+			return "God";
+		}else{
+			return "Picasso";
+		}
+	}
 	
 
 }
