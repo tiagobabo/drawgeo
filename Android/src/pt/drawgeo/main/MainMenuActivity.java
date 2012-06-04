@@ -51,6 +51,10 @@ public class MainMenuActivity extends Activity {
 		
 		final ImageView avatar = (ImageView) findViewById(R.id.avatar);
 		avatar.setImageBitmap(Configurations.avatarImage);
+		
+		final TextView ranking = (TextView) findViewById(R.id.ranking);
+		
+		ranking.setText(Configurations.getRanking(Configurations.piggies)+" Artist");
 	
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {

@@ -27,6 +27,17 @@
             android:text="Tiago Babo"
             android:textColor="#ffffff" />
 
+        <TextView
+            android:id="@+id/ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/avatar"
+            
+            android:layout_marginLeft="10dp"
+            android:paddingTop="2dp"
+            android:text="Ranking"
+            android:textColor="#01baf1" android:layout_below="@id/name" android:layout_marginTop="25dp"/>
+
     </RelativeLayout>
 
 	<RelativeLayout

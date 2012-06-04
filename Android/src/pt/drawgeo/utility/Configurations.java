@@ -48,5 +48,31 @@ public class Configurations {
 	public static boolean PAUSED = false;
 	
 	
+	public static String getRanking(int piggies){
+		if(piggies < 2){
+			return "Wannabe";
+		}else if(piggies < 20){
+			return "Baby";
+		}else if(piggies < 40){
+			return "Toddler";
+		}else if(piggies < 70){
+			return "Young";
+		}else if(piggies < 100){
+			return "Teen";
+		}else if(piggies < 150){
+			return "Grown Up";
+		}else if(piggies < 200){
+			return "Veteran";
+		}else if(piggies < 300){
+			return "Master";
+		}else if(piggies < 500){
+			return "Galactic";
+		}else if(piggies < 1000){
+			return "God";
+		}else{
+			return "Picasso";
+		}
+	}
+	
 
 }
