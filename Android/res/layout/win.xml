@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" android:background="@drawable/winback">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,14 +13,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true" android:layout_marginLeft="30dp"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="30dp" />
 
         <ImageView
             android:id="@+id/coin2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true" android:layout_marginRight="33dp"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="33dp" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -28,15 +30,48 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/noun_project_925" android:layout_marginLeft="10dp"/>
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/noun_project_925" />
 
         <ImageView
             android:id="@+id/ImageView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_alignTop="@+id/imageView1"
-            android:src="@drawable/noun_project_925" android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:src="@drawable/noun_project_925" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal" >
+
+            <ImageView
+                android:id="@+id/draw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/draw" />
+
+            <ImageView
+                android:id="@+id/drawchallenge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/draw"
+                android:layout_below="@+id/draw"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/drawchallenge" />
+
+            <ImageView
+                android:id="@+id/skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/drawchallenge"
+                android:layout_below="@+id/drawchallenge"
+                android:layout_marginTop="15dp"
+                android:src="@drawable/skip" />
+        </RelativeLayout>
 
     </RelativeLayout>
 

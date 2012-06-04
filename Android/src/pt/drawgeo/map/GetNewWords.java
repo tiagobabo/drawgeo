@@ -23,8 +23,8 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 
 	public Activity activity = null;
 	public Dialog dialog = null;
-	protected boolean finish = false;
-	protected int replaceID = -1;
+	public boolean finish = false;
+	public int replaceID = -1;
 	
 	@Override
 	protected Word[] doInBackground(Void... nothing) {

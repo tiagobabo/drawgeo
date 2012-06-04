@@ -241,7 +241,9 @@ public class ReplayCanvasActivity extends Activity {
 	public void playerGuessed() {
 		
 		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
-		startActivity(i);
+		startActivityForResult(i, 100);
+		this.overridePendingTransition(R.anim.animation_enter,
+                R.anim.animation_leave);
 	
 
 		/*final Dialog wDialog = new Dialog(ReplayCanvasActivity.this);

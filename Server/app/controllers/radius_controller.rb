@@ -13,7 +13,11 @@ class RadiusController < ApplicationController
 			  	creator = User.find(draw.id_creator)
 			  	word = Word.find(draw.word_id)
 			  	checkDraw = check(draw.id, @user_id)
-			  	elem = Hash[:id => "#{draw.id}", :piggies => "#{word.difficulty * 2}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :password => "#{draw.password}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}", :check => "#{checkDraw}"]
+			  	piggies = word.difficulty*2
+			  	if draw.challenge
+			  		piggies = piggies+1
+			  	end
+			  	elem = Hash[:id => "#{draw.id}", :piggies => "#{piggies}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :password => "#{draw.password}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}", :check => "#{checkDraw}"]
 			  	@final << elem
 			end
 		    respond_to do |format|
@@ -42,7 +46,11 @@ class RadiusController < ApplicationController
     			creator = User.find(draw.id_creator)
     			word = Word.find(draw.word_id)
     			checkDraw = check(draw.id, @user_id)
-			  	elem = Hash[:id => "#{draw.id}", :piggies => "#{word.difficulty * 2}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :password => "#{draw.password}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}", :check => "#{checkDraw}"]
+    			piggies = word.difficulty*2
+			  	if draw.challenge
+			  		piggies = piggies+1
+			  	end
+			  	elem = Hash[:id => "#{draw.id}", :piggies => "#{piggies}",:latitude => "#{draw.latitude}",:longitude => "#{draw.longitude}", :challenge => "#{draw.challenge}", :password => "#{draw.password}", :description => "#{draw.description}", :creator_name => "#{creator.name}", :creator_email => "#{creator.email}", :times_guessed => "#{DrawUser.where("id_draw = ?", draw.id).length}", :created => "#{draw.created_at}", :check => "#{checkDraw}"]
 			  	@final << elem
 			end
 		    respond_to do |format|
