@@ -1,18 +1,15 @@
 package pt.drawgeo.main;
 
 import pt.drawgeo.sound.MusicManager;
-
-import com.main.R;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import com.main.R;
      
 public class OptionsActivity extends PreferenceActivity {
 
@@ -50,7 +47,7 @@ public class OptionsActivity extends PreferenceActivity {
 
 		    public boolean onPreferenceClick(Preference preference) {
 		    	
-		    	SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
+		    	//SharedPreferences myPreference = PreferenceManager.getDefaultSharedPreferences(OptionsActivity.this);
 		    	return true; 
 		    }
 		});

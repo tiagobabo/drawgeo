@@ -1,10 +1,8 @@
 package pt.drawgeo.canvas;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.drawgeo.main.Store;
@@ -14,7 +12,6 @@ import pt.drawgeo.utility.Word;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -26,7 +23,6 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.main.R;
 
@@ -138,82 +134,32 @@ public class CanvasActivity extends Activity {
 				.appendQueryParameter("format", Configurations.FORMAT).build();
 
 		String response = null;
-
+		
+		int[] colors = {R.drawable.color5, R.drawable.color6, R.drawable.color7, 
+				R.drawable.color8, R.drawable.color9, R.drawable.color10, 
+				R.drawable.color11, R.drawable.color12, };
+		
 		try {
 			response = Connection.getJSONLine(uri);
 			JSONArray info = new JSONArray(response);
 
 			for (int i = 0; i < info.length(); i++) {
 				JSONObject obj = info.getJSONObject(i);
-				if (obj.getString("id").equals("2")) {
-
-					for (int z = 5; z < 9; z++) {
-						ImageView view = new ImageView(this);
-
-						switch (z) {
-						case 5:
-							view.setImageResource(R.drawable.color5);
-							break;
-						case 6:
-							view.setImageResource(R.drawable.color6);
-							break;
-						case 7:
-							view.setImageResource(R.drawable.color7);
-							break;
-						case 8:
-							view.setImageResource(R.drawable.color8);
-							break;
-
-						}
-
-						int px = (int) TypedValue.applyDimension(
-								TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
-										.getDisplayMetrics());
-						view.setPadding(px, 0, 0, 0);
-						LinearLayout ll = (LinearLayout) findViewById(R.id.colors);
-						ll.addView(view);
-					}
-				} else if (obj.getString("id").equals("3")) {
-
-					for (int z = 9; z < 13; z++) {
-						ImageView view = new ImageView(this);
-
-						switch (z) {
-						case 9:
-							view.setImageResource(R.drawable.color9);
-							break;
-						case 10:
-							view.setImageResource(R.drawable.color10);
-							break;
-						case 11:
-							view.setImageResource(R.drawable.color11);
-							break;
-						case 12:
-							view.setImageResource(R.drawable.color12);
-							break;
-
-						}
-
-						int px = (int) TypedValue.applyDimension(
-								TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
-										.getDisplayMetrics());
-						view.setPadding(px, 0, 0, 0);
-						LinearLayout ll = (LinearLayout) findViewById(R.id.colors);
-						ll.addView(view);
-					}
+				int id = Integer.parseInt(obj.getString("id"));
+				for(int z = 0+3*(id-2); z < 5+3*(id-2); z++) {
+					ImageView view = new ImageView(this);
+					view.setImageResource(colors[z]);
+					int px = (int) TypedValue.applyDimension(
+							TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
+									.getDisplayMetrics());
+					view.setPadding(px, 0, 0, 0);
+					LinearLayout ll = (LinearLayout) findViewById(R.id.colors);
+					ll.addView(view);
 				}
+				
 			}
 
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (Exception e) {} 
 	}
 
 	// função que adiciona o efeito alpha a uma ImageView

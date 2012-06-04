@@ -1,8 +1,6 @@
 package pt.drawgeo.main;
 
-import java.io.IOException;
-
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import pt.drawgeo.sound.MusicManager;
@@ -11,7 +9,6 @@ import pt.drawgeo.utility.Connection;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.net.ParseException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -41,91 +38,108 @@ public class Store extends Activity {
 		final TextView piggies = (TextView) findViewById(R.id.piggiestext);
 		piggies.setText(Configurations.piggies + "");
 
-		// TODO Adicionar listeners para as palettes que o user nao tiver
+		Uri uri = new Uri.Builder().scheme(Configurations.SCHEME)
+				.authority(Configurations.AUTHORITY)
+				.path(Configurations.GETPALETTEBYUSER)
+				.appendQueryParameter("id", Configurations.id + "")
+				.appendQueryParameter("format", Configurations.FORMAT).build();
+
+		String response = null;
+		int[] locks = { R.id.lock2, R.id.lock3 };
+		try {
+			response = Connection.getJSONLine(uri);
+			JSONArray info = new JSONArray(response);
+
+			for (int i = 0; i < info.length(); i++) {
+				JSONObject obj = info.getJSONObject(i);
+				int id = Integer.parseInt(obj.getString("id"));
+				final ImageView lock = (ImageView) findViewById(locks[id-2]);
+				lock.setImageResource(R.drawable.path3);
+				lock.setClickable(false);
+			}
+		}
+		catch (Exception e) {} 
 		
-		final ImageView lock2 = (ImageView) findViewById(R.id.lock2);
-		lock2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+		for (int i = 0; i < locks.length; i++) {
+			final int serverID = i+2;
+			final int it = i;
+			final ImageView lock2 = (ImageView) findViewById(locks[i]);
+			lock2.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
 
-				if (Configurations.piggies < 30)
-					Toast.makeText(Store.this,
-							"You don't have enough piggies!",
-							Toast.LENGTH_SHORT).show();
-				else {
-					AlertDialog.Builder builder = new AlertDialog.Builder(v
-							.getContext());
-					builder.setMessage(
-							"You are about to buy this pallete. Are you sure?")
-							.setCancelable(false)
-							.setPositiveButton("Yes",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog, int id) {
+					if (Configurations.piggies < 30)
+						Toast.makeText(Store.this,
+								"You don't have enough piggies!",
+								Toast.LENGTH_SHORT).show();
+					else {
+						AlertDialog.Builder builder = new AlertDialog.Builder(v
+								.getContext());
+						builder.setMessage(
+								"You are about to buy this pallete. Are you sure?")
+								.setCancelable(false)
+								.setPositiveButton("Yes",
+										new DialogInterface.OnClickListener() {
+											public void onClick(
+													DialogInterface dialog,
+													int id) {
 
-											Uri uri = new Uri.Builder()
-													.scheme(Configurations.SCHEME)
-													.authority(
-															Configurations.AUTHORITY)
-													.path(Configurations.BUYPALLETE)
-													.appendQueryParameter("id",
-															Configurations.id + "")
-													.appendQueryParameter(
-															"id_palette", 2 + "")
-													.appendQueryParameter(
-															"format",
-															Configurations.FORMAT)
-													.build();
+												Uri uri = new Uri.Builder()
+														.scheme(Configurations.SCHEME)
+														.authority(
+																Configurations.AUTHORITY)
+														.path(Configurations.BUYPALLETE)
+														.appendQueryParameter(
+																"id",
+																Configurations.id
+																		+ "")
+														.appendQueryParameter(
+																"id_palette",
+																serverID + "")
+														.appendQueryParameter(
+																"format",
+																Configurations.FORMAT)
+														.build();
 
-											String response = null;
+												String response = null;
 
-											try {
-												response = Connection.getJSONLine(uri);
-												JSONObject info = new JSONObject(
-														response);
-												String status = info
-														.getString("status");
-												if (status.equals("Palette bought successfully.")) {
-													
-													// TODO onResult de todas as atividades
-													// TODO Mudar cadeado para bloqueado
-													
-													piggies.setText(Configurations.piggies+"");
-													Toast.makeText(Store.this,
-															"Palette bought successfully.",
-															Toast.LENGTH_SHORT).show();	
-													
-												}
-											} catch (ParseException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											} catch (IOException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
-											} catch (JSONException e) {
-												// TODO Auto-generated catch block
-												e.printStackTrace();
+												try {
+													response = Connection
+															.getJSONLine(uri);
+													JSONObject info = new JSONObject(
+															response);
+													String status = info
+															.getString("status");
+													if (status
+															.equals("Palette bought successfully.")) {
+														
+														lock2.setImageResource(R.drawable.path3);
+
+														piggies.setText((Configurations.piggies - 30-it*10)
+																+ "");
+														Toast.makeText(
+																Store.this,
+																"Palette bought successfully.",
+																Toast.LENGTH_SHORT)
+																.show();
+
+													}
+												} catch (Exception e) {} 
 											}
-										}
-									})
-							.setNegativeButton("No",
-									new DialogInterface.OnClickListener() {
-										public void onClick(
-												DialogInterface dialog, int id) {
-											dialog.cancel();
-										}
-									});
-					AlertDialog alert = builder.create();
-					alert.show();
+										})
+								.setNegativeButton("No",
+										new DialogInterface.OnClickListener() {
+											public void onClick(
+													DialogInterface dialog,
+													int id) {
+												dialog.cancel();
+											}
+										});
+						AlertDialog alert = builder.create();
+						alert.show();
+					}
 				}
-			}
-		});
-
-		final ImageView lock3 = (ImageView) findViewById(R.id.lock3);
-		lock3.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-			}
-		});
+			});
+		}
 
 	}
 

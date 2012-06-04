@@ -1,14 +1,20 @@
 package pt.drawgeo.main;
 
+import org.json.JSONObject;
+
 import pt.drawgeo.map.MapsActivity;
 import pt.drawgeo.sound.MusicManager;
 import pt.drawgeo.sound.SoundManager;
 import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.Connection;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,10 +26,9 @@ import android.widget.Toast;
 import com.main.R;
 
 public class MainMenuActivity extends Activity {
-	
-    
 
-	
+	private ProgressDialog dialog;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
@@ -53,7 +58,6 @@ public class MainMenuActivity extends Activity {
 		avatar.setImageBitmap(Configurations.avatarImage);
 		
 		final TextView ranking = (TextView) findViewById(R.id.ranking);
-		
 		ranking.setText(Configurations.getRanking(Configurations.ranking)+" Artist");
 	
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
@@ -209,6 +213,13 @@ public class MainMenuActivity extends Activity {
 		super.onResume();
 		MusicManager.CURRENT_MUSIC = MusicManager.MENU_MUSIC;
 		MusicManager.start(this, MusicManager.CURRENT_MUSIC);
+		dialog = ProgressDialog.show(MainMenuActivity.this, "", 
+                "Retrieving information...", true);
+    
+    	new DownloadUserInfo().execute();
+    	
+    	
+		
 	}
 	
 	private Toast toast;
@@ -231,6 +242,67 @@ public class MainMenuActivity extends Activity {
 	 }
 	}
 
+	private class DownloadUserInfo extends AsyncTask<String, Integer, Long> {
 
+		@Override
+		protected Long doInBackground(String... userInfo) {
+			Uri uri = new Uri.Builder()
+            .scheme(Configurations.SCHEME)
+            .authority(Configurations.AUTHORITY)
+            .path(Configurations.CHECKUSER)
+            .appendQueryParameter("email", Configurations.email)              
+            .appendQueryParameter("format", Configurations.FORMAT)
+            .build();
+        	
+        	String response = null;
+        	try {
+				response = Connection.getJSONLine(uri);
+				JSONObject info = new JSONObject(response);
+				String status = info.getString("status");
+				if(status.equals("Ok")) {
+					JSONObject user = info.getJSONObject("user"); 
+					Configurations.num_done = user.getInt("num_done");
+					Configurations.num_success = user.getInt("num_success");
+					Configurations.num_created = info.getInt("created");
+					Configurations.piggies = user.getInt("piggies");
+					Configurations.ranking = user.getInt("ranking");
+					MainMenuActivity.this.runOnUiThread(new Runnable() {
+			          	  public void run() {
+			          		
+			          		final TextView challengesdone = (TextView) findViewById(R.id.challengesdonetext);
+			        		challengesdone.setText(Configurations.num_done+"");
+			        		
+			        		final TextView challengescreated = (TextView) findViewById(R.id.challengescreatedtext);
+			        		challengescreated.setText(Configurations.num_created+"");
+			        		
+			        		final TextView guessedyours = (TextView) findViewById(R.id.guessedyourstext);
+			        		guessedyours.setText(Configurations.num_success+"");
+			        		
+			        		final TextView piggies = (TextView) findViewById(R.id.piggiestext);
+			        		piggies.setText(Configurations.piggies+"");
+			          		
+			        		final TextView ranking = (TextView) findViewById(R.id.ranking);
+			        		ranking.setText(Configurations.getRanking(Configurations.ranking)+" Artist");
+			          	  }
+				    	});
+					
+				}
+		}
+	    catch (Exception e) {
+	    	MainMenuActivity.this.runOnUiThread(new Runnable() {
+          	  public void run() {
+          		Toast.makeText(MainMenuActivity.this.getApplicationContext(), "Something went wrong. Are you connected to the internet?", Toast.LENGTH_SHORT).show();
+          		
+          	  }
+	    	});
+	    	return (long) 1;
+	    }
+			return null;
+		}
+		
+		protected void onPostExecute(Long result) {
+      		dialog.dismiss();
+     }
+	};
 	
 }
