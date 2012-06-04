@@ -126,7 +126,7 @@ public class ReplayCanvasActivity extends Activity {
 	    	et.setId(i);
 	    	
 	    	
-	    	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( LayoutParams.WRAP_CONTENT, (int)px );
+	    	RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams( (int)px,  (int)px);
 	        if( i != 1 ){
 	            params.addRule(RelativeLayout.RIGHT_OF, i-1 );
 	            params.addRule(RelativeLayout.ALIGN_PARENT_TOP,1);
@@ -241,7 +241,15 @@ public class ReplayCanvasActivity extends Activity {
 	public void playerGuessed() {
 		
 		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
-		startActivity(i);
+		startActivityForResult(i, 100);
+		Configurations.current_description = null;
+	 	Configurations.current_password = null;
+		new sendSuccessTask().execute();
+		
+        
+		
+		this.overridePendingTransition(R.anim.animation_enter,
+                R.anim.animation_leave);
 	
 
 		/*final Dialog wDialog = new Dialog(ReplayCanvasActivity.this);
@@ -342,9 +350,9 @@ public class ReplayCanvasActivity extends Activity {
 			return true;
 		}
 
-		/*protected void onPostExecute(final boolean succeess) {
-			
-		}*/
+		protected void onPostExecute(Boolean succeess) {
+			finish();
+		}
 	}
 	private class getNewWordsTask extends AsyncTask<Void, Integer, Word[]> {
 
