@@ -253,7 +253,7 @@ public class HomeActivity extends Activity{
 	    catch (Exception e) {
 	    	HomeActivity.this.runOnUiThread(new Runnable() {
           	  public void run() {
-          		Toast.makeText(HomeActivity.this.getApplicationContext(), "Something went wrong. Try again...", Toast.LENGTH_SHORT).show();
+          		Toast.makeText(HomeActivity.this.getApplicationContext(), "Something went wrong. Are you connected to the internet?", Toast.LENGTH_SHORT).show();
           		
           	  }
 	    	});
