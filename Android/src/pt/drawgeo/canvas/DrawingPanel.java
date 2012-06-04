@@ -1,11 +1,9 @@
 package pt.drawgeo.canvas;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.drawgeo.utility.Configurations;

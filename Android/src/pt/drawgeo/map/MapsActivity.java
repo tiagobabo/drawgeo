@@ -18,7 +18,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -236,7 +235,7 @@ public class MapsActivity extends MapActivity
 	}
 
 	// cria uma localiza�‹o fict’cia
-	private void getMockLocation()
+	/*private void getMockLocation()
 	{
 		try{
 			locationManager.removeTestProvider(LocationManager.GPS_PROVIDER);    		
@@ -285,7 +284,7 @@ public class MapsActivity extends MapActivity
 				LocationManager.GPS_PROVIDER, 
 				newLocation
 				);      
-	}
+	}*/
 
 	// menu de contexto com as op�›es para criar novos desafios
 	@Override

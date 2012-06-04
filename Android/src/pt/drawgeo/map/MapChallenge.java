@@ -179,7 +179,7 @@ public class MapChallenge extends ItemizedOverlay {
 			
 			if(bmp != null)
 			{
-				Challenge ch = allChallenges.get(currentIndex);
+				//Challenge ch = allChallenges.get(currentIndex);
 		  		final ImageView avatar = (ImageView) dialog
 						.findViewById(R.id.avatar);
 				avatar.setImageBitmap(bmp);

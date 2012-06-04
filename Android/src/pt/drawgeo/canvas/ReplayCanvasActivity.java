@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
@@ -237,12 +239,15 @@ public class ReplayCanvasActivity extends Activity {
 	}
 
 	public void playerGuessed() {
+		
+		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
+		startActivity(i);
+	
 
-		
-		
-		final Dialog wDialog = new Dialog(ReplayCanvasActivity.this);
+		/*final Dialog wDialog = new Dialog(ReplayCanvasActivity.this);
 		wDialog.setTitle("Congratulations!!!");
 		wDialog.setContentView(R.layout.wordguesseddialog);
+		
 		TextView text = (TextView) wDialog.findViewById(R.id.title);
 		text.setText("You just guessed the word! You earned " + piggiesEarned + " piggies!! Do you want to replace this drawing with one of your own?");
 		
@@ -288,7 +293,7 @@ public class ReplayCanvasActivity extends Activity {
 		
 		wDialog.show();
 	
-		new sendSuccessTask().execute();
+		new sendSuccessTask().execute();*/
 		
 	}
 
@@ -296,7 +301,7 @@ public class ReplayCanvasActivity extends Activity {
 
 		ReplayCanvasActivity.this.runOnUiThread(new Runnable() {
       	  public void run() {
-      		Toast.makeText(ReplayCanvasActivity.this.getApplicationContext(), "Daaaaamn you missed that one!",Toast.LENGTH_LONG).show();
+      		Toast.makeText(ReplayCanvasActivity.this.getApplicationContext(), "Ops, you missed that one!",Toast.LENGTH_LONG).show();
       		
       	  }
 	    	});
