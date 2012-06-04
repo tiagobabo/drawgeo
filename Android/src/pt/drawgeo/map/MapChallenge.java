@@ -194,7 +194,7 @@ public class MapChallenge extends ItemizedOverlay {
 					final ImageView playnow = (ImageView) dialog
 							.findViewById(R.id.playnow);
 					playnow.setImageResource(R.drawable.playnowbw);
-					playnow.setClickable(false);
+					//playnow.setClickable(false);
 				}
 				
 				dialog.show();

@@ -19,6 +19,9 @@ public class Configurations {
 	final public static String GETNEWWORDS ="/play/getNewWords";
 	final public static String GUESS ="/play/guess";
 	final public static String REPLACEDRAW ="/play/replace";
+	final public static String BUYPALLETE ="/play/buyNewPalette";
+	final public static String GETPALETTEBYUSER ="/play/getPaletteByUser";
+	
 	
 	// DADOS DO UTILIZADOR
 	public static String email;
