@@ -54,7 +54,7 @@ public class MainMenuActivity extends Activity {
 		
 		final TextView ranking = (TextView) findViewById(R.id.ranking);
 		
-		ranking.setText(Configurations.getRanking(Configurations.piggies)+" Artist");
+		ranking.setText(Configurations.getRanking(Configurations.ranking)+" Artist");
 	
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {

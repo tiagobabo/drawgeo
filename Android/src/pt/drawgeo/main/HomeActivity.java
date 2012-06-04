@@ -217,6 +217,7 @@ public class HomeActivity extends Activity{
 					Configurations.num_success = user.getInt("num_success");
 					Configurations.num_created = info.getInt("created");
 					Configurations.piggies = user.getInt("piggies");
+					Configurations.ranking = user.getInt("ranking");
 					//JSONObject avatar = info.getJSONObject("avatar"); 
 					//Configurations.avatarURL = avatar.getString("url");
 					
