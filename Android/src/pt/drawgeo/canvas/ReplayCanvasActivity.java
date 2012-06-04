@@ -242,6 +242,7 @@ public class ReplayCanvasActivity extends Activity {
 		
 		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
 		startActivityForResult(i, 100);
+		finish();
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);
 	

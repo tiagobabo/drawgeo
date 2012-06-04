@@ -2,6 +2,7 @@ package pt.drawgeo.canvas;
 
 import pt.drawgeo.map.GetNewWords;
 import pt.drawgeo.map.MapsActivity;
+import pt.drawgeo.map.NewChallenge;
 import pt.drawgeo.sound.MusicManager;
 import pt.drawgeo.sound.SoundManager;
 import pt.drawgeo.utility.Configurations;
@@ -75,6 +76,29 @@ public class WinActivity extends Activity {
 				
 			}
 		});
+		
+		skip.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				finish();
+				
+				
+			}
+		});
+		
+		drawchallenge.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Bundle b = new Bundle();
+				b.putInt("replaceID",Integer.parseInt(Configurations.drawidreplay));
+				Intent intent = new Intent(v.getContext(),
+				NewChallenge.class);
+				intent.putExtras(b);
+				startActivity(intent);
+				finish();
+				
+				
+			}
+		});
+		
 		
 	}
 	
