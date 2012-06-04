@@ -22,6 +22,7 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 
 	public Activity activity = null;
 	public Dialog dialog = null;
+	protected boolean finish = false;
 	
 	@Override
 	protected Word[] doInBackground(Void... nothing) {
@@ -77,6 +78,8 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 				wDialog.dismiss();
 				Intent intent = new Intent(v.getContext(), CanvasActivity.class);
 				activity.startActivity(intent);
+				if(finish)
+					activity.finish();
 			}
 		});
 
@@ -93,6 +96,8 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 				wDialog.dismiss();
 				Intent intent = new Intent(v.getContext(), CanvasActivity.class);
 				activity.startActivity(intent);
+				if(finish)
+					activity.finish();
 			}
 		});
 
@@ -108,6 +113,8 @@ public class GetNewWords extends AsyncTask<Void, Integer, Word[]> {
 				wDialog.dismiss();
 				Intent intent = new Intent(v.getContext(), CanvasActivity.class);
 				activity.startActivity(intent);
+				if(finish)
+					activity.finish();
 			}
 		});
 

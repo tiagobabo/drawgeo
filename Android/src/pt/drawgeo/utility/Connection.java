@@ -56,7 +56,7 @@ public class Connection {
 
 	    try {
 	        // Add your data
-	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs,"UTF-8"));
 
 	        // Execute HTTP Post Request
 	        HttpResponse response = httpclient.execute(httppost);

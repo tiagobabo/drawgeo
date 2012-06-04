@@ -35,6 +35,7 @@ public class Configurations {
 	public static Bitmap avatarImage;
 	public static String drawidreplay;
 	public static int num_created;
+	public static int ranking;
 
 	public static String current_password = null;
 	public static String current_description = null;
@@ -51,26 +52,26 @@ public class Configurations {
 	public static boolean PAUSED = false;
 	
 	
-	public static String getRanking(int piggies){
-		if(piggies < 2){
+	public static String getRanking(int ranking){
+		if(ranking < 2){
 			return "Wannabe";
-		}else if(piggies < 20){
+		}else if(ranking < 20){
 			return "Baby";
-		}else if(piggies < 40){
+		}else if(ranking < 40){
 			return "Toddler";
-		}else if(piggies < 70){
+		}else if(ranking < 70){
 			return "Young";
-		}else if(piggies < 100){
+		}else if(ranking < 100){
 			return "Teen";
-		}else if(piggies < 150){
+		}else if(ranking < 150){
 			return "Grown Up";
-		}else if(piggies < 200){
+		}else if(ranking < 200){
 			return "Veteran";
-		}else if(piggies < 300){
+		}else if(ranking < 300){
 			return "Master";
-		}else if(piggies < 500){
+		}else if(ranking < 500){
 			return "Galactic";
-		}else if(piggies < 1000){
+		}else if(ranking < 1000){
 			return "God";
 		}else{
 			return "Picasso";
