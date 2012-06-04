@@ -93,7 +93,7 @@ public class ReplayCanvasActivity extends Activity {
 		    word = info.getString("word");
 		    piggiesEarned = info.getInt("piggies");
 		    TextView tv = (TextView) findViewById(R.id.title);
-		    tv.setText(word);
+		    tv.setText("Try and guess this draw!");
 		    addEnoughSquares(word.length());
 	        JSONArray guess = info.getJSONArray("guess");
 			EditText[] letters = new EditText[guess.length()];
