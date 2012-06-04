@@ -12,10 +12,12 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -59,6 +61,21 @@ public class MainMenuActivity extends Activity {
 		
 		final TextView ranking = (TextView) findViewById(R.id.ranking);
 		ranking.setText(Configurations.getRanking(Configurations.ranking)+" Artist");
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		MusicManager.MUTE = prefs.getBoolean("mute", false);
+		final ImageView soButton = (ImageView) findViewById(R.id.btnSound);
+		if(!MusicManager.MUTE) {
+    		soButton.setImageResource(R.drawable.soundon);
+    		MusicManager.start(MainMenuActivity.this, MusicManager.CURRENT_MUSIC);
+    	}
+    	else
+    	{
+    		soButton.setImageResource(R.drawable.soundoff);
+    		MusicManager.PAUSED = true;
+    		MusicManager.pause();
+    	}
+
 	
 		final ImageView pButton = (ImageView) findViewById(R.id.btnPlay);
 		pButton.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +163,7 @@ public class MainMenuActivity extends Activity {
 			}
 		});
 		
-		final ImageView soButton = (ImageView) findViewById(R.id.btnSound);
+		
 		soButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				
@@ -205,6 +222,11 @@ public class MainMenuActivity extends Activity {
 		super.onPause();
 		MusicManager.PAUSED = true;
 		MusicManager.pause();
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("mute", MusicManager.MUTE);
+		editor.commit();
 	
 	}
 
