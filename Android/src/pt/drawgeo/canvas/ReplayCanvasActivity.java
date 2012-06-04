@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import pt.drawgeo.map.NewChallenge;
 import pt.drawgeo.utility.*;
 import android.app.Activity;
 import android.app.Dialog;
@@ -22,6 +23,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -253,7 +255,20 @@ public class ReplayCanvasActivity extends Activity {
 				
 				dialog = ProgressDialog.show(ReplayCanvasActivity.this, "", 
 						"Retreiving information...", true);
-				new getNewWordsTask().execute();
+				CheckBox chk = (CheckBox) wDialog.findViewById(R.id.checkBox1);
+				if(!chk.isChecked())
+					new getNewWordsTask().execute();
+				else{
+					Bundle b = new Bundle();
+					b.putInt("replaceID",Integer.parseInt(Configurations.drawidreplay));
+					Intent intent = new Intent(v.getContext(),
+    				NewChallenge.class);
+					intent.putExtras(b);
+    				startActivity(intent);
+    				finish();
+					
+				}
+					
 				
 				
 			}
