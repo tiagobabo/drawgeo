@@ -242,7 +242,11 @@ public class ReplayCanvasActivity extends Activity {
 		
 		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
 		startActivityForResult(i, 100);
+		Configurations.current_description = null;
+	 	Configurations.current_password = null;
 		new sendSuccessTask().execute();
+		
+        
 		
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);
