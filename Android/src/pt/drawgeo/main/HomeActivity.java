@@ -100,7 +100,7 @@ public class HomeActivity extends Activity{
 				                        		  dialog = ProgressDialog.show(HomeActivity.this, "", 
 							                                "Retrieving information...", true);
 				                        		  
-				                        		  new DownloadFilesTask().execute(email, id, name);
+				                        		  new DownloadUserInfo().execute(email, id, name);
 				                        	  }
 			                        	});
 				                        
@@ -171,7 +171,7 @@ public class HomeActivity extends Activity{
 	        	dialog = ProgressDialog.show(HomeActivity.this, "", 
                         "Retrieving information...", true);
 	        
-	        	new DownloadFilesTask().execute(possibleEmails[email].toString());
+	        	new DownloadUserInfo().execute(possibleEmails[email].toString());
 	        }
 	    }).show();
 	
@@ -190,7 +190,7 @@ public class HomeActivity extends Activity{
 		return possibleEmails;
 	}
 	
-	private class DownloadFilesTask extends AsyncTask<String, Integer, Long> {
+	private class DownloadUserInfo extends AsyncTask<String, Integer, Long> {
 
 		@Override
 		protected Long doInBackground(String... userInfo) {

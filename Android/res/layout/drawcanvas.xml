@@ -16,7 +16,7 @@
             android:text="@string/hello" android:layout_gravity="center_vertical" android:textColor="#ffffff" android:layout_marginTop="0dp" android:layout_marginLeft="40dp"/>
 
     </LinearLayout>
-
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,49 +24,59 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" >
 
-        <ImageView
-            android:id="@+id/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/color4" />
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView1"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/colors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
-        <ImageView
-            android:id="@+id/store"
+                <ImageView
+                    android:id="@+id/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/color4" />
+
+                <ImageView
+                    android:id="@+id/yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/color1" />
+
+                <ImageView
+                    android:id="@+id/red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/color2" />
+
+                <ImageView
+                    android:id="@+id/green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:src="@drawable/color3" />
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/noun_project_2332" />
+            android:layout_alignParentTop="true" >
 
-        <ImageView
-            android:id="@+id/red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/black"
-            android:paddingLeft="10dp"
-            android:src="@drawable/color2" />
+            <ImageView
+                android:id="@+id/store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/noun_project_2332" />
 
-        <ImageView
-            android:id="@+id/green"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/red"
-            android:paddingLeft="10dp"
-            android:src="@drawable/color3" />
-
-        <ImageView
-            android:id="@+id/yellow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/green"
-            android:paddingLeft="10dp"
-            android:src="@drawable/color1" />
-
+        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout

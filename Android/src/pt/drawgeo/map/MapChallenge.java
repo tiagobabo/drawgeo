@@ -179,7 +179,7 @@ public class MapChallenge extends ItemizedOverlay {
 			
 			if(bmp != null)
 			{
-				Challenge ch = allChallenges.get(currentIndex);
+				//Challenge ch = allChallenges.get(currentIndex);
 		  		final ImageView avatar = (ImageView) dialog
 						.findViewById(R.id.avatar);
 				avatar.setImageBitmap(bmp);
@@ -190,11 +190,11 @@ public class MapChallenge extends ItemizedOverlay {
 				click.setLatitude(clickPoint.getLatitudeE6()/1e6);
 				click.setLongitude(clickPoint.getLongitudeE6()/1e6);
 				
-				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) || !ch.isCheck()) {
+				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) ) {
 					final ImageView playnow = (ImageView) dialog
 							.findViewById(R.id.playnow);
 					playnow.setImageResource(R.drawable.playnowbw);
-					playnow.setClickable(false);
+					//playnow.setClickable(false);
 				}
 				
 				dialog.show();
