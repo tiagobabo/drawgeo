@@ -100,7 +100,7 @@ public class HomeActivity extends Activity{
 				                        		  dialog = ProgressDialog.show(HomeActivity.this, "", 
 							                                "Retrieving information...", true);
 				                        		  
-				                        		  new DownloadUserInfo().execute(email, id, name);
+				                        		  new DownloadUserInfo().execute(email);
 				                        	  }
 			                        	});
 				                        
@@ -145,9 +145,7 @@ public class HomeActivity extends Activity{
         this.overridePendingTransition(R.anim.animation_enter2,
                 R.anim.animation_leave2);
     }
-	
 
-	
 	protected void goToMainMenu() {
 		Intent intent = new Intent(this,
 				MainMenuActivity.class);
@@ -220,14 +218,8 @@ public class HomeActivity extends Activity{
 					Configurations.ranking = user.getInt("ranking");
 					//JSONObject avatar = info.getJSONObject("avatar"); 
 					//Configurations.avatarURL = avatar.getString("url");
-					
-					if(loginFacebook) {
-						Configurations.avatarURL = "https://graph.facebook.com/" + userInfo[1] + "/picture";
-						Configurations.name = userInfo[2];
-						loginFacebook = false;
-					}
-					else
-						Configurations.avatarURL = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(Configurations.email) + "?s=100&d=identicon&r=PG";
+						
+					Configurations.avatarURL = "http://www.gravatar.com/avatar/" + MD5Util.md5Hex(Configurations.email) + "?s=100&d=identicon&r=PG";
 					
 					URL connectURL = new URL(Configurations.avatarURL);
 					HttpURLConnection conn = (HttpURLConnection)connectURL.openConnection(); 
