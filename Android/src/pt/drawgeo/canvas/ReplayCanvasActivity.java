@@ -93,7 +93,7 @@ public class ReplayCanvasActivity extends Activity {
 		    word = info.getString("word");
 		    piggiesEarned = info.getInt("piggies");
 		    TextView tv = (TextView) findViewById(R.id.title);
-		    tv.setText(word);
+		    tv.setText("Try and guess this draw!");
 		    addEnoughSquares(word.length());
 	        JSONArray guess = info.getJSONArray("guess");
 			EditText[] letters = new EditText[guess.length()];
@@ -242,7 +242,12 @@ public class ReplayCanvasActivity extends Activity {
 		
 		Intent i = new Intent(ReplayCanvasActivity.this, WinActivity.class);
 		startActivityForResult(i, 100);
-		finish();
+		Configurations.current_description = null;
+	 	Configurations.current_password = null;
+		new sendSuccessTask().execute();
+		
+        
+		
 		this.overridePendingTransition(R.anim.animation_enter,
                 R.anim.animation_leave);
 	
@@ -345,9 +350,9 @@ public class ReplayCanvasActivity extends Activity {
 			return true;
 		}
 
-		/*protected void onPostExecute(final boolean succeess) {
-			
-		}*/
+		protected void onPostExecute(Boolean succeess) {
+			finish();
+		}
 	}
 	private class getNewWordsTask extends AsyncTask<Void, Integer, Word[]> {
 

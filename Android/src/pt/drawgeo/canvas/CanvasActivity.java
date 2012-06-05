@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import pt.drawgeo.main.Store;
+import pt.drawgeo.sound.MusicManager;
 import pt.drawgeo.utility.Configurations;
 import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.Word;
@@ -32,6 +33,9 @@ public class CanvasActivity extends Activity {
 	private ArrayList<ImageView> colors;
 	private int replaceId = -1;
 	private Word word = null;
+	private int[] colorsArray = {R.drawable.color5, R.drawable.color6, R.drawable.color7, 
+			R.drawable.color8, R.drawable.color9, R.drawable.color10, 
+			R.drawable.color11, R.drawable.color12, };
 
 	/** Called when the activity is first created. */
 	@Override
@@ -126,7 +130,11 @@ public class CanvasActivity extends Activity {
 		createListener(red, Color.RED);
 		colors.add(red);
 		setAlpha(red, 0.3f);
+	}
 
+	
+	private void getPalettes() {
+		
 		Uri uri = new Uri.Builder().scheme(Configurations.SCHEME)
 				.authority(Configurations.AUTHORITY)
 				.path(Configurations.GETPALETTEBYUSER)
@@ -135,31 +143,34 @@ public class CanvasActivity extends Activity {
 
 		String response = null;
 		
-		int[] colors = {R.drawable.color5, R.drawable.color6, R.drawable.color7, 
-				R.drawable.color8, R.drawable.color9, R.drawable.color10, 
-				R.drawable.color11, R.drawable.color12, };
+		
 		
 		try {
 			response = Connection.getJSONLine(uri);
 			JSONArray info = new JSONArray(response);
-
+			LinearLayout ll = (LinearLayout) findViewById(R.id.colors);
+			int count = ll.getChildCount();
+			for(int j = 4; j < count; j++)
+				ll.removeViewAt(4);
+			
 			for (int i = 0; i < info.length(); i++) {
 				JSONObject obj = info.getJSONObject(i);
 				int id = Integer.parseInt(obj.getString("id"));
-				for(int z = 0+3*(id-2); z < 4+3*(id-2); z++) {
+				for(int z = 0+4*(id-2); z < 4+4*(id-2); z++) {
 					ImageView view = new ImageView(this);
-					view.setImageResource(colors[z]);
+					view.setImageResource(colorsArray[z]);
 					int px = (int) TypedValue.applyDimension(
 							TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
 									.getDisplayMetrics());
 					view.setPadding(px, 0, 0, 0);
-					LinearLayout ll = (LinearLayout) findViewById(R.id.colors);
+					
+					
 					ll.addView(view);
 				}
 				
 			}
 
-		} catch (Exception e) {} 
+		} catch (Exception e) {}
 	}
 
 	// função que adiciona o efeito alpha a uma ImageView
@@ -186,5 +197,11 @@ public class CanvasActivity extends Activity {
 				drawView.changeColor(color);
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		getPalettes(); 
 	}
 }
