@@ -49,11 +49,11 @@ import com.main.R;
 
 public class HomeActivity extends Activity{
 	
-	// objeto para a ligação com o Facebook
+	// objeto para a ligaï¿½ï¿½o com o Facebook
 	final Facebook facebook = new Facebook("374936152553880");
 	Boolean loginFacebook = false;
 	
-	// ecrã de loading para o pedido da informação do utilizador
+	// ecrï¿½ de loading para o pedido da informaï¿½ï¿½o do utilizador
 	ProgressDialog dialog;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,11 @@ public class HomeActivity extends Activity{
 		final ImageView fButton = (ImageView) findViewById(R.id.loginFacebook);
 		fButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// chamada à função de autenticação do facebook
+				// chamada ï¿½ funï¿½ï¿½o de autenticaï¿½ï¿½o do facebook
 				facebook.authorize(HomeActivity.this, new String[] { "email" }, new DialogListener() {
 
 					public void onComplete(Bundle values) {
-						// depois de completar o login e a verificação das permissões da app, passamos a ter acesso à informação do jogador
+						// depois de completar o login e a verificaï¿½ï¿½o das permissï¿½es da app, passamos a ter acesso ï¿½ informaï¿½ï¿½o do jogador
 						// requisitamos os dados deste, para sabermos o seu e-mail
 						 new AsyncFacebookRunner(facebook).request("/me", 
 			                        new RequestListener () {
@@ -84,12 +84,12 @@ public class HomeActivity extends Activity{
 								public void onComplete(String response,
 										Object state) {
 									
-									// a string está no formato JSON
+									// a string estï¿½ no formato JSON
 									JSONObject obj;
 									try {
 										obj = Util.parseJson(response);
 										
-										// retiramos a informação que precisamos, neste caso, o email
+										// retiramos a informaï¿½ï¿½o que precisamos, neste caso, o email
 				                        final String email = obj.optString("email");
 				                        final String id = obj.optString("id");
 				                        final String name = obj.optString("name");
@@ -140,7 +140,7 @@ public class HomeActivity extends Activity{
 	@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // depois do login, verifica as permissões da aplicação
+        // depois do login, verifica as permissï¿½es da aplicaï¿½ï¿½o
         facebook.authorizeCallback(requestCode, resultCode, data);
         this.overridePendingTransition(R.anim.animation_enter2,
                 R.anim.animation_leave2);
