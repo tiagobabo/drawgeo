@@ -1,7 +1,18 @@
 class RadiusController < ApplicationController
+
+#
+# Get draws within a radius from a coordinate
+#
+# * *Args*    :
+#   - +id+ -> user's id
+#   - +lat+ -> location's latitude
+#   - +long+ -> location's longitude
+#   - +long+ -> search's radius
+# * *Returns* :
+#   - Array [{"id" :  [draw's id] , "piggies" :  [number of piggies the draw is worth] , "latitude" : " [latitude] ", "longitude" : " [longitude] ", "challenge" :  [true or false] , "password" : " [draw's password] ", "description" : " [challenge's description] ", "creator_name" : " [creator's name] ", "creator_email" : " [creator's email] ", "times_guessed" : " [Times the draw was guessed before] ", "created" :  [date] , "check" :  [true or false]  }] 
+#   - {"Error on trying to get the draws nearby by coordinates."}
+#
 	def getByCoordinates
-		#http://localhost:3000/radius/getByCoordinates?lat=_&long=_&radius=_
-		#Example: http://localhost:3000/radius/getByCoordinates?lat=41.148414&long=-8.611221&radius=300&format=json
 	    @lat = params[:lat]
 	    @long = params[:long]
 	    @radius = params[:radius]
@@ -32,9 +43,19 @@ class RadiusController < ApplicationController
 		end
 	end
 
+
+#
+# Get draws within a radius from the name of a place
+#
+# * *Args*    :
+#   - +id+ -> user's id
+#   - +name+ -> location's name
+#   - +long+ -> search's radius
+# * *Returns* :
+#   - Array [{"id" :  [draw's id] , "piggies" :  [number of piggies the draw is worth] , "latitude" : " [latitude] ", "longitude" : " [longitude] ", "challenge" :  [true or false] , "password" : " [draw's password] ", "description" : " [challenge's description] ", "creator_name" : " [creator's name] ", "creator_email" : " [creator's email] ", "times_guessed" : " [Times the draw was guessed before] ", "created" :  [date] , "check" :  [true or false]  }] 
+#   - {"Error on trying to get the draws nearby by coordinates."}
+#
 	def getByName
-		#http://localhost:3000/radius/getByName?name=_
-		#Example: http://localhost:3000/radius/getByName?name="Tokyo"format=json
 		@radius = params[:radius]
 	    @name = params[:name]
 	    @user_id = params[:id]
@@ -65,6 +86,17 @@ class RadiusController < ApplicationController
 		end
 	end
 
+
+#
+# Check if the user has done the draw before
+#
+# * *Args*    :
+#   - +id+ -> user's id
+#   - +draw_id+ -> draw's id
+# * *Returns* :
+#   - true
+#   - false
+#
 	def check(draw_id,id)
 		@draw_user = DrawUser.where("id_draw = ? AND id_user= ?", draw_id, id)
 		if(@draw_user.empty?)

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class PlayController - Draw Geo Server Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>app/controllers/play_controller.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ApplicationController
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-addNewDraw">#addNewDraw</a>
+    
+    <li><a href="#method-i-buyNewPalette">#buyNewPalette</a>
+    
+    <li><a href="#method-i-changeAvatar">#changeAvatar</a>
+    
+    <li><a href="#method-i-getNewWords">#getNewWords</a>
+    
+    <li><a href="#method-i-getPaletteByUser">#getPaletteByUser</a>
+    
+    <li><a href="#method-i-getPalettes">#getPalettes</a>
+    
+    <li><a href="#method-i-getUserByEmail">#getUserByEmail</a>
+    
+    <li><a href="#method-i-guess">#guess</a>
+    
+    <li><a href="#method-i-replace">#replace</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./PlayController.html">PlayController</a>
+  
+    <li><a href="./RadiusController.html">RadiusController</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class PlayController</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-addNewDraw" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">addNewDraw</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Add a new draw in a location</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>id_creator</code> -&gt; id of the draw’s creator</p>
+</li><li>
+<p><code>word_id</code> -&gt; word’s id</p>
+</li><li>
+<p><code>latitude</code> -&gt; location’s latitude</p>
+</li><li>
+<p><code>longitude</code> -&gt; location’s longitude</p>
+</li><li>
+<p><code>draw</code> -&gt; draw information</p>
+</li><li>
+<p><code>drawx</code> -&gt; drawx information</p>
+</li><li>
+<p><code>drawy</code> -&gt; drawy information</p>
+</li><li>
+<p><code>challenge</code> -&gt; challenge (true or false)</p>
+</li><li>
+<p><code>password</code> -&gt; challenge’s password</p>
+</li><li>
+<p><code>description</code> -&gt; challenge’s description</p>
+</li><li>
+<p><code>xdensity</code> -&gt; screen x density</p>
+</li><li>
+<p><code>ydensity</code> -&gt; screen y density</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status” : “Draw added.”}</p>
+</li><li>
+<p>{“status” : “User or word doesn’t exist.”}</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="addNewDraw-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 242</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">addNewDraw</span>
+        <span class="ruby-ivar">@creator</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id_creator</span>])
+        <span class="ruby-ivar">@word</span> = <span class="ruby-constant">Word</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:word_id</span>])
+        <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@creator</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@word</span>.<span class="ruby-identifier">nil?</span>)
+                <span class="ruby-ivar">@new_draw</span> = <span class="ruby-constant">Draw</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:id_creator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@creator</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:word_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@word</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:latitude</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:latitude</span>], <span class="ruby-value">:longitude</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:longitude</span>], <span class="ruby-value">:draw</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:draw</span>], <span class="ruby-value">:drawx</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:drawx</span>], <span class="ruby-value">:drawy</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:drawy</span>], <span class="ruby-value">:challenge</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:challenge</span>], <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:description</span>], <span class="ruby-value">:password</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:password</span>], <span class="ruby-value">:xdensity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:xdensity</span>], <span class="ruby-value">:ydensity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:ydensity</span>]  )
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@new_draw</span>.<span class="ruby-identifier">save</span>
+                        <span class="ruby-ivar">@creator</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:num_created</span>, <span class="ruby-ivar">@creator</span>.<span class="ruby-identifier">num_created</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Draw added.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                    <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;User or word doesn't exist.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- addNewDraw-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- addNewDraw-method -->
+
+    
+      <div id="method-i-buyNewPalette" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">buyNewPalette</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Buy a new palette to a user</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>id</code> -&gt; user id</p>
+</li><li>
+<p><code>id_palette</code> -&gt; palette’s id</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status” : “Palette bought successfully.”}</p>
+</li><li>
+<p>{“status” : “You don’t have enough piggies.”}</p>
+</li><li>
+<p>{“status” : “You already have this palette.”}</p>
+</li><li>
+<p>{“status” : “User/Palette doesn’t exist.”}</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="buyNewPalette-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 177</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">buyNewPalette</span>
+        <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@palette</span> = <span class="ruby-constant">Palette</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id_palette</span>])
+        <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@user</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@palette</span>.<span class="ruby-identifier">nil?</span>)
+                <span class="ruby-ivar">@check</span> = <span class="ruby-constant">PaletteUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;id_user = ? AND id_palette = ?&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>],<span class="ruby-identifier">params</span>[<span class="ruby-value">:id_palette</span>])
+                <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@check</span>.<span class="ruby-identifier">empty?</span>)
+                        <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">piggies</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@palette</span>.<span class="ruby-identifier">cost</span>)
+                                <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:piggies</span>, <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">piggies</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@palette</span>.<span class="ruby-identifier">cost</span>)
+                                <span class="ruby-ivar">@user_palette_new</span> = <span class="ruby-constant">PaletteUser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:id_palette</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id_palette</span>], <span class="ruby-value">:id_user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+                                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user_palette_new</span>.<span class="ruby-identifier">save</span>
+                                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                           <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Palette bought successfully.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                                    <span class="ruby-keyword">end</span>
+                                <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;You don't have enough piggies.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                            <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;You already have this palette.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                    <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;User/Palette doesn't exist.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>       
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- buyNewPalette-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- buyNewPalette-method -->
+
+    
+      <div id="method-i-changeAvatar" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">changeAvatar</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Change user’s avatar</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>id</code> -&gt; user id</p>
+</li><li>
+<p><code>id_avatar</code> -&gt; avatar’s id</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status” : “Avatar changed.”}</p>
+</li><li>
+<p>{“status” : “Avatar doesn’t exist.”}</p>
+</li><li>
+<p>{“status” : “User doesn’t exist.”}</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="changeAvatar-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">changeAvatar</span>
+        <span class="ruby-ivar">@player</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@avatar</span> = <span class="ruby-constant">Avatar</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id_avatar</span>])
+        <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@player</span>.<span class="ruby-identifier">nil?</span>)
+                <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@avatar</span>.<span class="ruby-identifier">nil?</span>)
+                        <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:id_avatar</span>, <span class="ruby-ivar">@avatar</span>.<span class="ruby-identifier">id</span>)
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Avatar changed.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                    <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Avatar doesn't exist.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                    <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;User doesn't exist.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>       
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- changeAvatar-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- changeAvatar-method -->
+
+    
+      <div id="method-i-getNewWords" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getNewWords</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get three new words (one easy, one medium and one hard)</p>
+<ul><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status”: “Ok”, “easy”:{ easy_word }, “medium”:{
+medium_word }, “hard” :{ hard_word } }</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="getNewWords-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getNewWords</span>
+        <span class="ruby-ivar">@easy</span> = <span class="ruby-constant">Word</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;difficulty = ?&quot;</span>, <span class="ruby-value">1</span>).<span class="ruby-identifier">sample</span>
+        <span class="ruby-ivar">@medium</span> = <span class="ruby-constant">Word</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;difficulty = ?&quot;</span>, <span class="ruby-value">2</span>).<span class="ruby-identifier">sample</span>
+        <span class="ruby-ivar">@hard</span> = <span class="ruby-constant">Word</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;difficulty = ?&quot;</span>, <span class="ruby-value">3</span>).<span class="ruby-identifier">sample</span>
+
+        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Ok&quot;</span>, <span class="ruby-value">:easy</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@easy</span>, <span class="ruby-value">:medium</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@medium</span>, <span class="ruby-value">:hard</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@hard</span> }.<span class="ruby-identifier">to_json</span> }
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getNewWords-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getNewWords-method -->
+
+    
+      <div id="method-i-getPaletteByUser" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getPaletteByUser</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get user’s palette by Id</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>id</code> -&gt; user id</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>Array
+[{“hex1”:string,“hex2”:string,“hex3”:string,“hex4”:string,“cost”:int,“id”:int}]</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="getPaletteByUser-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getPaletteByUser</span>
+        <span class="ruby-ivar">@paletteUsers</span> = <span class="ruby-constant">PaletteUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;id_user = ?&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@palettes</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-ivar">@paletteUsers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">paletteUser</span><span class="ruby-operator">|</span>
+      <span class="ruby-ivar">@palettes</span>.<span class="ruby-identifier">push</span>(<span class="ruby-constant">Palette</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">paletteUser</span>.<span class="ruby-identifier">id_palette</span>))
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@palettes</span> }
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getPaletteByUser-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getPaletteByUser-method -->
+
+    
+      <div id="method-i-getPalettes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getPalettes</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets all palettes in the system</p>
+<ul><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>Array
+[{“hex1”:string,“hex2”:string,“hex3”:string,“hex4”:string,“cost”:int,“id”:int}]</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="getPalettes-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 215</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getPalettes</span>
+        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+       <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Palette</span>.<span class="ruby-identifier">all</span> }
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getPalettes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getPalettes-method -->
+
+    
+      <div id="method-i-getUserByEmail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getUserByEmail</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get user information by email</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>email</code> -&gt; user’s email</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status”:“Ok”,“user”:{“created_at”:“ [date]
+”,“email”:“ [email] ”,“id”: [id] ,“id_avatar”:
+[avatar’s id] ,“keys”: [number of keys] ,“name”:“ [user’s
+name] ”,“num_created”: [number of draw’s created] ,“num_done”:
+[number of draw’s guessed] ,“num_success”: [number of draw’s
+guessed by others] ,“piggies”: [number of piggies] ,“ranking”:
+[accumulative number of piggies] ,“updated_at”:“ [date]
+”},“avatar”:{“created_at”:“ [date] ”,“id”: [avatar’s
+id] ,“updated_at”:“ [date] ”,“url”:“ [image url] ”}}</p>
+</li><li>
+<p>{“status”:“User created.”,“user”:{“created_at”:“ [date]
+”,“email”:“ [email] ”,“id”: [id] ,“id_avatar”:
+[avatar’s id] ,“keys”: [number of keys] ,“name”:“ [user’s
+name] ”,“num_created”: [number of draw’s created] ,“num_done”:
+[number of draw’s guessed] ,“num_success”: [number of draw’s
+guessed by others] ,“piggies”: [number of piggies] ,“ranking”:
+[accumulative number of piggies] ,“updated_at”:“ [date]
+”},“avatar”:{“created_at”:“ [date] ”,“id”: [avatar’s
+id] ,“updated_at”:“ [date] ”,“url”:“ [image url] ”}}</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="getUserByEmail-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getUserByEmail</span>
+        <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;email = ?&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>])
+        <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@user</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@user</span>.<span class="ruby-identifier">empty?</span>)
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Ok&quot;</span>, <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">first</span>, <span class="ruby-value">:avatar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Avatar</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@user</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">id_avatar</span>), <span class="ruby-value">:created</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">num_created</span> }.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-ivar">@user_new</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:email</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>])
+                <span class="ruby-keyword">if</span> <span class="ruby-ivar">@user_new</span>.<span class="ruby-identifier">save</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                             <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;User created.&quot;</span>, <span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@user_new</span>, <span class="ruby-value">:avatar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Avatar</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@user_new</span>.<span class="ruby-identifier">id_avatar</span>), <span class="ruby-value">:created</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>}.<span class="ruby-identifier">to_json</span> }
+                    <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getUserByEmail-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getUserByEmail-method -->
+
+    
+      <div id="method-i-guess" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">guess</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Try and guess a word</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>id</code> -&gt; user’s id</p>
+</li><li>
+<p><code>draw_id</code> -&gt; draw’s id</p>
+</li><li>
+<p><code>guess</code> -&gt; the guess from the user</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status”:“Ok”, “word” : {“ [date] ”,“difficulty”:
+[level of difficulty] ,“id”: [word’s id] ,“updated_at”:“ [date]
+”,“word”:“ [word] ”}}</p>
+</li><li>
+<p>{“status”:“Incorrect guess.”}</p>
+</li><li>
+<p>{“status”:“You can’t guess your own word.”}</p>
+</li><li>
+<p>{“status”:“Draw already guessed.”}</p>
+</li><li>
+<p>{“status”:“User doesn’t exist.”}</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="guess-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">guess</span>
+        <span class="ruby-ivar">@player</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@draw</span> = <span class="ruby-constant">Draw</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:draw_id</span>])
+        <span class="ruby-ivar">@guess</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:guess</span>]
+        <span class="ruby-ivar">@word</span> = <span class="ruby-constant">Word</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">word_id</span>)
+        <span class="ruby-ivar">@author</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">id_creator</span>)
+        <span class="ruby-ivar">@draw_user</span> = <span class="ruby-constant">DrawUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;id_draw = ? AND id_user= ?&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:draw_id</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@player</span>.<span class="ruby-identifier">nil?</span>)
+                <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@draw_user</span>.<span class="ruby-identifier">empty?</span>)
+                        <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@player</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">id</span>)
+                                <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@guess</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@word</span>.<span class="ruby-identifier">word</span>)
+                                        <span class="ruby-ivar">@draw_user</span> = <span class="ruby-constant">DrawUser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:id_draw</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:id_user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">id</span>)
+                                        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@draw_user</span>.<span class="ruby-identifier">save</span>
+                                                <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:num_done</span>, <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">num_done</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                                                <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:num_success</span>, <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">num_success</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                                                <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:piggies</span>, <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">piggies</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@word</span>.<span class="ruby-identifier">difficulty</span> * <span class="ruby-value">2</span>))
+                                                <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:ranking</span>, <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">ranking</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@word</span>.<span class="ruby-identifier">difficulty</span> * <span class="ruby-value">2</span>))
+                                                <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:piggies</span>, <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">piggies</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@word</span>.<span class="ruby-identifier">difficulty</span>))
+                                                <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:ranking</span>, <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">ranking</span> <span class="ruby-operator">+</span> (<span class="ruby-ivar">@word</span>.<span class="ruby-identifier">difficulty</span>))
+                                        <span class="ruby-keyword">end</span>
+
+                                        <span class="ruby-keyword">if</span>(<span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">challenge</span>)
+                                                <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:piggies</span>, <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">piggies</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                                                <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:ranking</span>, <span class="ruby-ivar">@player</span>.<span class="ruby-identifier">ranking</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                                                <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:piggies</span>, <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">piggies</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                                                <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:ranking</span>, <span class="ruby-ivar">@author</span>.<span class="ruby-identifier">ranking</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                                        <span class="ruby-keyword">end</span>
+                                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Ok&quot;</span>, <span class="ruby-value">:word</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@word</span>}.<span class="ruby-identifier">to_json</span> }
+                                    <span class="ruby-keyword">end</span>
+                                <span class="ruby-keyword">else</span>
+                                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Incorrect guess.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                                    <span class="ruby-keyword">end</span>
+                                <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">else</span>
+                                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                              <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;You can't guess your own word.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                            <span class="ruby-keyword">end</span>
+                        <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">else</span>
+                        <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Draw already guessed.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+                    <span class="ruby-keyword">end</span>
+                <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+              <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;User doesn't exist.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- guess-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- guess-method -->
+
+    
+      <div id="method-i-replace" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">replace</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Replace a draw after the one before has been guessed</p>
+<ul><li>
+<p><strong>Args</strong>    :</p>
+<ul><li>
+<p><code>id</code> -&gt; user’s id</p>
+</li><li>
+<p><code>draw_id</code> -&gt; draw’s id</p>
+</li><li>
+<p><code>word_id</code> -&gt; word’s id</p>
+</li><li>
+<p><code>draw</code> -&gt; draw information</p>
+</li><li>
+<p><code>drawx</code> -&gt; drawx information</p>
+</li><li>
+<p><code>drawy</code> -&gt; drawy information</p>
+</li><li>
+<p><code>challenge</code> -&gt; challenge (true or false)</p>
+</li><li>
+<p><code>password</code> -&gt; challenge’s password</p>
+</li><li>
+<p><code>description</code> -&gt; challenge’s description</p>
+</li><li>
+<p><code>xdensity</code> -&gt; screen x density</p>
+</li><li>
+<p><code>ydensity</code> -&gt; screen y density</p>
+</li><li>
+<p><code>id_creator</code> -&gt; id of the draw’s creator</p>
+</li></ul>
+</li><li>
+<p><strong>Returns</strong> :</p>
+<ul><li>
+<p>{“status” : “Draw has been updated.”}</p>
+</li><li>
+<p>{“status” : “User or draw doesn’t exist.”}</p>
+</li></ul>
+</li></ul>
+          
+
+          
+          <div class="method-source-code" id="replace-source">
+            <pre><span class="ruby-comment"># File app/controllers/play_controller.rb, line 280</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">replace</span>
+        <span class="ruby-ivar">@user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+        <span class="ruby-ivar">@draw</span> = <span class="ruby-constant">Draw</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:draw_id</span>])
+        <span class="ruby-ivar">@word</span> = <span class="ruby-constant">Word</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:word_id</span>])
+        <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-ivar">@user</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@word</span>.<span class="ruby-identifier">nil?</span>)
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:word_id</span>, <span class="ruby-ivar">@word</span>.<span class="ruby-identifier">id</span>)
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:draw</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:draw</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:drawx</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:drawx</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:drawy</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:drawy</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:challenge</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:challenge</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:password</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:password</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:description</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:description</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:xdensity</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:xdensity</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:ydensity</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:ydensity</span>])
+                <span class="ruby-ivar">@draw</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:id_creator</span>, <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">id</span>)
+                <span class="ruby-ivar">@draw_users</span> = <span class="ruby-constant">DrawUser</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">&quot;id_draw = ?&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:draw_id</span>])
+                <span class="ruby-ivar">@draw_users</span>.<span class="ruby-identifier">each</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span><span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
+                  <span class="ruby-constant">DrawUser</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">n</span>.<span class="ruby-identifier">id</span>)
+                <span class="ruby-keyword">end</span>
+                <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-value">:num_created</span>, <span class="ruby-ivar">@user</span>.<span class="ruby-identifier">num_created</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>)
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Draw has been updated.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+                <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+                      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;User or draw doesn't exist.&quot;</span>}.<span class="ruby-identifier">to_json</span> }
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- replace-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- replace-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

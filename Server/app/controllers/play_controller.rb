@@ -1,5 +1,19 @@
 class PlayController < ApplicationController
 
+#
+# Try and guess a word
+#
+# * *Args*    :
+#   - +id+ -> user's id
+#   - +draw_id+ -> draw's id
+#   - +guess+ -> the guess from the user
+# * *Returns* :
+#   - {"status":"Ok", "word" : {" [date] ","difficulty": [level of difficulty] ,"id": [word's id] ,"updated_at":" [date] ","word":" [word] "}} 
+#   - {"status":"Incorrect guess."}
+#   - {"status":"You can't guess your own word."}
+#   - {"status":"Draw already guessed."}
+#   - {"status":"User doesn't exist."}
+#
 	def guess
 		@player = User.find(params[:id])
 		@draw = Draw.find(params[:draw_id])
@@ -52,6 +66,15 @@ class PlayController < ApplicationController
 		end
 	end
 
+#
+# Get user information by email
+#
+# * *Args*    :
+#   - +email+ -> user's email
+# * *Returns* :
+#   - {"status":"Ok","user":{"created_at":" [date] ","email":" [email] ","id": [id] ,"id_avatar": [avatar's id] ,"keys": [number of keys] ,"name":" [user's name] ","num_created": [number of draw's created] ,"num_done": [number of draw's guessed] ,"num_success": [number of draw's guessed by others] ,"piggies": [number of piggies] ,"ranking": [accumulative number of piggies] ,"updated_at":" [date] "},"avatar":{"created_at":" [date] ","id": [avatar's id] ,"updated_at":" [date] ","url":" [image url] "}} 
+#   - {"status":"User created.","user":{"created_at":" [date] ","email":" [email] ","id": [id] ,"id_avatar": [avatar's id] ,"keys": [number of keys] ,"name":" [user's name] ","num_created": [number of draw's created] ,"num_done": [number of draw's guessed] ,"num_success": [number of draw's guessed by others] ,"piggies": [number of piggies] ,"ranking": [accumulative number of piggies] ,"updated_at":" [date] "},"avatar":{"created_at":" [date] ","id": [avatar's id] ,"updated_at":" [date] ","url":" [image url] "}} 
+#
 	def getUserByEmail
 		@user = User.where("email = ?", params[:email])
 		if(!@user.nil? && !@user.empty?)
@@ -68,6 +91,15 @@ class PlayController < ApplicationController
 		end
 	end
 
+
+#
+# Get user's palette by Id
+#
+# * *Args*    :
+#   - +id+ -> user id
+# * *Returns* :
+#   - Array [{"hex1":string,"hex2":string,"hex3":string,"hex4":string,"cost":int,"id":int}]
+#
 	def getPaletteByUser
 		@paletteUsers = PaletteUser.where("id_user = ?", params[:id])
 		@palettes = Array.new
@@ -79,6 +111,13 @@ class PlayController < ApplicationController
 	    end
 	end
 
+
+#
+# Get three new words (one easy, one medium and one hard)
+#
+# * *Returns* :
+#   - {"status": "Ok", "easy":{ easy_word }, "medium":{ medium_word }, "hard" :{ hard_word } } 
+#
 	def getNewWords
 		@easy = Word.where("difficulty = ?", 1).sample
 		@medium = Word.where("difficulty = ?", 2).sample
@@ -89,6 +128,18 @@ class PlayController < ApplicationController
 	    end
 	end
 
+
+#
+# Change user's avatar
+#
+# * *Args*    :
+#   - +id+ -> user id
+#   - +id_avatar+ -> avatar's id
+# * *Returns* :
+#   - {"status" : "Avatar changed."} 
+#   - {"status" : "Avatar doesn't exist."}
+#   - {"status" : "User doesn't exist."}  
+#
 	def changeAvatar
 		@player = User.find(params[:id])
 		@avatar = Avatar.find(params[:id_avatar])
@@ -110,6 +161,19 @@ class PlayController < ApplicationController
 		end
 	end
 
+
+#
+# Buy a new palette to a user
+#
+# * *Args*    :
+#   - +id+ -> user id
+#   - +id_palette+ -> palette's id
+# * *Returns* :
+#   - {"status" : "Palette bought successfully."} 
+#   - {"status" : "You don't have enough piggies."} 
+#   - {"status" : "You already have this palette."}
+#   - {"status" : "User/Palette doesn't exist."} 
+#
 	def buyNewPalette
 		@user = User.find(params[:id])
 		@palette = Palette.find(params[:id_palette])
@@ -141,12 +205,40 @@ class PlayController < ApplicationController
 		end
 	end
 
+
+#
+# Gets all palettes in the system
+#
+# * *Returns* :
+#   - Array [{"hex1":string,"hex2":string,"hex3":string,"hex4":string,"cost":int,"id":int}]
+#
 	def getPalettes
 		respond_to do |format|
 	      	format.json { render :json => Palette.all }
 	    end
 	end
 
+
+#
+# Add a new draw in a location
+#
+# * *Args*    :
+#   - +id_creator+ -> id of the draw's creator
+#   - +word_id+ -> word's id
+#   - +latitude+ -> location's latitude
+#   - +longitude+ -> location's longitude
+#   - +draw+ -> draw information
+#   - +drawx+ -> drawx information
+#   - +drawy+ -> drawy information
+#   - +challenge+ -> challenge (true or false)
+#   - +password+ -> challenge's password
+#   - +description+ -> challenge's description
+#   - +xdensity+ -> screen x density
+#   - +ydensity+ -> screen y density
+# * *Returns* :
+#   - {"status" : "Draw added."} 
+#   - {"status" : "User or word doesn't exist."}
+#
 	def addNewDraw
 		@creator = User.find(params[:id_creator])
 		@word = Word.find(params[:word_id])
@@ -165,7 +257,26 @@ class PlayController < ApplicationController
 		end
 	end
 
-
+#
+# Replace a draw after the one before has been guessed
+#
+# * *Args*    :
+#   - +id+ -> user's id
+#   - +draw_id+ -> draw's id
+#   - +word_id+ -> word's id
+#   - +draw+ -> draw information
+#   - +drawx+ -> drawx information
+#   - +drawy+ -> drawy information
+#   - +challenge+ -> challenge (true or false)
+#   - +password+ -> challenge's password
+#   - +description+ -> challenge's description
+#   - +xdensity+ -> screen x density
+#   - +ydensity+ -> screen y density
+#   - +id_creator+ -> id of the draw's creator
+# * *Returns* :
+#   - {"status" : "Draw has been updated."}
+#   - {"status" : "User or draw doesn't exist."}
+#
 	def replace
 		@user = User.find(params[:id])
 		@draw = Draw.find(params[:draw_id])

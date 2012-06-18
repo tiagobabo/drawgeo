@@ -13,6 +13,10 @@ group :development, :test do
   gem 'sqlite3'
 end 
 
+group :development, :test do
+    gem 'railroady'
+end
+
 gem 'json'
 
 gem "zurb-foundation"

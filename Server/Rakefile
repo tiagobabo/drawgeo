@@ -3,5 +3,16 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require File.expand_path('../config/application', __FILE__)
+require 'rdoc/task'
+
+RDoc::Task.new :rdoc do |rdoc|
+  rdoc.main = "README.rdoc"
+
+  rdoc.rdoc_files.include("README.rdoc","app/controllers/play_controller.rb", "app/controllers/radius_controller.rb")
+  #change above to fit needs
+
+  rdoc.title = "Draw Geo Server Documentation"
+  rdoc.options << "--all" 
+end
 
 Server::Application.load_tasks
