@@ -81,39 +81,41 @@ public class MapsActivity extends MapActivity
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
               // Called when a new location is found by the network location provider.
-            	
-            	if(location.getProvider().equals(LocationManager.GPS_PROVIDER) || noGPS)
-            	{
-            		if(location.getProvider().equals(LocationManager.GPS_PROVIDER))
-            			noGPS = false;
-	            	// a minha posi�‹o
-	            	point = new GeoPoint((int)(location.getLatitude() * 1E6),((int)(location.getLongitude() * 1E6)));
-	            	
-	            	if(isCurrentLocationVisible(point) || firstTime) {
-	            		mapView.getController().setCenter(point);
-	            		firstTime = false;
-	            		if(isUpdateDone){
-	            			isUpdateDone = false;
-	            			new GetDrawsNear().execute(point);
-	            		}
-	            	}
-	            	
-	            	Configurations.latitudenow = location.getLatitude(); 
-	            	Configurations.longitudenow = location.getLongitude();
-	            	
-	            	mapOverlays.remove(avaliable);
-	            	mapOverlays.remove(me);
-	            	
-	            	avaliable = new MapCircleOverlay(point, Configurations.AVALIABLE_RADIUS, 0,0,255, 32);
-	            	mapOverlays.add(avaliable);
-	            	
-	            	me = new MapCircleOverlay(point, 3,255,0,0, 255);
-	            	mapOverlays.add(me);
-	            	
-	            	
-            	
-            	}
-            	
+				if (isUpdateDone) {
+					isUpdateDone = false;
+					if (location.getProvider().equals(
+							LocationManager.GPS_PROVIDER)
+							|| noGPS) {
+						if (location.getProvider().equals(
+								LocationManager.GPS_PROVIDER))
+							noGPS = false;
+						// a minha posi�‹o
+						point = new GeoPoint(
+								(int) (location.getLatitude() * 1E6),
+								((int) (location.getLongitude() * 1E6)));
+
+						if (isCurrentLocationVisible(point) || firstTime) {
+							mapView.getController().setCenter(point);
+							firstTime = false;
+							new GetDrawsNear().execute(point);
+						}
+
+						Configurations.latitudenow = location.getLatitude();
+						Configurations.longitudenow = location.getLongitude();
+
+						mapOverlays.remove(avaliable);
+						mapOverlays.remove(me);
+
+						avaliable = new MapCircleOverlay(point,
+								Configurations.AVALIABLE_RADIUS, 0, 0, 255, 32);
+						mapOverlays.add(avaliable);
+
+						me = new MapCircleOverlay(point, 3, 255, 0, 0, 255);
+						mapOverlays.add(me);
+					}
+
+				}
+
 			}
 
 			public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -348,6 +350,7 @@ public class MapsActivity extends MapActivity
 	protected void onResume()
 	{
 		super.onResume();
+		isUpdateDone = true;
 		if(point != null)
 			new GetDrawsNear().execute(point);
 	}
