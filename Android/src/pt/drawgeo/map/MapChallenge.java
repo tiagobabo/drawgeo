@@ -8,9 +8,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import pt.drawgeo.canvas.ReplayCanvasActivity;
 import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.MD5Util;
+import pt.drawgeo.utility.Word;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.Window;
@@ -190,7 +195,8 @@ public class MapChallenge extends ItemizedOverlay {
 				click.setLatitude(clickPoint.getLatitudeE6()/1e6);
 				click.setLongitude(clickPoint.getLongitudeE6()/1e6);
 				
-				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) ) {
+		
+				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) || !allChallenges.get(currentIndex).isCheck()) {
 					final ImageView playnow = (ImageView) dialog
 							.findViewById(R.id.playnow);
 					playnow.setImageResource(R.drawable.playnowbw);
