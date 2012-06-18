@@ -36,6 +36,9 @@ public class CanvasActivity extends Activity {
 	private int[] colorsArray = {R.drawable.color5, R.drawable.color6, R.drawable.color7, 
 			R.drawable.color8, R.drawable.color9, R.drawable.color10, 
 			R.drawable.color11, R.drawable.color12, };
+	private int[] colorsArrayC = {Color.rgb(255, 0, 255), Color.rgb(255, 102, 0), Color.rgb(128, 128, 0), 
+			Color.rgb(0, 128, 128), Color.rgb(128, 0, 128),Color.rgb(0, 0, 255), 
+			Color.rgb(128, 0, 0),Color.rgb(0, 128, 51), };
 
 	/** Called when the activity is first created. */
 	@Override
@@ -163,7 +166,8 @@ public class CanvasActivity extends Activity {
 							TypedValue.COMPLEX_UNIT_DIP, 10, getResources()
 									.getDisplayMetrics());
 					view.setPadding(px, 0, 0, 0);
-					
+					createListener(view,colorsArrayC[z]);
+					colors.add(view);
 					
 					ll.addView(view);
 				}
@@ -194,6 +198,7 @@ public class CanvasActivity extends Activity {
 					setAlpha(color, 0.3f);
 
 				setAlpha(view, 1.0f);
+				
 				drawView.changeColor(color);
 			}
 		});
