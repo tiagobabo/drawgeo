@@ -21,6 +21,7 @@ public class Configurations {
 	final public static String REPLACEDRAW ="/play/replace";
 	final public static String BUYPALLETE ="/play/buyNewPalette";
 	final public static String GETPALETTEBYUSER ="/play/getPaletteByUser";
+	final public static String CHECK ="/play/check";
 	
 	
 	// DADOS DO UTILIZADOR
