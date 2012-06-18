@@ -8,9 +8,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import pt.drawgeo.canvas.ReplayCanvasActivity;
 import pt.drawgeo.utility.Configurations;
+import pt.drawgeo.utility.Connection;
 import pt.drawgeo.utility.MD5Util;
+import pt.drawgeo.utility.Word;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.Window;
@@ -47,7 +52,8 @@ public class MapChallenge extends ItemizedOverlay {
 	private ArrayList<String> creatorEmails = new ArrayList<String>();
 	private boolean isChallenge;
 
-	public MapChallenge(Drawable defaultMarker, Context context, Location l,boolean isChallenge) {
+	public MapChallenge(Drawable defaultMarker, Context context, Location l,
+			boolean isChallenge) {
 		super(boundCenterBottom(defaultMarker));
 		this.mContext = context;
 		this.location = l;
@@ -74,54 +80,55 @@ public class MapChallenge extends ItemizedOverlay {
 
 	@Override
 	protected boolean onTap(final int index) {
-		OverlayItem item = mOverlays.get(index);
-		final Challenge ch = allChallenges.get(index);
-		dialog = new Dialog(mContext);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		dialog.setContentView(R.layout.challengedialog);
+			OverlayItem item = mOverlays.get(index);
+			final Challenge ch = allChallenges.get(index);
+			dialog = new Dialog(mContext);
+			dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		TextView title = (TextView) dialog.findViewById(R.id.title);
-		title.setText(item.getTitle());
-		
-		TextView piggies = (TextView) dialog.findViewById(R.id.piggies);
-		piggies.setText(ch.getPiggies());
-		
-		TextView numguess = (TextView) dialog.findViewById(R.id.numguess);
-		numguess.setText(ch.getNumGuesses());
+			dialog.setContentView(R.layout.challengedialog);
 
-		final ImageView pButton = (ImageView) dialog.findViewById(R.id.playnow);
-		pButton.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				
-				dialog.dismiss();
-				if(!isChallenge){
-					Intent intent = new Intent(v.getContext(),
-							ReplayCanvasActivity.class);
+			TextView title = (TextView) dialog.findViewById(R.id.title);
+			title.setText(item.getTitle());
 
-					Configurations.drawidreplay = ids.get(index);
-					mContext.startActivity(intent);
+			TextView piggies = (TextView) dialog.findViewById(R.id.piggies);
+			piggies.setText(ch.getPiggies());
+
+			TextView numguess = (TextView) dialog.findViewById(R.id.numguess);
+			numguess.setText(ch.getNumGuesses());
+
+			final ImageView pButton = (ImageView) dialog
+					.findViewById(R.id.playnow);
+			pButton.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+
+					dialog.dismiss();
+					if (!isChallenge) {
+						Intent intent = new Intent(v.getContext(),
+								ReplayCanvasActivity.class);
+
+						Configurations.drawidreplay = ids.get(index);
+						mContext.startActivity(intent);
+					} else {
+						Intent intent = new Intent(v.getContext(),
+								GuessChallenge.class);
+						Configurations.drawidreplay = ids.get(index);
+						Configurations.current_description = ch
+								.getDescription();
+						Configurations.current_password = ch.getPassword();
+						mContext.startActivity(intent);
+					}
 				}
-				else{
-					Intent intent = new Intent(v.getContext(),
-							GuessChallenge.class);
-					Configurations.drawidreplay = ids.get(index);
-					Configurations.current_description = ch.getDescription();
-					Configurations.current_password = ch.getPassword();
-					mContext.startActivity(intent);
-				}
-			}
-		});
-		
-		pd = new ProgressDialog(mContext);
-		pd.setMessage("Retrieving information...");
-		pd.show();
-		
-		currentIndex = index;
-		new DownloadAvatar().execute(item.getSnippet());
-		
-		
-		//dialog.show();
+			});
+
+			pd = new ProgressDialog(mContext);
+			pd.setMessage("Retrieving information...");
+			pd.show();
+
+			currentIndex = index;
+			new DownloadAvatar().execute(item.getSnippet());
+
+			// dialog.show();
 		return true;
 	}
 
@@ -137,7 +144,8 @@ public class MapChallenge extends ItemizedOverlay {
 	}
 
 	/**
-	 * @param isChallenge the isChallenge to set
+	 * @param isChallenge
+	 *            the isChallenge to set
 	 */
 	public void setChallenge(boolean isChallenge) {
 		this.isChallenge = isChallenge;
@@ -169,44 +177,45 @@ public class MapChallenge extends ItemizedOverlay {
 				bis.close();
 				is.close();
 
-			} catch (MalformedURLException e) {}
-			catch (IOException e) {}
+			} catch (MalformedURLException e) {
+			} catch (IOException e) {
+			}
 
 			return null;
 		}
 
 		protected void onPostExecute(Long result) {
-			
-			if(bmp != null)
-			{
-				//Challenge ch = allChallenges.get(currentIndex);
-		  		final ImageView avatar = (ImageView) dialog
+
+			if (bmp != null) {
+				// Challenge ch = allChallenges.get(currentIndex);
+				final ImageView avatar = (ImageView) dialog
 						.findViewById(R.id.avatar);
 				avatar.setImageBitmap(bmp);
-				
+
 				Location click = new Location("");
 				GeoPoint clickPoint = mLocations.get(currentIndex);
-				
-				click.setLatitude(clickPoint.getLatitudeE6()/1e6);
-				click.setLongitude(clickPoint.getLongitudeE6()/1e6);
-				
-				if(click.distanceTo(location) > Configurations.AVALIABLE_RADIUS || creatorEmails.get(currentIndex).equals(Configurations.email) ) {
+
+				click.setLatitude(clickPoint.getLatitudeE6() / 1e6);
+				click.setLongitude(clickPoint.getLongitudeE6() / 1e6);
+
+				if (click.distanceTo(location) > Configurations.AVALIABLE_RADIUS
+						|| creatorEmails.get(currentIndex).equals(
+								Configurations.email)
+						|| !allChallenges.get(currentIndex).isCheck()) {
 					final ImageView playnow = (ImageView) dialog
 							.findViewById(R.id.playnow);
 					playnow.setImageResource(R.drawable.playnowbw);
-					//playnow.setClickable(false);
+					playnow.setClickable(false);
 				}
-				
+
 				dialog.show();
-				
+
+			} else {
+				Toast.makeText(mContext, "Something went wrong. Try again...",
+						Toast.LENGTH_SHORT).show();
 			}
-			else {
-				Toast.makeText(mContext, "Something went wrong. Try again...", Toast.LENGTH_SHORT).show();
-			}
-			
+
 			pd.dismiss();
 		}
 	}
 }
-
-
