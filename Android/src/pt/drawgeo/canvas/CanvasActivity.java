@@ -168,7 +168,7 @@ public class CanvasActivity extends Activity {
 					view.setPadding(px, 0, 0, 0);
 					createListener(view,colorsArrayC[z]);
 					colors.add(view);
-					
+					setAlpha(view, 0.3f);
 					ll.addView(view);
 				}
 				
