@@ -49,6 +49,7 @@ public class MapsActivity extends MapActivity
 	private Boolean noGPS = true;
 	private GeoPoint point;
 	private ArrayList<Location> locations = new ArrayList<Location>();
+	private boolean isUpdateDone = true;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -91,7 +92,10 @@ public class MapsActivity extends MapActivity
 	            	if(isCurrentLocationVisible(point) || firstTime) {
 	            		mapView.getController().setCenter(point);
 	            		firstTime = false;
-	            		new GetDrawsNear().execute(point);
+	            		if(isUpdateDone){
+	            			isUpdateDone = false;
+	            			new GetDrawsNear().execute(point);
+	            		}
 	            	}
 	            	
 	            	Configurations.latitudenow = location.getLatitude(); 
@@ -223,8 +227,8 @@ public class MapsActivity extends MapActivity
 				
 				mapView.postInvalidate();
 
-			} catch (Exception e) {} 
-        	
+			} catch (Exception e) { isUpdateDone = true;} 
+        	isUpdateDone = true;
             return null;
         }
     }
